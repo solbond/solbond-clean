@@ -7,6 +7,7 @@ import {
 import { Meta, Scripts } from "@tanstack/start"
 import * as React from "react"
 import { DefaultCatchBoundary } from "~/components/DefaultCatchBoundary"
+import { Fonts } from "~/components/Fonts"
 import { NotFound } from "~/components/NotFound"
 import { seo } from "~/lib/seo"
 import appCss from "~/styles/app.css?url"
@@ -75,6 +76,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
     <html>
       <head>
         <Meta />
+        <Fonts />
       </head>
       <body>
         {children}
