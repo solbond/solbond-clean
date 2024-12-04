@@ -1,0 +1,10 @@
+.vinxi
+/build/
+/api/
+/server/build
+/public/build
+.env.sentry-build-plugin
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
