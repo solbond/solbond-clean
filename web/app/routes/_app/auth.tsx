@@ -41,7 +41,7 @@ function RouteComponent() {
             y: [100, 0],
             x: [-100, 0],
           }}
-          transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
+          transition={{ duration: 1, ease: [0.25, 0.1, 0.25, 1.0] }}
           className="bg-white/20 w-[180px] absolute bottom-0 left-0 h-[180px] rounded-2xl"
         ></motion.div>
         <motion.div
@@ -49,7 +49,7 @@ function RouteComponent() {
             y: [100, 0],
             x: [-100, 0],
           }}
-          transition={{ duration: 1, ease: "easeOut", delay: 0.4 }}
+          transition={{ duration: 1, ease: [0.25, 0.1, 0.25, 1.0] }}
           className="bg-white/30 w-[160px] absolute bottom-0 left-0 h-[160px] rounded-2xl"
         ></motion.div>
         <motion.div
@@ -57,7 +57,7 @@ function RouteComponent() {
             y: [100, 0],
             x: [-100, 0],
           }}
-          transition={{ duration: 1, ease: "easeOut", delay: 0.6 }}
+          transition={{ duration: 1, ease: [0.25, 0.1, 0.25, 1.0] }}
           className="bg-white/40 w-[140px] absolute bottom-0 left-0 h-[140px] rounded-2xl"
         ></motion.div>
         <motion.div
@@ -65,19 +65,24 @@ function RouteComponent() {
             y: [100, 0],
             x: [-100, 0],
           }}
-          transition={{ duration: 1, ease: "easeOut", delay: 0.8 }}
+          transition={{ duration: 1, ease: [0.25, 0.1, 0.25, 1.0] }}
           className="bg-white/50 w-[120px] absolute bottom-0 left-0 h-[120px] rounded-2xl"
         ></motion.div>
       </motion.div>
       <div className="absolute z-10 right-0 top-0  h-full">
-        <div className="bg-white  backdrop-blur-md  shadow-lg  p-8 flex items-center justify-center h-full w-[480px]">
+        <motion.div
+          initial={{ x: 100 }}
+          animate={{ x: 0 }}
+          transition={{ duration: 1, ease: [0.25, 0.1, 0.25, 1.0] }}
+          className="bg-white  backdrop-blur-md  shadow-lg  p-8 flex items-center justify-center h-full w-[480px]"
+        >
           <motion.div
             key={currentCase}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{
-              duration: 0.2,
+              duration: 0.5,
               ease: "easeInOut",
               delay: 0.4,
             }}
@@ -97,7 +102,7 @@ function RouteComponent() {
             )}
             {currentCase === "verified" && <VerifiedCase />}
           </motion.div>
-        </div>
+        </motion.div>
       </div>
     </div>
   )
