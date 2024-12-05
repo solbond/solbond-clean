@@ -330,7 +330,7 @@ export const HeroRoute = () => {
         <div className="grid grid-cols-2 gap-2 overflow ">
           {users.map((user, index) => (
             <div
-              key={user.name}
+              key={index}
               className={`bg-white overflow-hidden w-full rounded-xl ${
                 index < 2 ? "col-span-1" : "col-span-2"
               }`}
@@ -370,7 +370,7 @@ export const HeroRoute = () => {
         <div className="grid grid-cols-2 gap-2 overflow-hidden h-full ">
           {products.map((product, index) => (
             <div
-              key={product.name}
+              key={index}
               className={`bg-white overflow-hidden flex justify-between flex-col w-full rounded-xl ${
                 index < 2 ? "col-span-1" : "col-span-2"
               }`}
