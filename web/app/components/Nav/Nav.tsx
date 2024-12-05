@@ -1,13 +1,15 @@
 import { motion } from "framer-motion"
 import { SearchIcon } from "lucide-react"
+import { useAuth } from "~/context/FirebaseContext"
 
 export const Nav = () => {
+  const { user } = useAuth()
   return (
     <motion.div
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.7, ease: "easeOut" }}
-      className="flex z-50 justify-between bg-white/20 backdrop-blur-sm shadow-md h-[74px] fixed top-0 left-0 right-0 items-center p-4"
+      className="flex z-[100] justify-between bg-white/20 backdrop-blur-sm shadow-md h-[74px] fixed top-0 left-0 right-0 items-center p-4"
     >
       <h1 className="text-2xl">Solbond</h1>
       <div className="flex gap-2 items-center">
@@ -15,7 +17,7 @@ export const Nav = () => {
           <SearchIcon size={20} />
         </div>
         <button className="px-4 text-[14px] p-2 rounded-full bg-gradient-to-r from-rose-400 to-rose-600 text-white font-semibold">
-          Get Started
+          {user ? "Logout" : "Login"}
         </button>
       </div>
     </motion.div>

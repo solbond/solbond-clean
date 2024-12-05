@@ -6,11 +6,38 @@ import {
 } from "@tanstack/react-router"
 import { Meta, Scripts } from "@tanstack/start"
 import * as React from "react"
+import { Suspense } from "react"
 import { DefaultCatchBoundary } from "~/components/DefaultCatchBoundary"
 import { Fonts } from "~/components/Fonts"
 import { NotFound } from "~/components/NotFound"
 import { seo } from "~/lib/seo"
 import appCss from "~/styles/app.css?url"
+
+function RootComponent() {
+  return (
+    <RootDocument>
+      <Suspense fallback={<div>Loading...</div>}>
+        <Outlet />
+      </Suspense>
+    </RootDocument>
+  )
+}
+
+function RootDocument({ children }: { children: React.ReactNode }) {
+  return (
+    <html>
+      <head>
+        <Meta />
+        <Fonts />
+      </head>
+      <body>
+        {children}
+        <ScrollRestoration />
+        <Scripts />
+      </body>
+    </html>
+  )
+}
 
 export const Route = createRootRouteWithContext<{
   queryClient: QueryClient
@@ -62,27 +89,3 @@ export const Route = createRootRouteWithContext<{
   notFoundComponent: () => <NotFound />,
   component: RootComponent,
 })
-
-function RootComponent() {
-  return (
-    <RootDocument>
-      <Outlet />
-    </RootDocument>
-  )
-}
-
-function RootDocument({ children }: { children: React.ReactNode }) {
-  return (
-    <html>
-      <head>
-        <Meta />
-        <Fonts />
-      </head>
-      <body>
-        {children}
-        <ScrollRestoration />
-        <Scripts />
-      </body>
-    </html>
-  )
-}

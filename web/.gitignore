@@ -8,3 +8,5 @@
 /playwright-report/
 /blob-report/
 /playwright/.cache/
+
+.ronin
