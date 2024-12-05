@@ -4,13 +4,18 @@ import {
   MailIcon,
   SearchIcon,
   SendIcon,
+  ShoppingBagIcon,
   ShoppingCartIcon,
   ThumbsUpIcon,
+  UserIcon,
 } from "lucide-react"
 import { FaDiscord, FaTwitter } from "react-icons/fa"
-import { motion } from "framer-motion"
+import { animate, motion } from "framer-motion"
+import { useEffect, useState } from "react"
 
 export const HeroRoute = () => {
+  const [activeUsers, setActiveUsers] = useState(0)
+  const [productsSold, setProductsSold] = useState(0)
   const users = [
     {
       name: "John Doe",
@@ -31,6 +36,17 @@ export const HeroRoute = () => {
       image: "https://picsum.photos/400/400?random=3",
     },
   ]
+
+  useEffect(() => {
+    animate(0, 4000, {
+      duration: 2,
+      onUpdate: (value) => setActiveUsers(Math.round(value)),
+    })
+    animate(0, 13000, {
+      duration: 2,
+      onUpdate: (value) => setProductsSold(Math.round(value)),
+    })
+  }, [])
 
   return (
     <div className="flex  p-2 pt-[82px] gap-2 w-full relative h-screen">
@@ -109,44 +125,66 @@ export const HeroRoute = () => {
           </div>
         </div>
         <div className="h-[50%] w-full flex gap-2">
-          <div className="bg-gradient-to-r p-2 flex flex-col gap-2 from-blue-400 to-blue-600 shadow-lg w-full h-full rounded-xl">
-            <div className="bg-white flex items-start justify-center flex-col w-full h-[50%] rounded-xl p-2">
-              <p className="text-[40px] px-3 font-semibold flex gap-1 items-end">
-                4000{" "}
-                <span className="text-[14px] font-normal mb-3">
-                  Active users
-                </span>
-              </p>
-              <div className="w-full bg-gray-200 relative rounded-full h-[10px] overflow-hidden">
-                <motion.div
-                  className="w-full absolute top-0 left-0 rounded-full h-[10px] bg-gradient-to-r from-blue-500 to-rose-500"
-                  animate={{ x: ["-100%", 0] }}
-                  transition={{
-                    duration: 3,
-                    ease: [0.165, 0.84, 0.44, 1],
-                  }}
-                ></motion.div>
+          <div className="flex flex-col gap-1  w-full h-full rounded-xl">
+            <motion.div
+              initial={{ scale: 1 }}
+              whileHover={{ scale: 1.02 }}
+              transition={{ type: "spring", stiffness: 300 }}
+              className="relative bg-black/80 backdrop-blur-xl rounded-xl overflow-hidden"
+            >
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-rose-500/10 blur-xl" />
+              <div className="relative p-8 z-10">
+                <div className="flex items-center gap-4 mb-4">
+                  <div className="w-14 h-14 rounded-2xl bg-blue-500/20 flex items-center justify-center backdrop-blur-sm">
+                    <UserIcon size={28} className="text-blue-400" />
+                  </div>
+                  <div className="flex-1">
+                    <p className="text-[42px] leading-none font-bold bg-gradient-to-r from-blue-400 to-rose-400 bg-clip-text text-transparent">
+                      {activeUsers.toLocaleString()}
+                    </p>
+                    <p className="text-gray-400 mt-1">Active users</p>
+                  </div>
+                </div>
+                <div className="w-full bg-gray-800/50 relative rounded-full h-2 overflow-hidden">
+                  <motion.div
+                    className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-blue-500 to-rose-500 [box-shadow:0_0_20px_rgba(59,130,246,0.5)]"
+                    initial={{ x: "-100%" }}
+                    animate={{ x: "0%" }}
+                    transition={{ duration: 2, ease: "easeInOut" }}
+                  />
+                </div>
               </div>
-            </div>
-            <div className="bg-white flex items-start justify-center flex-col w-full h-[50%] p-2 rounded-xl">
-              <p className="text-[40px] px-3 font-semibold flex gap-1 items-end">
-                13000{" "}
-                <span className="text-[14px] mb-3 font-normal">
-                  Products Sold
-                </span>
-              </p>
-              <div className="w-full bg-gray-200 relative rounded-full h-[10px] overflow-hidden">
-                <motion.div
-                  className="w-full absolute top-0 left-0 rounded-full h-[10px] bg-gradient-to-r from-blue-500 to-rose-500"
-                  animate={{ x: ["-100%", 0] }}
-                  transition={{
-                    duration: 3,
-                    ease: [0.165, 0.84, 0.44, 1],
-                    delay: 0.2,
-                  }}
-                ></motion.div>
+            </motion.div>
+
+            <motion.div
+              initial={{ scale: 1 }}
+              whileHover={{ scale: 1.02 }}
+              transition={{ type: "spring", stiffness: 300 }}
+              className="relative bg-black/80 backdrop-blur-xl rounded-xl overflow-hidden"
+            >
+              <div className="absolute inset-0 bg-gradient-to-r from-rose-500/10 to-orange-500/10 blur-xl" />
+              <div className="relative p-8 z-10">
+                <div className="flex items-center gap-4 mb-4">
+                  <div className="w-14 h-14 rounded-2xl bg-rose-500/20 flex items-center justify-center backdrop-blur-sm">
+                    <ShoppingBagIcon size={28} className="text-rose-400" />
+                  </div>
+                  <div className="flex-1">
+                    <p className="text-[42px] leading-none font-bold bg-gradient-to-r from-rose-400 to-orange-400 bg-clip-text text-transparent">
+                      {productsSold.toLocaleString()}
+                    </p>
+                    <p className="text-gray-400 mt-1">Products Sold</p>
+                  </div>
+                </div>
+                <div className="w-full bg-gray-800/50 relative rounded-full h-2 overflow-hidden">
+                  <motion.div
+                    className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-rose-500 to-orange-500 [box-shadow:0_0_20px_rgba(244,63,94,0.5)]"
+                    initial={{ x: "-100%" }}
+                    animate={{ x: "0%" }}
+                    transition={{ duration: 2, ease: "easeInOut", delay: 0.2 }}
+                  />
+                </div>
               </div>
-            </div>
+            </motion.div>
           </div>
           <div className="bg-gradient-to-b gap-2 flex-col overflow-hidden relative flex items-center justify-center text-white  from-blue-400 to-blue-600 shadow-lg w-full h-full rounded-xl">
             <h2 className="text-[24px] font-semibold">Contact Us</h2>
