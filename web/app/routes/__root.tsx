@@ -6,7 +6,7 @@ import {
 } from "@tanstack/react-router"
 import { Meta, Scripts } from "@tanstack/start"
 import * as React from "react"
-import { Suspense } from "react"
+import { Suspense, useState, useEffect } from "react"
 import { DefaultCatchBoundary } from "~/components/DefaultCatchBoundary"
 import { Fonts } from "~/components/Fonts"
 import { NotFound } from "~/components/NotFound"
@@ -14,11 +14,29 @@ import { seo } from "~/lib/seo"
 import appCss from "~/styles/app.css?url"
 
 function RootComponent() {
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
   return (
     <RootDocument>
-      <Suspense fallback={<div>Loading...</div>}>
-        <Outlet />
-      </Suspense>
+      {mounted ? (
+        <Suspense
+          fallback={
+            <div className="h-screen w-full flex items-center font-bold text-2xl justify-center">
+              Loading...
+            </div>
+          }
+        >
+          <Outlet />
+        </Suspense>
+      ) : (
+        <div className="h-screen w-full flex items-center font-bold text-2xl justify-center">
+          Loading...
+        </div>
+      )}
     </RootDocument>
   )
 }

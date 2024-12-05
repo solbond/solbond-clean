@@ -41,15 +41,12 @@ export default function LinkSentCase({
   }, [user, checking, setCurrentCase])
 
   return (
-    <div className="flex flex-col items-center gap-4">
-      <h2 className="text-xl font-semibold">Verify Your Email</h2>
-      <p className="text-sm text-center text-gray-600">
+    <div className="flex flex-col">
+      <h2 className="text-[36px] font-bold">Link Sent</h2>
+      <p className="text-sm text-gray-600">
         We've sent a verification link to your email address. Please check your
-        inbox and click the link to verify your account.
+        inbox.
       </p>
-      <div className="animate-pulse text-sm text-gray-500">
-        Waiting for verification...
-      </div>
     </div>
   )
 }

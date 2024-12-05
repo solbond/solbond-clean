@@ -1,4 +1,9 @@
-import { Outlet, createFileRoute } from "@tanstack/react-router"
+import {
+  Outlet,
+  createFileRoute,
+  useLocation,
+  useRouter,
+} from "@tanstack/react-router"
 import { AuthProvider } from "~/context/FirebaseContext"
 import { Nav } from "~/components/Nav/Nav"
 import { Suspense } from "react"
@@ -8,10 +13,11 @@ export const Route = createFileRoute("/_app")({
 })
 
 function LayoutComponent() {
+  const location = useLocation()
   return (
     <Suspense fallback={<div>Loading...</div>}>
       <AuthProvider>
-        <Nav />
+        {location.pathname === "/auth" ? null : <Nav />}
         <Outlet />
       </AuthProvider>
     </Suspense>

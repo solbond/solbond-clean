@@ -6,12 +6,18 @@ import { useState } from "react"
 import { $createUser } from "~/actions/actions"
 import { auth } from "~/lib/firebase"
 import { ErrorType } from "~/routes/_app/auth"
+import { getError } from "./Errors"
 
 export default function SignUpCase({
   setCurrentCase,
 }: {
   setCurrentCase: (
-    currentCase: "signup" | "login" | "link-sent" | "verified",
+    currentCase:
+      | "signup"
+      | "login"
+      | "link-sent"
+      | "verified"
+      | "forgot-password",
   ) => void
 }) {
   const [email, setEmail] = useState("")
@@ -21,34 +27,9 @@ export default function SignUpCase({
   const handleSignUp = () => {
     setError(null)
 
-    const isValidEmail = (email: string) => {
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-      return emailRegex.test(email)
-    }
-
-    if (!isValidEmail(email)) {
-      setError({
-        type: "email",
-        message: "Please type in a correct email address",
-      })
-      return
-    }
-
-    if (password.trim() === "") {
-      setError({
-        type: "password",
-        message: "Password is required",
-      })
-      return
-    }
-
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user
-
-        if (user) {
-          // $createUser({ email: user.email })
-        }
 
         sendEmailVerification(user)
           .then(() => {
@@ -65,24 +46,26 @@ export default function SignUpCase({
       .catch((error) => {
         const errorCode = error.code
         const errorMessage = error.message
-        setError({
-          type: "other",
-          message: errorMessage,
-        })
+        setError(getError(errorCode))
         console.log(errorCode, errorMessage)
       })
   }
 
   return (
-    <div>
-      <h1 className="text-2xl font-semibold">Sign Up</h1>
+    <div className="w-full">
+      <div className="mb-4">
+        <h1 className="text-[36px] font-bold">Sign Up</h1>
+        <p className="text-sm text-gray-500">
+          Create an account to get started
+        </p>
+      </div>
       <input
         type="email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         placeholder="Email"
-        className={`w-full p-2 rounded-md border ${
-          error?.type === "email" ? "border-red-500" : "border-gray-300"
+        className={`w-full p-2 outline-none bg-gray-100  rounded-md border ${
+          error?.type === "email" ? "border-red-500" : "border-none"
         }`}
       />
       {error?.type === "email" && (
@@ -93,8 +76,8 @@ export default function SignUpCase({
         value={password}
         onChange={(e) => setPassword(e.target.value)}
         placeholder="Password"
-        className={`w-full p-2 rounded-md border mt-2 ${
-          error?.type === "password" ? "border-red-500" : "border-gray-300"
+        className={`w-full p-2 outline-none bg-gray-100  rounded-md border mt-2 ${
+          error?.type === "password" ? "border-red-500" : "border-none"
         }`}
       />
       {error?.type === "password" && (
@@ -103,19 +86,20 @@ export default function SignUpCase({
       {error?.type === "other" && (
         <p className="text-red-500 text-sm mt-1">{error.message}</p>
       )}
+
       <button
         onClick={handleSignUp}
-        className="w-full mt-4 bg-black text-white p-2 rounded-md"
+        className="w-full mt-4 font-bold bg-black text-white p-3 rounded-xl"
       >
-        Sign Up
+        Create Account
       </button>
-      <div>
+      <div className="text-[14px] text-black/50 text-end mt-2">
         Already have an account?{" "}
         <span
-          className="cursor-pointer"
+          className="cursor-pointer text-black font-semibold hover:underline transition-all"
           onClick={() => setCurrentCase("login")}
         >
-          Login
+          Log In
         </span>
       </div>
     </div>

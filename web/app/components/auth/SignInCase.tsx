@@ -3,12 +3,18 @@ import { signInWithEmailAndPassword } from "firebase/auth"
 import { useState } from "react"
 import { auth } from "~/lib/firebase"
 import { ErrorType } from "~/routes/_app/auth"
+import { getError } from "./Errors"
 
 export default function SignInCase({
   setCurrentCase,
 }: {
   setCurrentCase: (
-    currentCase: "signup" | "login" | "link-sent" | "verified",
+    currentCase:
+      | "signup"
+      | "login"
+      | "link-sent"
+      | "verified"
+      | "forgot-password",
   ) => void
 }) {
   const [email, setEmail] = useState("")
@@ -19,27 +25,6 @@ export default function SignInCase({
   const handleSignIn = () => {
     setError(null)
 
-    const isValidEmail = (email: string) => {
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-      return emailRegex.test(email)
-    }
-
-    if (!isValidEmail(email)) {
-      setError({
-        type: "email",
-        message: "Please type in a correct email address",
-      })
-      return
-    }
-
-    if (password.trim() === "") {
-      setError({
-        type: "password",
-        message: "Password is required",
-      })
-      return
-    }
-
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user
@@ -47,27 +32,26 @@ export default function SignInCase({
       })
       .catch((error) => {
         const errorCode = error.code
-        setError({
-          type: "other",
-          message:
-            error.code === "auth/invalid-credential"
-              ? "Invalid email or password"
-              : error.message,
-        })
+        setError(getError(errorCode))
         console.log(errorCode, error.message)
       })
   }
 
   return (
     <div>
-      <h1 className="text-2xl font-semibold">Sign In</h1>
+      <div className="mb-4">
+        <h1 className="text-[36px] font-bold">Log In</h1>
+        <p className="text-sm text-gray-500">
+          Sign in to your account to continue
+        </p>
+      </div>
       <input
         type="email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         placeholder="Email"
-        className={`w-full p-2 rounded-md border ${
-          error?.type === "email" ? "border-red-500" : "border-gray-300"
+        className={`w-full p-2 outline-none bg-gray-100  rounded-md border ${
+          error?.type === "email" ? "border-red-500" : "border-none"
         }`}
       />
       {error?.type === "email" && (
@@ -78,8 +62,8 @@ export default function SignInCase({
         value={password}
         onChange={(e) => setPassword(e.target.value)}
         placeholder="Password"
-        className={`w-full p-2 rounded-md border mt-2 ${
-          error?.type === "password" ? "border-red-500" : "border-gray-300"
+        className={`w-full p-2 outline-none bg-gray-100  rounded-md border mt-2 ${
+          error?.type === "password" ? "border-red-500" : "border-none"
         }`}
       />
       {error?.type === "password" && (
@@ -88,19 +72,25 @@ export default function SignInCase({
       {error?.type === "other" && (
         <p className="text-red-500 text-sm mt-1">{error.message}</p>
       )}
+      <p
+        onClick={() => setCurrentCase("forgot-password")}
+        className="text-[12px] text-gray-500 mt-1 cursor-pointer"
+      >
+        Forgot password?
+      </p>
       <button
         onClick={handleSignIn}
-        className="w-full mt-4 bg-black text-white p-2 rounded-md"
+        className="w-full mt-4 font-bold bg-black text-white p-3 rounded-xl"
       >
-        Sign In
+        Sign Up
       </button>
-      <div>
+      <div className="text-[14px] text-black/50 text-end mt-2">
         Don't have an account?{" "}
         <span
-          className="cursor-pointer text-blue-500 hover:underline"
+          className="cursor-pointer text-black font-semibold hover:underline transition-all"
           onClick={() => setCurrentCase("signup")}
         >
-          Sign Up
+          Login In
         </span>
       </div>
     </div>
