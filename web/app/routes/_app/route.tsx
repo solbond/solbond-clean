@@ -15,7 +15,13 @@ export const Route = createFileRoute("/_app")({
 function LayoutComponent() {
   const location = useLocation()
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense
+      fallback={
+        <div className="h-screen w-full flex items-center font-bold text-2xl justify-center">
+          Loading...
+        </div>
+      }
+    >
       <AuthProvider>
         {location.pathname === "/auth" ? null : <Nav />}
         <Outlet />
