@@ -120,9 +120,9 @@ export const HeroRoute = () => {
             </motion.button>
           </div>
 
-          <div className="border border-white/40 overflow-hidden relative shadow-lg flex items-center w-full rounded-xl min-h-[200px]">
+          <div className="border border-white/40 overflow-hidden  p-4 relative shadow-lg flex items-center w-full rounded-xl min-h-[200px]">
             <motion.p
-              className="text-[23px]  w-[70%] relative z-20"
+              className="text-[23px] w-[70%] relative z-20"
               animate={{ y: [10, 0], filter: ["blur(10px)", "blur(0px)"] }}
               transition={{ duration: 0.8, ease: "easeOut", delay: 1 }}
             >
@@ -204,27 +204,21 @@ export const HeroRoute = () => {
         </div>
 
         <div className="flex flex-wrap justify-center items-center gap-2 mt-4 relative z-20 order-2">
-          {[
-            "All",
-            "NFTs",
-            "Code",
-            "Design",
-            "3D Assets",
-            "Game Assets",
-            "Drawing & Painting",
-          ].map((category) => (
-            <motion.button
-              key={category}
-              whileHover={{
-                scale: 1.05,
-                textShadow: "0 0 8px rgb(34,211,238)",
-                boxShadow: "0 0 12px rgb(34,211,238)",
-              }}
-              className="cyber-card px-4 py-2 rounded-full text-sm font-mono"
-            >
-              {category}
-            </motion.button>
-          ))}
+          {["All", "NFTs", "Code", "Design", "3D Assets", "Game Assets"].map(
+            (category) => (
+              <motion.button
+                key={category}
+                whileHover={{
+                  scale: 1.05,
+                  textShadow: "0 0 8px rgb(34,211,238)",
+                  boxShadow: "0 0 12px rgb(34,211,238)",
+                }}
+                className="cyber-card px-4 py-2 rounded-full text-sm font-mono"
+              >
+                {category}
+              </motion.button>
+            ),
+          )}
         </div>
 
         <div className="flex flex-col gap-4 relative z-20 order-3 sm:order-last">
