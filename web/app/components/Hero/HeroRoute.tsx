@@ -92,7 +92,7 @@ export const HeroRoute = () => {
               Solbond.co
             </motion.h2>
             <motion.p
-              className="text-[28px] text-white w-[70%] relative z-20"
+              className="text-[23px] text-white w-[70%] relative z-20"
               animate={{ y: [10, 0], filter: ["blur(10px)", "blur(0px)"] }}
               transition={{ duration: 0.8, ease: "easeOut", delay: 1 }}
             >
@@ -104,42 +104,71 @@ export const HeroRoute = () => {
               animate={{
                 x: [100, 0],
                 y: [100, 0],
+                rotate: [45, 0],
+                scale: [0.8, 1],
               }}
-              transition={{ duration: 1, ease: "easeOut" }}
+              transition={{
+                duration: 1.2,
+                ease: [0.6, 0.01, -0.05, 0.95],
+              }}
               className="absolute bottom-[-40px] scale-x-[1.5] right-[-20px] z-10 bg-white/10 w-[200px] h-[200px] rounded-2xl"
             >
               <motion.div
                 animate={{
                   x: [100, 0],
                   y: [100, 0],
+                  rotate: [35, 0],
+                  scale: [0.7, 1],
                 }}
-                transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
+                transition={{
+                  duration: 1.2,
+                  delay: 0.15,
+                  ease: [0.6, 0.01, -0.05, 0.95],
+                }}
                 className="bg-white/20 w-[180px] absolute bottom-0 right-0 h-[180px] rounded-2xl"
-              ></motion.div>
+              />
               <motion.div
                 animate={{
                   x: [100, 0],
                   y: [100, 0],
+                  rotate: [25, 0],
+                  scale: [0.6, 1],
                 }}
-                transition={{ duration: 1, ease: "easeOut", delay: 0.4 }}
+                transition={{
+                  duration: 1.2,
+                  delay: 0.3,
+                  ease: [0.6, 0.01, -0.05, 0.95],
+                }}
                 className="bg-white/30 w-[160px] absolute bottom-0 right-0 h-[160px] rounded-2xl"
-              ></motion.div>
+              />
               <motion.div
                 animate={{
                   x: [100, 0],
                   y: [100, 0],
+                  rotate: [15, 0],
+                  scale: [0.5, 1],
                 }}
-                transition={{ duration: 1, ease: "easeOut", delay: 0.6 }}
+                transition={{
+                  duration: 1.2,
+                  delay: 0.45,
+                  ease: [0.6, 0.01, -0.05, 0.95],
+                }}
                 className="bg-white/40 w-[140px] absolute bottom-0 right-0 h-[140px] rounded-2xl"
-              ></motion.div>
+              />
               <motion.div
                 animate={{
                   x: [100, 0],
                   y: [100, 0],
+                  rotate: [15, 0],
+                  scale: [0.5, 1],
                 }}
-                transition={{ duration: 1, ease: "easeOut", delay: 0.8 }}
+                transition={{
+                  duration: 1.2,
+                  delay: 0.45,
+                  ease: [0.6, 0.01, -0.05, 0.95],
+                }}
                 className="bg-white/50 w-[120px] absolute bottom-0 right-0 h-[120px] rounded-2xl"
-              ></motion.div>
+              />
             </motion.div>
           </div>
         </div>
