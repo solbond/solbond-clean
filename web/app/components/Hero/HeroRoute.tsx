@@ -51,10 +51,10 @@ export const HeroRoute = () => {
   }, [])
 
   return (
-    <div className="flex  p-2 pt-[82px] gap-2 w-full relative h-screen">
-      <div className="w-full relative z-10 h-full flex flex-col gap-2">
-        <div className="w-full h-full flex flex-col gap-2">
-          <div className="flex flex-col items-center relative justify-center p-4 leading-tight h-full w-full">
+    <div className="flex flex-col sm:flex-row p-2 pt-[82px] gap-2 w-full relative min-h-screen">
+      <div className="w-full relative z-10 flex flex-col gap-2">
+        <div className="w-full flex flex-col gap-2 order-1 sm:order-none">
+          <div className="flex flex-col items-center relative justify-center p-4 leading-tight">
             <h1 className="text-[64px] font-bold z-10">SolBond</h1>
             <motion.button
               initial={{ width: "36px", scale: 0 }}
@@ -87,18 +87,18 @@ export const HeroRoute = () => {
               </motion.div>
             </motion.button>
           </div>
-          <div className="bg-gradient-to-tr overflow-hidden relative shadow-lg flex items-center p-4 to-rose-400 from-rose-600 w-full h-full rounded-xl">
+          <div className="bg-gradient-to-tr overflow-hidden relative shadow-lg flex items-center p-4 to-rose-400 from-rose-600 w-full rounded-xl min-h-[200px]">
             <motion.h2
-              className="text-white/60 absolute top-4 left-4 text-[18px] font-semibold"
+              className="text-white/60 absolute hidden md:block top-4 left-4 text-[18px] font-semibold z-20"
               animate={{ x: [-200, 0] }}
               transition={{ duration: 0.8, ease: "easeOut" }}
             >
               Solbond.co
             </motion.h2>
             <motion.p
-              className="text-[28px] text-white w-[70%]"
+              className="text-[28px] text-white w-[70%] relative z-20"
               animate={{ y: [10, 0], filter: ["blur(10px)", "blur(0px)"] }}
-              transition={{ duration: 0.8, ease: "easeOut", delay: 1 }} // Increased delay
+              transition={{ duration: 0.8, ease: "easeOut", delay: 1 }}
             >
               <span className="font-semibold">
                 Your one-stop marketplace to buy and sell digital products.
@@ -110,7 +110,7 @@ export const HeroRoute = () => {
                 y: [100, 0],
               }}
               transition={{ duration: 1, ease: "easeOut" }}
-              className="absolute bottom-[-40px] scale-x-[1.5] right-[-20px]  bg-white/10 w-[200px] h-[200px] rounded-2xl"
+              className="absolute bottom-[-40px] scale-x-[1.5] right-[-20px] z-10 bg-white/10 w-[200px] h-[200px] rounded-2xl"
             >
               <motion.div
                 animate={{
@@ -147,8 +147,9 @@ export const HeroRoute = () => {
             </motion.div>
           </div>
         </div>
-        <div className="h-[50%] w-full flex gap-2">
-          <div className="flex flex-col gap-1 w-full h-full rounded-xl">
+
+        <div className="w-full flex flex-col sm:flex-row gap-2 order-3 sm:order-none">
+          <div className="flex flex-col gap-2 w-full">
             <div className="relative bg-black/80 backdrop-blur-xl rounded-xl overflow-hidden">
               <div className="relative p-8 z-10">
                 <div className="flex items-center gap-4 mb-4">
@@ -208,7 +209,7 @@ export const HeroRoute = () => {
             </div>
           </div>
 
-          <div className="bg-gradient-to-b gap-2 flex-col overflow-hidden relative flex items-center justify-center text-white from-blue-400 to-blue-600 shadow-lg w-full h-full rounded-xl">
+          <div className="bg-gradient-to-b gap-2 flex-col overflow-hidden relative flex items-center justify-center text-white from-blue-400 to-blue-600 shadow-lg w-full min-h-[200px] rounded-xl">
             <h2 className="text-[24px] font-semibold">Contact Us</h2>
             <div className="flex text-[14px] gap-2 font-semibold z-10">
               <motion.p
@@ -288,49 +289,9 @@ export const HeroRoute = () => {
           </div>
         </div>
       </div>
-      <div className="bg-gradient-to-tr p-4 flex flex-col gap-2 shadow-lg from-rose-400 to-rose-600 rounded-xl relative z-10 w-full h-full">
-        <motion.div
-          initial={{ x: "-50%", scaleX: 2.4 }}
-          animate={{
-            y: [-100, 0],
-          }}
-          transition={{ duration: 1, ease: "easeOut" }}
-          className="absolute top-[-124px]   left-[50%] translate-x-[-50%]  bg-white/10 w-[200px] h-[200px] rounded-2xl"
-        >
-          <motion.div
-            initial={{ x: "-50%" }}
-            animate={{
-              y: [-100, 0],
-            }}
-            transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
-            className="bg-white/20 w-[180px] absolute top-0 left-[50%] translate-x-[-50%] h-[180px] rounded-2xl"
-          ></motion.div>
-          <motion.div
-            initial={{ x: "-50%" }}
-            animate={{
-              y: [-100, 0],
-            }}
-            transition={{ duration: 1, ease: "easeOut", delay: 0.4 }}
-            className="bg-white/30 w-[160px] absolute top-0 left-[50%] translate-x-[-50%] h-[160px] rounded-2xl"
-          ></motion.div>
-          <motion.div
-            initial={{ x: "-50%" }}
-            animate={{
-              y: [-100, 0],
-            }}
-            transition={{ duration: 1, ease: "easeOut", delay: 0.6 }}
-            className="bg-white/40 w-[140px] absolute top-0 left-[50%] translate-x-[-50%] h-[140px] rounded-2xl"
-          ></motion.div>
-          <motion.div
-            initial={{ x: "-50%" }}
-            animate={{
-              y: [-100, 0],
-            }}
-            transition={{ duration: 1, ease: "easeOut", delay: 0.8 }}
-            className="bg-white/50 w-[120px] absolute top-0 left-[50%] translate-x-[-50%] h-[120px] rounded-2xl"
-          ></motion.div>
-        </motion.div>
-        <div className=" flex items-center min-h-[25%] pt-8 justify-center flex-col gap-2">
+
+      <div className="bg-gradient-to-tr p-4 flex flex-col gap-4 shadow-lg from-rose-400 to-rose-600 rounded-xl relative z-10 w-full order-2 sm:order-none">
+        <div className="flex items-center min-h-[100px] pt-8 justify-center flex-col gap-2">
           <h2 className="text-[28px] text-white font-semibold">
             Your digital quest starts here
           </h2>
@@ -344,7 +305,7 @@ export const HeroRoute = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-4 overflow">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {users.map((user, index) => (
             <div
               key={index}
@@ -401,7 +362,7 @@ export const HeroRoute = () => {
           ))}
         </div>
 
-        <div className="grid grid-cols-2 gap-4 overflow-hidden h-full">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {products.map((product, index) => (
             <div
               key={index}
