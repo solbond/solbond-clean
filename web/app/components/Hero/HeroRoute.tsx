@@ -28,11 +28,21 @@ export const HeroRoute = () => {
   ]
   const products = [
     {
-      name: "Product 1",
+      id: "3460",
+      price: "22.37 SOL",
+      lastSale: "20.2 SOL",
+      image: "https://picsum.photos/400/400?random=1",
+    },
+    {
+      id: "372",
+      price: "22.45 SOL",
+      lastSale: "11.38 SOL",
       image: "https://picsum.photos/400/400?random=2",
     },
     {
-      name: "Product 2",
+      id: "7697",
+      price: "22.4742 ETH",
+      lastSale: "20.16 ETH",
       image: "https://picsum.photos/400/400?random=3",
     },
   ]
@@ -348,54 +358,30 @@ export const HeroRoute = () => {
           ))}
         </div>
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-3 gap-4">
           {products.map((product, index) => (
             <div
               key={index}
-              className="group overflow-hidden cyber-card rounded-2xl hover:scale-[1.02] transition-all duration-300 border-2 border-white"
+              className="group overflow-hidden cyber-card rounded-2xl hover:scale-[1.02] transition-all duration-300 bg-inherit"
             >
-              <div className="h-[140px] overflow-hidden relative">
+              <div className="aspect-square overflow-hidden relative">
                 <img
                   src={product.image}
-                  alt={product.name}
-                  className="w-full h-full object-cover opacity-80"
+                  alt={`NFT #${product.id}`}
+                  className="w-full h-full object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent" />
-                <motion.button
-                  whileHover={{
-                    scale: 1.05,
-                    y: -1,
-                  }}
-                  className="neon-border text-[10px] bg-white/80 backdrop-blur-sm hover:bg-white/100 dark:bg-black/80 dark:hover:bg-black/100 px-3 py-1 font-mono rounded-full text-cyan-400 absolute top-2 right-2"
-                >
-                  <span className="flex items-center gap-1">
-                    Buy Now <CornerUpRightIcon size={12} />
+              </div>
+              <div className="p-3 space-y-2">
+                <div className="flex justify-between items-center">
+                  <span className="text-[14px] font-mono text-opacity-60">
+                    #{product.id}
                   </span>
-                </motion.button>
-                <div className="absolute p-1 left-[16px] w-[60px] bg-gradient-to-tr from-white/20 to-white/80 rounded-xl shadow-xl">
-                  <img
-                    src={product.image}
-                    alt={product.name}
-                    className="w-full h-full rounded-lg object-cover"
-                  />
-                </div>
-              </div>
-              <div className="p-4 text-end">
-                <h2 className="text-[16px] font-bold ">{product.name}</h2>
-                <p className="text-[12px] text-opacity-60">
-                  Digital creator & NFT artist
-                </p>
-              </div>
-              <div className="w-full px-3 pb-3 flex gap-2 text-[10px] justify-end">
-                <div className="border border-black/10 dark:border-white/10 font-medium text-opacity-60 rounded-full px-2 py-1 backdrop-blur-sm">
-                  <span className="flex items-center gap-1">
-                    <ShoppingBagIcon size={12} /> 200 sold
+                  <span className="text-[14px] font-mono text-emerald-400">
+                    {product.price}
                   </span>
                 </div>
-                <div className=" border border-black/10 dark:border-white/10 flex gap-1 font-medium text-opacity-60 rounded-full px-2 py-1 backdrop-blur-sm">
-                  <span className="flex items-center gap-1">
-                    96% <ThumbsUpIcon size={12} />
-                  </span>
+                <div className="text-[12px] font-mono text-opacity-60">
+                  Last sale: {product.lastSale}
                 </div>
               </div>
             </div>
