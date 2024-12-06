@@ -1,33 +1,22 @@
 import { createFileRoute } from "@tanstack/react-router"
 import { ThumbsUpIcon } from "lucide-react"
+import { MinimalTiptapEditor } from "~/components/minimal-tiptap"
 
-export const Route = createFileRoute("/_app/product")({
+export const Route = createFileRoute("/_app/new")({
   component: RouteComponent,
 })
 
 function RouteComponent() {
-  const seller = {
-    name: "John Doe",
-    username: "johndoe",
-    profileImage: "https://via.placeholder.com/150",
-    location: "New York, NY",
-    rating: 4.5,
-    numSold: 100,
-  }
-  const product = {
-    name: "Product Name",
-    price: 100,
-    description: "Product Description",
-    deliverySpeed: "10min",
-  }
   return (
     <div className="pt-[74px] h-screen">
       <div className="max-w-[1200px] h-full mx-auto p-4 flex gap-4">
         <div className="flex gap-2 flex-col h-full bg-white shadow-lg rounded-2xl w-full ">
           <h1 className="text-[32px] p-[20px] border-b-2 border-slate-400/20 w-full font-semibold">
-            {product.name}
+            <input type="text" placeholder="Product Name" />
           </h1>
-          <div className="p-[20px]">{product.description}</div>
+          <div className="p-[20px]">
+            <MinimalTiptapEditor onValueChange={() => {}} />
+          </div>
         </div>
         <div className="flex gap-2 flex-col w-[40%]">
           <div className="h-fit w-full bg-white shadow-lg  overflow-hidden rounded-2xl">
@@ -42,16 +31,16 @@ function RouteComponent() {
               </div>
               <div className="absolute bottom-[-40px] h-[80px] left-[50%] translate-x-[-50%] w-[80px] rounded-full bg-white p-1">
                 <img
-                  src={seller.profileImage}
-                  alt={seller.name}
+                  src="https://via.placeholder.com/150"
+                  alt="seller"
                   className="w-full h-full object-cover rounded-full"
                 />
               </div>
             </div>
             <div className="p-4  pt-[40px] ">
               <div className="flex flex-col items-center justify-center">
-                <h2 className="text-[20px] font-semibold">{seller.name}</h2>
-                <p className="text-[14px] text-gray-500">@{seller.username}</p>
+                <h2 className="text-[20px] font-semibold">Seller Name</h2>
+                <p className="text-[14px] text-gray-500">@sellerusername</p>
               </div>
             </div>
           </div>
@@ -59,8 +48,7 @@ function RouteComponent() {
             <h2 className="text-[20px] flex justify-between items-center font-semibold p-4">
               <div>Total Amount: </div>
               <div className="flex items-end gap-1">
-                {product.price}{" "}
-                <span className="text-[14px] font-normal mb-1">USD</span>
+                100 <span className="text-[14px] font-normal mb-1">USD</span>
               </div>
             </h2>
             <button className="w-full bg-black text-white p-4 rounded-b-xl">

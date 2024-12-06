@@ -15,6 +15,7 @@ import { Route as AppRouteImport } from './routes/_app/route'
 import { Route as AppIndexImport } from './routes/_app/index'
 import { Route as AppProfileImport } from './routes/_app/profile'
 import { Route as AppProductImport } from './routes/_app/product'
+import { Route as AppNewImport } from './routes/_app/new'
 import { Route as AppAuthImport } from './routes/_app/auth'
 
 // Create/Update Routes
@@ -42,6 +43,12 @@ const AppProductRoute = AppProductImport.update({
   getParentRoute: () => AppRouteRoute,
 } as any)
 
+const AppNewRoute = AppNewImport.update({
+  id: '/new',
+  path: '/new',
+  getParentRoute: () => AppRouteRoute,
+} as any)
+
 const AppAuthRoute = AppAuthImport.update({
   id: '/auth',
   path: '/auth',
@@ -64,6 +71,13 @@ declare module '@tanstack/react-router' {
       path: '/auth'
       fullPath: '/auth'
       preLoaderRoute: typeof AppAuthImport
+      parentRoute: typeof AppRouteImport
+    }
+    '/_app/new': {
+      id: '/_app/new'
+      path: '/new'
+      fullPath: '/new'
+      preLoaderRoute: typeof AppNewImport
       parentRoute: typeof AppRouteImport
     }
     '/_app/product': {
@@ -94,6 +108,7 @@ declare module '@tanstack/react-router' {
 
 interface AppRouteRouteChildren {
   AppAuthRoute: typeof AppAuthRoute
+  AppNewRoute: typeof AppNewRoute
   AppProductRoute: typeof AppProductRoute
   AppProfileRoute: typeof AppProfileRoute
   AppIndexRoute: typeof AppIndexRoute
@@ -101,6 +116,7 @@ interface AppRouteRouteChildren {
 
 const AppRouteRouteChildren: AppRouteRouteChildren = {
   AppAuthRoute: AppAuthRoute,
+  AppNewRoute: AppNewRoute,
   AppProductRoute: AppProductRoute,
   AppProfileRoute: AppProfileRoute,
   AppIndexRoute: AppIndexRoute,
@@ -113,6 +129,7 @@ const AppRouteRouteWithChildren = AppRouteRoute._addFileChildren(
 export interface FileRoutesByFullPath {
   '': typeof AppRouteRouteWithChildren
   '/auth': typeof AppAuthRoute
+  '/new': typeof AppNewRoute
   '/product': typeof AppProductRoute
   '/profile': typeof AppProfileRoute
   '/': typeof AppIndexRoute
@@ -120,6 +137,7 @@ export interface FileRoutesByFullPath {
 
 export interface FileRoutesByTo {
   '/auth': typeof AppAuthRoute
+  '/new': typeof AppNewRoute
   '/product': typeof AppProductRoute
   '/profile': typeof AppProfileRoute
   '/': typeof AppIndexRoute
@@ -129,6 +147,7 @@ export interface FileRoutesById {
   __root__: typeof rootRoute
   '/_app': typeof AppRouteRouteWithChildren
   '/_app/auth': typeof AppAuthRoute
+  '/_app/new': typeof AppNewRoute
   '/_app/product': typeof AppProductRoute
   '/_app/profile': typeof AppProfileRoute
   '/_app/': typeof AppIndexRoute
@@ -136,13 +155,14 @@ export interface FileRoutesById {
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '' | '/auth' | '/product' | '/profile' | '/'
+  fullPaths: '' | '/auth' | '/new' | '/product' | '/profile' | '/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/auth' | '/product' | '/profile' | '/'
+  to: '/auth' | '/new' | '/product' | '/profile' | '/'
   id:
     | '__root__'
     | '/_app'
     | '/_app/auth'
+    | '/_app/new'
     | '/_app/product'
     | '/_app/profile'
     | '/_app/'
@@ -174,6 +194,7 @@ export const routeTree = rootRoute
       "filePath": "_app/route.tsx",
       "children": [
         "/_app/auth",
+        "/_app/new",
         "/_app/product",
         "/_app/profile",
         "/_app/"
@@ -181,6 +202,10 @@ export const routeTree = rootRoute
     },
     "/_app/auth": {
       "filePath": "_app/auth.tsx",
+      "parent": "/_app"
+    },
+    "/_app/new": {
+      "filePath": "_app/new.tsx",
       "parent": "/_app"
     },
     "/_app/product": {
