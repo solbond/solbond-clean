@@ -6,38 +6,53 @@
   --neon-cyan: #0ff;
   --neon-green: #3f3;
   --neon-yellow: #ff0;
-  --dark-bg: #000;
 }
 
-html {
-  font-family: "Space Mono", monospace;
-  background: var(--dark-bg);
-  min-height: 100vh;
-  color: #fff;
+@layer base {
+  html {
+    @apply font-mono min-h-screen bg-white text-gray-900;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    html {
+      @apply bg-black text-white;
+    }
+  }
 }
 
-.neon-border {
-  box-shadow: 0 0 10px var(--neon-cyan),
-              inset 0 0 5px var(--neon-cyan);
-  border: 1px solid var(--neon-cyan);
-}
+@layer components {
+  .neon-border {
+    @apply border shadow-md border-gray-200;
+    @apply dark:shadow-[0_0_10px_var(--neon-cyan),inset_0_0_5px_var(--neon-cyan)] dark:border-[var(--neon-cyan)];
+  }
 
-.neon-text {
-  text-shadow: 0 0 10px var(--neon-cyan);
-  color: var(--neon-cyan);
-}
+  .neon-text {
+    @apply text-gray-900;
+    @apply dark:text-[var(--neon-cyan)];
+  }
 
-.neon-text-green {
-  text-shadow: 0 0 10px var(--neon-green);
-  color: var(--neon-green);
-}
+  .neon-text-green {
+    @apply text-green-600;
+    @apply dark:text-[var(--neon-green)] dark:shadow-[0_0_10px_var(--neon-green)];
+  }
 
-.neon-grid {
-  background-image:
-    linear-gradient(var(--neon-cyan) 1px, transparent 1px),
-    linear-gradient(90deg, var(--neon-cyan) 1px, transparent 1px);
-  background-size: 30px 30px;
-  opacity: 0.1;
+  .neon-grid {
+    @apply bg-gray-100/50;
+    @apply dark:bg-[linear-gradient(var(--neon-cyan)_1px,transparent_1px),linear-gradient(90deg,var(--neon-cyan)_1px,transparent_1px)];
+    @apply bg-[size:30px_30px] opacity-10;
+  }
+
+  .cyber-card {
+    @apply bg-white dark:bg-black/80
+           border border-gray-200 dark:border-white/10
+           shadow-md dark:shadow-[0_0_5px_rgba(255,255,255,0.1)]
+           backdrop-blur transition-all duration-300;
+  }
+
+  .cyber-card:hover {
+    @apply border-blue-500 dark:border-[var(--neon-cyan)];
+    @apply dark:animate-[neonBorderGlow_1s_infinite];
+  }
 }
 
 @keyframes neonBorderGlow {
@@ -56,19 +71,6 @@ html {
     box-shadow: 0 0 15px rgba(0, 255, 255, 0.7),
                 0 0 30px rgba(0, 255, 255, 0.5);
   }
-}
-
-.cyber-card {
-  background: rgba(0, 0, 0, 0.8);
-  border: 2px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 0 5px rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  transition: all 0.3s ease;
-}
-
-.cyber-card:hover {
-  border-width: 3px;
-  animation: neonBorderGlow 1s infinite;
 }
 
 .monospace {
