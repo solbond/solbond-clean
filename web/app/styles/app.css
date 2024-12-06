@@ -2,12 +2,79 @@
 @tailwind components;
 @tailwind utilities;
 
-html {
-  font-family: "Poppins", sans-serif;
-  scroll-behavior: smooth;
-  background: linear-gradient(135deg, #f8fafc, #e2e8f0);
-  min-height: 100vh;
+:root {
+  --neon-cyan: #0ff;
+  --neon-green: #3f3;
+  --neon-yellow: #ff0;
+  --dark-bg: #000;
 }
+
+html {
+  font-family: "Space Mono", monospace;
+  background: var(--dark-bg);
+  min-height: 100vh;
+  color: #fff;
+}
+
+.neon-border {
+  box-shadow: 0 0 10px var(--neon-cyan),
+              inset 0 0 5px var(--neon-cyan);
+  border: 1px solid var(--neon-cyan);
+}
+
+.neon-text {
+  text-shadow: 0 0 10px var(--neon-cyan);
+  color: var(--neon-cyan);
+}
+
+.neon-text-green {
+  text-shadow: 0 0 10px var(--neon-green);
+  color: var(--neon-green);
+}
+
+.neon-grid {
+  background-image:
+    linear-gradient(var(--neon-cyan) 1px, transparent 1px),
+    linear-gradient(90deg, var(--neon-cyan) 1px, transparent 1px);
+  background-size: 30px 30px;
+  opacity: 0.1;
+}
+
+@keyframes neonBorderGlow {
+  0% {
+    border-color: rgb(0, 255, 255);
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.7),
+                0 0 30px rgba(0, 255, 255, 0.5);
+  }
+  50% {
+    border-color: rgb(255, 0, 255);
+    box-shadow: 0 0 15px rgba(255, 0, 255, 0.7),
+                0 0 30px rgba(255, 0, 255, 0.5);
+  }
+  100% {
+    border-color: rgb(0, 255, 255);
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.7),
+                0 0 30px rgba(0, 255, 255, 0.5);
+  }
+}
+
+.cyber-card {
+  background: rgba(0, 0, 0, 0.8);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 5px rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+.cyber-card:hover {
+  border-width: 3px;
+  animation: neonBorderGlow 1s infinite;
+}
+
+.monospace {
+  font-family: "Space Mono", monospace;
+}
+
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
@@ -32,3 +99,44 @@ html {
   scrollbar-width: thin;
   scrollbar-color: #888 transparent;
 }
+
+.statistics-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin: 2rem 0;
+  gap: 2rem;
+}
+
+.stat-box {
+  flex: 1;
+  padding: 1.5rem;
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.contact-section {
+  margin-top: 3rem;
+  text-align: center;
+}
+
+.contact-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.contact-button {
+  padding: 0.8rem 1.5rem;
+  border-radius: 8px;
+  transition: transform 0.2s;
+}
+
+.contact-button:hover {
+  transform: translateY(-2px);
+}
+
+
+

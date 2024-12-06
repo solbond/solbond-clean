@@ -13,18 +13,18 @@ export const Nav = () => {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.7, ease: "easeOut" }}
-      className="flex z-[100] justify-between bg-white/20 backdrop-blur-sm shadow-md h-[74px] fixed top-0 left-0 right-0 items-center p-4"
+      className="flex z-[100] justify-between bg-black/80 neon-border backdrop-blur-sm h-[74px] fixed top-0 left-0 right-0 items-center p-4"
     >
-      <h1 className="text-2xl">Solbond</h1>
+      <h1 className="text-2xl neon-text">Solbond</h1>
       <div className="flex gap-2 items-center">
-        <div className="bg-white hover:bg-gray-100 transition-all shadow-md w-fit p-2 rounded-full">
-          <SearchIcon size={20} />
+        <div className="neon-border bg-black/50 hover:bg-cyan-950/30 transition-all w-fit p-2 rounded-full">
+          <SearchIcon size={20} className="text-cyan-400" />
         </div>
         <button
           onClick={() =>
             user ? signOut(auth) : router.navigate({ to: "/auth" })
           }
-          className="px-4 text-[14px] p-2 rounded-full bg-gradient-to-r from-rose-400 to-rose-600 text-white font-semibold"
+          className="px-4 text-[14px] p-2 rounded-full neon-border bg-black/50 text-cyan-400 font-semibold hover:bg-cyan-950/30 transition-all"
         >
           {user ? "Logout" : "Login"}
         </button>
