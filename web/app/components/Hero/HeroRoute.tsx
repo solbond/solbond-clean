@@ -344,81 +344,114 @@ export const HeroRoute = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-2 overflow">
+        <div className="grid grid-cols-2 gap-4 overflow">
           {users.map((user, index) => (
             <div
               key={index}
-              className={`bg-white overflow-hidden w-full rounded-xl ${
-                index < 2 ? "col-span-1" : "col-span-2"
-              }`}
+              className="bg-white/10 backdrop-blur-md border border-white/10 overflow-hidden w-full rounded-2xl hover:scale-[1.02] transition-all duration-300"
             >
               <div
-                className={`h-[100px] relative ${index === 1 ? "bg-gradient-to-tr from-orange-400 to-yellow-400" : "bg-gradient-to-b from-teal-400 to-teal-600"}`}
+                className={`h-[80px] relative ${
+                  index === 1
+                    ? "bg-[conic-gradient(at_top_right,_var(--tw-gradient-stops))] from-orange-500 via-yellow-300 to-orange-500"
+                    : "bg-[conic-gradient(at_top_right,_var(--tw-gradient-stops))] from-teal-400 via-blue-500 to-teal-400"
+                }`}
               >
                 <motion.button
                   whileHover={{
-                    scale: 1.1,
-                    y: -2,
+                    scale: 1.05,
+                    y: -1,
                     transition: { type: "spring", stiffness: 400 },
                   }}
-                  className="bg-black text-[12px] px-3 py-1 font-semibold rounded-full text-white absolute top-2 right-2"
+                  className="bg-black/80 backdrop-blur-sm text-[10px] px-3 py-1 font-medium rounded-full text-white absolute top-2 right-2 border border-white/20"
                 >
-                  Visit me!
+                  <span className="flex items-center gap-1">
+                    Visit Profile <CornerUpRightIcon size={12} />
+                  </span>
                 </motion.button>
-                <div className="absolute p-1 bottom-[-40px] left-[20px] w-[80px] h-[80px] bg-white rounded-full">
+                <div className="absolute p-1 bottom-[-30px] left-[16px] w-[60px] h-[60px] bg-gradient-to-tr from-white/20 to-white/80 rounded-xl shadow-xl">
                   <img
-                    src={user.image || "https://picsum.photos/100/100?random=1"}
+                    src={user.image}
                     alt={`${user.name}'s profile`}
-                    className="w-full h-full rounded-full"
+                    className="w-full h-full rounded-lg object-cover"
                   />
                 </div>
               </div>
-              <div className="p-4 text-end">
-                <h2 className="text-[20px] font-semibold">{user.name}</h2>
-                <p className="text-[14px] text-gray-500">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              <div className="p-4 pt-8 text-end">
+                <h2 className="text-[16px] font-bold text-white">
+                  {user.name}
+                </h2>
+                <p className="text-[12px] text-white/60">
+                  Digital creator & NFT artist
                 </p>
               </div>
-              <div className="w-full p-1 flex gap-1 text-[10px] self-start">
-                <div className="bg-gray-200 font-semibold text-black/40 rounded-full px-2 py-1 w-fit">
-                  200 sold
+              <div className="w-full px-3 pb-3 flex gap-2 text-[10px] justify-end">
+                <div className="bg-white/5 border border-white/10 font-medium text-white/60 rounded-full px-2 py-1 backdrop-blur-sm">
+                  <span className="flex items-center gap-1">
+                    <ShoppingBagIcon size={12} /> 200 sold
+                  </span>
                 </div>
-                <div className="bg-gray-200 flex gap-1 font-semibold text-black/40 rounded-full px-2 py-1 w-fit">
-                  96% <ThumbsUpIcon size={12} />
+                <div className="bg-white/5 border border-white/10 flex gap-1 font-medium text-white/60 rounded-full px-2 py-1 backdrop-blur-sm">
+                  <span className="flex items-center gap-1">
+                    96% <ThumbsUpIcon size={12} />
+                  </span>
                 </div>
               </div>
             </div>
           ))}
         </div>
 
-        <div className="grid grid-cols-2 gap-2 overflow-hidden h-full ">
+        <div className="grid grid-cols-2 gap-4 overflow-hidden h-full">
           {products.map((product, index) => (
             <div
               key={index}
-              className={`bg-white overflow-hidden flex justify-between flex-col w-full rounded-xl ${
-                index < 2 ? "col-span-1" : "col-span-2"
-              }`}
+              className="bg-white/10 backdrop-blur-md border border-white/10 overflow-hidden flex justify-between flex-col w-full rounded-2xl hover:scale-[1.02] transition-all duration-300"
             >
-              <div
-                className={`h-[100px] overflow-hidden relative ${index === 1 ? "bg-gradient-to-tr from-orange-400 to-yellow-400" : "bg-gradient-to-b from-teal-400 to-teal-600"}`}
-              >
+              <div className="h-[140px] overflow-hidden relative">
                 <img
-                  src={
-                    product.image || "https://picsum.photos/100/100?random=1"
-                  }
-                  alt={`${product.name}'s profile`}
-                  className="w-full h-full object-cover"
+                  src={product.image}
+                  alt={product.name}
+                  className="w-full h-full object-cover hover:scale-110 transition-all duration-700"
                 />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                <motion.button
+                  whileHover={{
+                    scale: 1.05,
+                    y: -1,
+                    transition: { type: "spring", stiffness: 400 },
+                  }}
+                  className="bg-white text-black text-[10px] px-3 py-1 font-medium rounded-full absolute top-2 right-2 border border-white/20"
+                >
+                  <span className="flex items-center gap-1">
+                    Buy Now <CornerUpRightIcon size={12} />
+                  </span>
+                </motion.button>
+                <div className="absolute p-1 left-[16px] w-[60px] bg-gradient-to-tr from-white/20 to-white/80 rounded-xl shadow-xl">
+                  <img
+                    src={product.image}
+                    alt={product.name}
+                    className="w-full h-full rounded-lg object-cover"
+                  />
+                </div>
               </div>
               <div className="p-4 text-end">
-                <h2 className="text-[20px] font-semibold">{product.name}</h2>
-                <p className="text-[14px] text-gray-500">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                <h2 className="text-[16px] font-bold text-white">
+                  {product.name}
+                </h2>
+                <p className="text-[12px] text-white/60">
+                  Digital creator & NFT artist
                 </p>
               </div>
-              <div className="w-full p-2 flex gap-1 text-[10px] self-start">
-                <div className="bg-gray-200 font-semibold text-black/40 rounded-full px-2 py-1 w-fit">
-                  200 sold
+              <div className="w-full px-3 pb-3 flex gap-2 text-[10px] justify-end">
+                <div className="bg-white/5 border border-white/10 font-medium text-white/60 rounded-full px-2 py-1 backdrop-blur-sm">
+                  <span className="flex items-center gap-1">
+                    <ShoppingBagIcon size={12} /> 200 sold
+                  </span>
+                </div>
+                <div className="bg-white/5 border border-white/10 flex gap-1 font-medium text-white/60 rounded-full px-2 py-1 backdrop-blur-sm">
+                  <span className="flex items-center gap-1">
+                    96% <ThumbsUpIcon size={12} />
+                  </span>
                 </div>
               </div>
             </div>
