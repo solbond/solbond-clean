@@ -45,7 +45,7 @@ const PRODUCTS = [
 
 const CATEGORIES = [
   {
-    title: "Design Resources",
+    title: "Design",
     products: "564",
     images: [
       "https://picsum.photos/100/100?1",
@@ -120,7 +120,7 @@ export const HeroRoute = () => {
             </motion.button>
           </div>
 
-          <div className="border border-white/40 overflow-hidden  p-4 relative shadow-lg flex items-center w-full rounded-xl min-h-[200px]">
+          <div className=" overflow-hidden px-4 relative shadow-lg flex items-center w-full rounded-xl min-h-[200px]">
             <motion.p
               className="text-[23px] w-[70%] relative z-20"
               animate={{ y: [10, 0], filter: ["blur(10px)", "blur(0px)"] }}
@@ -203,24 +203,6 @@ export const HeroRoute = () => {
           </div>
         </div>
 
-        <div className="flex flex-wrap justify-center items-center gap-2 mt-4 relative z-20 order-2">
-          {["All", "NFTs", "Code", "Design", "3D Assets", "Game Assets"].map(
-            (category) => (
-              <motion.button
-                key={category}
-                whileHover={{
-                  scale: 1.05,
-                  textShadow: "0 0 8px rgb(34,211,238)",
-                  boxShadow: "0 0 12px rgb(34,211,238)",
-                }}
-                className="cyber-card px-4 py-2 rounded-full text-sm font-mono"
-              >
-                {category}
-              </motion.button>
-            ),
-          )}
-        </div>
-
         <div className="flex flex-col gap-4 relative z-20 order-3 sm:order-last">
           <h2 className="text-[24px] font-semibold text-gray-800 dark:text-gray-200">
             Popular Categories
@@ -268,7 +250,7 @@ export const HeroRoute = () => {
         </div>
       </div>
 
-      <div className="p-4 flex flex-col gap-4 shadow-lg rounded-xl relative z-10 w-full order-2 sm:order-none border border-gray-200 dark:border-violet-500/50 [box-shadow:0_0_15px_rgba(0,0,0,0.1)] dark:[box-shadow:0_0_15px_rgba(139,92,246,0.3)]">
+      <div className="p-4 flex flex-col gap-4 shadow-lg rounded-xl relative z-10 w-full order-2 sm:order-none  ">
         <div className="flex py-4 items-center justify-center flex-col gap-2">
           <h2 className="text-[28px] text-opacity-85  font-semibold monospace neon-text">
             Your digital quest starts here
@@ -281,52 +263,79 @@ export const HeroRoute = () => {
               className="w-full bg-transparent outline-none text-gray-800 dark:text-cyan-400 monospace"
             />
           </div>
+          <div className="flex flex-wrap justify-center items-center gap-2 mt-4 relative z-20 order-2">
+            {["All", "NFTs", "Code", "Design", "3D Assets", "Game Assets"].map(
+              (category) => (
+                <motion.button
+                  key={category}
+                  initial={{
+                    textShadow: "0 0 0 rgba(34,211,238,0)",
+                    boxShadow: "0 0 0 rgba(34,211,238,0)",
+                  }}
+                  whileHover={{
+                    scale: 1.05,
+                    textShadow: "0 0 8px rgb(34,211,238)",
+                    boxShadow: "0 0 12px rgb(34,211,238)",
+                  }}
+                  className="cyber-card px-4 py-2 rounded-full text-sm font-mono"
+                >
+                  {category}
+                </motion.button>
+              ),
+            )}
+          </div>
         </div>
 
         <div className="grid grid-cols-2 gap-4">
           {USERS.map((user, index) => (
             <div
               key={index}
-              className="group overflow-hidden cyber-card rounded-2xl hover:scale-[1.02] transition-all duration-300 bg-white dark:bg-inherit shadow-[0_2px_8px_0_rgba(0,0,0,0.08)] dark:[box-shadow:0_0_15px_rgba(139,92,246,0.3)]"
+              className="group overflow-hidden rounded-2xl hover:scale-[1.02] transition-all duration-300 bg-white dark:bg-black/40 border border-gray-100 dark:border-gray-800"
             >
-              <div className="h-[80px] relative bg-gradient-to-r from-cyan-700/50 to-gray-200 dark:from-cyan-900/30 dark:to-cyan-600/30">
-                <motion.button
-                  whileHover={{
-                    scale: 1.05,
-                    y: -1,
-                  }}
-                  className="neon-border bg-white/80 backdrop-blur-sm hover:bg-white/100 dark:bg-black/80 dark:hover:bg-black/100 text-[10px] px-3 py-1 font-mono rounded-full text-cyan-400 absolute top-2 right-2"
-                >
-                  <span className="flex font-semibold items-center gap-1">
-                    Visit Profile <CornerUpRightIcon size={12} />
-                  </span>
-                </motion.button>
-                <div className="absolute p-1 bottom-[-30px] left-[16px] w-[60px] h-[60px] bg-gradient-to-tr from-white/20 to-white/80 rounded-xl shadow-xl">
-                  <img
-                    src={user.image}
-                    alt={`${user.name}'s profile`}
-                    className="w-full h-full rounded-lg object-cover"
-                  />
+              <div className="flex gap-4 p-4">
+                <div className="relative">
+                  <div className="w-[64px] h-[64px] rounded-xl overflow-hidden">
+                    <img
+                      src={user.image}
+                      alt={`${user.name}'s profile`}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-emerald-500 rounded-full border-2 border-white dark:border-black" />
                 </div>
-              </div>
-              <div className="p-4 pt-8 text-end">
-                <h2 className="text-[16px] font-bold text-gray-900 dark:text-white">
-                  {user.name}
-                </h2>
-                <p className="text-[12px] text-gray-600 dark:text-white/60">
-                  Digital creator & NFT artist
-                </p>
-              </div>
-              <div className="w-full px-3 pb-3 flex gap-2 text-[10px] justify-end">
-                <div className="border border-black/10 dark:border-white/10 font-medium text-opacity-60 rounded-full px-2 py-1 backdrop-blur-sm">
-                  <span className="flex items-center gap-1">
-                    <ShoppingBagIcon size={12} /> 200 sold
-                  </span>
-                </div>
-                <div className="border border-black/10 dark:border-white/10 font-medium text-opacity-60 rounded-full px-2 py-1 backdrop-blur-sm">
-                  <span className="flex items-center gap-1">
-                    96% <ThumbsUpIcon size={12} />
-                  </span>
+
+                <div className="flex-1">
+                  <div className="flex items-start justify-between">
+                    <div>
+                      <h2 className="text-[16px] font-bold text-gray-900 dark:text-gray-100">
+                        {user.name}
+                      </h2>
+                      <p className="text-[12px] text-gray-600 dark:text-gray-400">
+                        Digital creator
+                      </p>
+                    </div>
+                    <motion.button
+                      whileHover={{ scale: 1.05 }}
+                      className="text-[12px] px-3 h-7 font-medium rounded-lg
+                        bg-gray-100 dark:bg-gray-800
+                        text-gray-900 dark:text-gray-100
+                        hover:bg-gray-200 dark:hover:bg-gray-700
+                        transition-colors"
+                    >
+                      Follow
+                    </motion.button>
+                  </div>
+
+                  <div className="mt-3 flex items-center gap-4 text-[12px] text-gray-600 dark:text-gray-400">
+                    <span className="flex items-center gap-1">
+                      <ShoppingBagIcon size={14} />
+                      200 items
+                    </span>
+                    <span className="flex items-center gap-1">
+                      <ThumbsUpIcon size={14} />
+                      96% positive
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -357,7 +366,6 @@ export const HeroRoute = () => {
                     whileTap={{ scale: 0.95 }}
                     className="relative px-8 py-3 rounded-xl overflow-hidden bg-[#14F195]/5 group/btn"
                   >
-                    {/* Основной градиент */}
                     <motion.div
                       className="absolute inset-0"
                       animate={{
@@ -374,7 +382,6 @@ export const HeroRoute = () => {
                       }}
                     />
 
-                    {/* Движущиеся блики */}
                     <motion.div
                       className="absolute inset-0 opacity-0 group-hover/btn:opacity-100"
                       animate={{
@@ -396,7 +403,6 @@ export const HeroRoute = () => {
                       }}
                     />
 
-                    {/* Пульсирующее свечение */}
                     <motion.div
                       className="absolute inset-0 opacity-0 group-hover/btn:opacity-100"
                       animate={{
@@ -413,7 +419,6 @@ export const HeroRoute = () => {
                       }}
                     />
 
-                    {/* Текст */}
                     <motion.span
                       className="relative z-10 text-[#14F195] font-mono text-lg tracking-wide font-medium"
                       animate={{
@@ -435,7 +440,6 @@ export const HeroRoute = () => {
                     {/* Рамка */}
                     <div className="absolute inset-0 border border-[#14F195]/20 rounded-xl group-hover/btn:border-[#14F195]/40 transition-colors duration-500" />
 
-                    {/* Внешнее свечение */}
                     <motion.div
                       className="absolute inset-0 rounded-xl"
                       animate={{
@@ -453,11 +457,14 @@ export const HeroRoute = () => {
                     />
                   </motion.button>
                 </div>
-                <img
-                  src={product.image}
-                  alt={`NFT #${product.id}`}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-all duration-700 ease-out"
-                />
+                <div className="relative h-full">
+                  <img
+                    src={product.image}
+                    alt={`NFT #${product.id}`}
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent dark:to-black/90 to-white/20 pointer-events-none" />
+                </div>
               </div>
               <div className="p-4 sm:p-3 space-y-3 sm:space-y-2">
                 <div className="flex justify-between items-center">
