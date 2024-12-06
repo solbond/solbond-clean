@@ -57,13 +57,13 @@ export const HeroRoute = () => {
       <div className="w-full relative z-10 flex flex-col gap-2">
         <div className="w-full flex flex-col gap-2 order-1 sm:order-none">
           <div className="flex flex-col items-center relative justify-center p-4 leading-tight">
-            <h1 className="text-[64px] font-bold bg-gradient-to-r from-emerald-400 via-fuchsia-500 to-violet-600 bg-clip-text text-transparent">
+            <h1 className="text-[64px] font-bold dark:bg-gradient-to-r dark:from-emerald-400 dark:via-fuchsia-500 dark:to-violet-600 dark:bg-clip-text dark:text-transparent text-black">
               SolBond
             </h1>
             <motion.button
               initial={{ width: "36px", scale: 0 }}
               animate={{ width: "160px", scale: 1 }}
-              className="border border-emerald-500/50 bg-inherit overflow-hidden justify-end whitespace-nowrap text-emerald-400 h-[36px] hover:animate-pulse hover:border-2 font-semibold rounded-full px-4 p-2 flex gap-2 items-center transition-all [box-shadow:0_0_15px_rgba(16,185,129,0.3)]"
+              className="border border-emerald-500/50 bg-black dark:bg-inherit text-white  overflow-hidden justify-end whitespace-nowrap  dark:text-emerald-400 h-[36px] hover:animate-pulse hover:border-2 font-semibold rounded-full px-4 p-2 flex gap-2 items-center transition-all dark:[box-shadow:0_0_15px_rgba(16,185,129,0.3)]"
             >
               <motion.span
                 initial={{ opacity: 0 }}
@@ -111,7 +111,7 @@ export const HeroRoute = () => {
                 duration: 1.2,
                 ease: [0.6, 0.01, -0.05, 0.95],
               }}
-              className="absolute bottom-[-40px] scale-x-[1.5] right-[-20px] z-10 bg-gray-500/10 dark:bg-white/10 w-[200px] h-[200px] rounded-2xl"
+              className="absolute bottom-[-40px] scale-x-[1.5] right-[-20px] z-10 bg-black/10 dark:bg-rose-500/10 w-[200px] h-[200px] rounded-2xl"
             >
               <motion.div
                 animate={{
@@ -125,7 +125,7 @@ export const HeroRoute = () => {
                   delay: 0.15,
                   ease: [0.6, 0.01, -0.05, 0.95],
                 }}
-                className="bg-black/10 dark:bg-white/10 w-[180px] absolute bottom-0 right-0 h-[180px] rounded-2xl"
+                className="bg-black/10 dark:bg-rose-500/10 w-[180px] absolute bottom-0 right-0 h-[180px] rounded-2xl"
               />
               <motion.div
                 animate={{
@@ -139,7 +139,7 @@ export const HeroRoute = () => {
                   delay: 0.3,
                   ease: [0.6, 0.01, -0.05, 0.95],
                 }}
-                className="bg-white/30 w-[160px] absolute bottom-0 right-0 h-[160px] rounded-2xl"
+                className="bg-black/10 dark:bg-rose-500/10 w-[160px] absolute bottom-0 right-0 h-[160px] rounded-2xl"
               />
               <motion.div
                 animate={{
@@ -153,7 +153,7 @@ export const HeroRoute = () => {
                   delay: 0.45,
                   ease: [0.6, 0.01, -0.05, 0.95],
                 }}
-                className="bg-white/40 w-[140px] absolute bottom-0 right-0 h-[140px] rounded-2xl"
+                className="bg-black/10 dark:bg-rose-500/10 w-[140px] absolute bottom-0 right-0 h-[140px] rounded-2xl"
               />
               <motion.div
                 animate={{
@@ -167,7 +167,7 @@ export const HeroRoute = () => {
                   delay: 0.45,
                   ease: [0.6, 0.01, -0.05, 0.95],
                 }}
-                className="bg-white/50 w-[120px] absolute bottom-0 right-0 h-[120px] rounded-2xl"
+                className="bg-black/10 dark:bg-rose-500/10 w-[120px] absolute bottom-0 right-0 h-[120px] rounded-2xl"
               />
             </motion.div>
           </div>
@@ -185,7 +185,7 @@ export const HeroRoute = () => {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 0.5, delay: 2 }}
-                    className="text-[42px] leading-none font-bold monospace neon-text"
+                    className="text-[42px] text-cyan-400 leading-none font-bold monospace neon-text"
                   >
                     {activeUsers.toLocaleString()}
                   </motion.p>
@@ -250,7 +250,7 @@ export const HeroRoute = () => {
                   transition: { duration: 0.2 },
                 }}
                 transition={{ type: "spring", stiffness: 100, delay: 2 }}
-                className="flex cursor-pointer gap-1 px-4 py-2 rounded-full bg-blue-50 dark:bg-white border border-blue-200 dark:border-blue-100 text-blue-600 hover:bg-blue-100 dark:hover:bg-blue-50 transition-all duration-300 items-center shadow-sm hover:shadow-md"
+                className="flex cursor-pointer gap-1 px-4 py-2 rounded-full bg-inherit border border-indigo-200 dark:border-indigo-100 text-indigo-600 hover:bg-indigo-100 dark:hover:bg-indigo-50 transition-all duration-300 items-center shadow-sm hover:shadow-md"
               >
                 <FaTwitter /> Twitter
               </motion.p>
@@ -262,7 +262,7 @@ export const HeroRoute = () => {
                   transition: { duration: 0.2 },
                 }}
                 transition={{ type: "spring", stiffness: 100, delay: 2.1 }}
-                className="flex cursor-pointer gap-1 px-4 py-2 rounded-full bg-indigo-50 dark:bg-white border border-indigo-200 dark:border-indigo-100 text-indigo-600 hover:bg-indigo-100 dark:hover:bg-indigo-50 transition-all duration-300 items-center shadow-sm hover:shadow-md"
+                className="flex cursor-pointer gap-1 px-4 py-2 rounded-full bg-inherit border border-indigo-200 dark:border-indigo-100 text-indigo-600 hover:bg-indigo-100 dark:hover:bg-indigo-50 transition-all duration-300 items-center shadow-sm hover:shadow-md"
               >
                 <FaDiscord /> Discord
               </motion.p>
@@ -274,7 +274,7 @@ export const HeroRoute = () => {
                   transition: { duration: 0.2 },
                 }}
                 transition={{ type: "spring", stiffness: 100, delay: 2.2 }}
-                className="flex cursor-pointer gap-1 px-4 py-2 rounded-full bg-emerald-50 dark:bg-white border border-emerald-200 dark:border-emerald-100 text-emerald-600 hover:bg-emerald-100 dark:hover:bg-emerald-50 transition-all duration-300 items-center shadow-sm hover:shadow-md"
+                className="flex cursor-pointer gap-1 px-4 py-2 rounded-full bg-inherit border border-emerald-200 dark:border-emerald-100 text-emerald-600 hover:bg-emerald-100 dark:hover:bg-emerald-50 transition-all duration-300 items-center shadow-sm hover:shadow-md"
               >
                 <SendIcon size={16} /> Email
               </motion.p>
@@ -310,7 +310,7 @@ export const HeroRoute = () => {
                     scale: 1.05,
                     y: -1,
                   }}
-                  className="neon-border bg-white/80 backdrop-blur-sm dark:bg-black/80 text-[10px] px-3 py-1 font-mono rounded-full text-cyan-400 absolute top-2 right-2"
+                  className="neon-border bg-white/80 backdrop-blur-sm hover:bg-white/100 dark:bg-black/80 dark:hover:bg-black/100 text-[10px] px-3 py-1 font-mono rounded-full text-cyan-400 absolute top-2 right-2"
                 >
                   <span className="flex items-center gap-1">
                     Visit Profile <CornerUpRightIcon size={12} />
@@ -366,7 +366,7 @@ export const HeroRoute = () => {
                     scale: 1.05,
                     y: -1,
                   }}
-                  className="neon-border text-[10px] px-3 py-1 font-mono rounded-full text-cyan-400 absolute top-2 right-2"
+                  className="neon-border text-[10px] bg-white/80 backdrop-blur-sm hover:bg-white/100 dark:bg-black/80 dark:hover:bg-black/100 px-3 py-1 font-mono rounded-full text-cyan-400 absolute top-2 right-2"
                 >
                   <span className="flex items-center gap-1">
                     Buy Now <CornerUpRightIcon size={12} />
