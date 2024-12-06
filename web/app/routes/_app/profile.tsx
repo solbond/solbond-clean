@@ -30,7 +30,7 @@ function RouteComponent() {
   })
   return (
     <div className="h-screen pt-[74px]">
-      <div className="p-[30px]">
+      <div className="p-[30px] px-[200px]">
         <motion.div
           animate={{
             background: "linear-gradient(to right, #fb923c, #eab308)",
@@ -46,7 +46,7 @@ function RouteComponent() {
           </div>
         </motion.div>
         <div className="flex relative p-[20px]  pt-[140px] gap-[20px]">
-          <div className="flex w-full   gap-2 ">
+          <div className="flex w-full flex-col   gap-2 ">
             <div className="flex flex-col justify-between  w-full relative gap-4 bg-gradient-to-tr text-rose-500 from-rose-400/20 px-7 to-rose-600/20 rounded-xl p-5">
               <div>
                 <h3 className="text-[18px] font-semibold">About me</h3>
