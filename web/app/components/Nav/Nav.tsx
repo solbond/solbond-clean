@@ -20,7 +20,7 @@ export const Nav = () => {
       {/* Left section */}
       <div className="flex items-center gap-4">
         <motion.h1
-          className="text-2xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-cyan-400 dark:to-blue-400 bg-clip-text text-transparent"
+          className="text-2xl font-bold text-black dark:text-[var(--neon-cyan)]"
           whileHover={{ scale: 1.05 }}
           transition={{ type: "spring", stiffness: 400 }}
         >
@@ -30,7 +30,7 @@ export const Nav = () => {
         <div className="hidden md:flex gap-4 ml-8">
           <motion.button
             whileHover={{ y: -2 }}
-            className="flex items-center gap-2 text-indigo-600 dark:text-cyan-400 opacity-70 hover:opacity-100 transition-opacity"
+            className="flex items-center gap-2 text-indigo-600 dark:text-[var(--neon-cyan)] opacity-70 hover:opacity-100 transition-opacity"
           >
             <HomeIcon size={18} />
             <span className="text-sm">Home</span>
@@ -38,7 +38,7 @@ export const Nav = () => {
 
           <motion.button
             whileHover={{ y: -2 }}
-            className="flex items-center gap-2 text-indigo-600 dark:text-cyan-400 opacity-70 hover:opacity-100 transition-opacity"
+            className="flex items-center gap-2 text-indigo-600 dark:text-[var(--neon-cyan)] opacity-70 hover:opacity-100 transition-opacity"
           >
             <BellIcon size={18} />
             <span className="text-sm">Notifications</span>
@@ -47,22 +47,7 @@ export const Nav = () => {
       </div>
 
       {/* Center section - Search */}
-      <div className="hidden md:flex flex-1 max-w-xl mx-8">
-        <div className="w-full relative group">
-          <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/20 to-purple-500/20 dark:from-cyan-500 dark:to-purple-500 rounded-lg opacity-25 group-hover:opacity-40 transition-opacity" />
-          <div className="relative flex items-center bg-white dark:bg-black/40 rounded-lg border border-indigo-200 dark:border-white/10 px-4 py-2 w-full">
-            <SearchIcon
-              size={20}
-              className="text-indigo-600 dark:text-cyan-400 mr-2"
-            />
-            <input
-              type="text"
-              placeholder="Search products..."
-              className="bg-transparent w-full outline-none text-indigo-600 dark:text-cyan-400 placeholder:text-indigo-400/50 dark:placeholder:text-cyan-400/50"
-            />
-          </div>
-        </div>
-      </div>
+      <div className="hidden md:flex flex-1 max-w-xl mx-8"></div>
 
       {/* Right section */}
       <div className="flex items-center gap-3">
@@ -80,7 +65,10 @@ export const Nav = () => {
           whileHover={{ scale: 1.05 }}
           className="md:hidden p-2 rounded-full border border-indigo-200 dark:border-cyan-400/30 cursor-pointer"
         >
-          <MenuIcon size={20} className="text-indigo-600 dark:text-cyan-400" />
+          <MenuIcon
+            size={20}
+            className="text-indigo-600 dark:text-[var(--neon-yellow)]"
+          />
         </motion.div>
 
         <motion.button
@@ -128,7 +116,7 @@ export const Nav = () => {
               className="relative border border-emerald-500/50 bg-black/5 dark:bg-black/40 backdrop-blur-sm overflow-hidden justify-end whitespace-nowrap dark:text-emerald-400 h-[44px] font-mono font-semibold rounded-full px-4 py-2 flex gap-2 items-center transition-all group"
             >
               <motion.div
-                className="absolute inset-0 bg-gradient-to-r from-emerald-500/10 via-cyan-500/10 to-blue-500/10 dark:from-emerald-500/20 dark:via-cyan-500/20 dark:to-blue-500/20 opacity-0 group-hover:opacity-100 transition-opacity"
+                className="absolute inset-0 bg-inherit opacity-0 group-hover:opacity-100 transition-opacity"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
               />

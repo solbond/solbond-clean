@@ -169,8 +169,8 @@ export const HeroRoute = () => {
         </div>
 
         <div className="flex flex-col gap-4 relative z-20 order-3 sm:order-last">
-          <h2 className="text-[24px] font-semibold text-gray-800 dark:text-gray-200">
-            Popular Categories
+          <h2 className="text-sm font-sans tracking-[0.2em] uppercase font-semibold text-gray-800 dark:text-gray-200">
+            popular categories
           </h2>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
@@ -225,7 +225,7 @@ export const HeroRoute = () => {
             <input
               type="text"
               placeholder="Explore"
-              className="w-full bg-transparent outline-none text-gray-800 dark:text-[var(--neon-cyan)] monospace"
+              className="w-full bg-transparent outline-none text-gray-800 dark:text-white monospace"
             />
           </div>
           <div className="flex flex-wrap justify-center items-center gap-2 mt-4 relative z-20 order-2">
@@ -233,7 +233,7 @@ export const HeroRoute = () => {
               (category) => (
                 <motion.button
                   key={category}
-                  className="relative px-4 py-2 text-sm font-mono group hover:text-gray-600 dark:hover:text-white transition-colors"
+                  className="relative uppercase px-4 py-2 text-sm font-mono group hover:text-gray-600 dark:hover:text-white transition-colors"
                 >
                   {category}
                   <span className="absolute bottom-0 left-0 w-full h-[2px] bg-black dark:bg-[var(--neon-cyan)] origin-left transform scale-x-0 transition-transform duration-300 group-hover:scale-x-100" />
@@ -298,6 +298,9 @@ export const HeroRoute = () => {
           ))}
         </div>
 
+        <h2 className="text-sm font-sans tracking-[0.2em] uppercase font-semibold text-gray-800 dark:text-gray-200">
+          trending now
+        </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {PRODUCTS.map((product, index) => (
             <div
