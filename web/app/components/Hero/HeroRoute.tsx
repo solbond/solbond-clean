@@ -94,42 +94,37 @@ export const HeroRoute = () => {
       <div className="w-full relative z-10 flex flex-col gap-2">
         <div className="w-full flex flex-col gap-2 order-1">
           <div className="flex flex-col items-center relative justify-center p-4 leading-tight">
-            <h1 className="text-[64px] font-bold dark:bg-gradient-to-r dark:from-emerald-400 dark:via-fuchsia-500 dark:to-violet-600 dark:bg-clip-text dark:text-transparent text-black">
-              SolBond
-            </h1>
-            <motion.button
-              initial={{ width: "36px", scale: 0 }}
-              animate={{ width: "160px", scale: 1 }}
-              className="border border-emerald-500/50 bg-black dark:bg-inherit text-white  overflow-hidden justify-end whitespace-nowrap  dark:text-emerald-400 h-[36px] hover:animate-pulse hover:border-2 font-semibold rounded-full px-4 p-2 flex gap-2 items-center transition-all dark:[box-shadow:0_0_15px_rgba(16,185,129,0.3)]"
+            <motion.h1
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+              className="text-[84px] font-mono font-normal bg-clip-text"
             >
-              <motion.span
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.3, delay: 0.5 }}
-                className="mr-auto"
-              >
-                Get Started
-              </motion.span>
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.3, delay: 0.3 }}
-              >
-                <ArrowRightIcon size={20} />
-              </motion.div>
-            </motion.button>
+              SolBond
+            </motion.h1>
           </div>
 
-          <div className=" overflow-hidden px-4 relative shadow-lg flex items-center w-full rounded-xl min-h-[200px]">
+          <div className="overflow-hidden px-4 relative shadow-lg flex items-center w-full rounded-xl min-h-[200px]">
             <motion.p
-              className="text-[23px] w-[70%] relative z-20"
-              animate={{ y: [10, 0], filter: ["blur(10px)", "blur(0px)"] }}
-              transition={{ duration: 0.8, ease: "easeOut", delay: 1 }}
+              className="text-[24px] w-[70%] relative z-20 font-mono"
+              initial={{ opacity: 0, y: 20, filter: "blur(10px)" }}
+              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+              transition={{ duration: 1, ease: "easeOut", delay: 0.5 }}
             >
-              <span className="font-semibold">
-                Your one-stop marketplace to buy and sell digital products.
+              <span className="font-light relative text-[var(--neon-cyan)]">
+                Your one-stop marketplace to{" "}
+                <span className="text-emerald-500 dark:text-emerald-400 font-normal">
+                  buy and sell digital products.
+                </span>
+                <motion.div
+                  className="absolute -bottom-2 left-0 w-full h-[2px] bg-gradient-to-r from-emerald-500 via-cyan-500 to-[var(--neon-cyan)]"
+                  initial={{ scaleX: 0 }}
+                  animate={{ scaleX: 1 }}
+                  transition={{ duration: 1, delay: 1.5 }}
+                />
               </span>
             </motion.p>
+
             <motion.div
               animate={{
                 x: [100, 0],
@@ -141,64 +136,34 @@ export const HeroRoute = () => {
                 duration: 1.2,
                 ease: [0.6, 0.01, -0.05, 0.95],
               }}
-              className="absolute bottom-[-40px] scale-x-[1.5] right-[-20px] z-10 bg-blue-500/10 dark:bg-cyan-500/10 w-[200px] h-[200px] rounded-2xl"
+              className="absolute bottom-[-40px] right-[-20px] z-10"
             >
-              <motion.div
-                animate={{
-                  x: [100, 0],
-                  y: [100, 0],
-                  rotate: [35, 0],
-                  scale: [0.7, 1],
-                }}
-                transition={{
-                  duration: 1.2,
-                  delay: 0.15,
-                  ease: [0.6, 0.01, -0.05, 0.95],
-                }}
-                className="bg-blue-500/10 dark:bg-cyan-500/10 w-[180px] absolute bottom-0 right-0 h-[180px] rounded-2xl"
-              />
-              <motion.div
-                animate={{
-                  x: [100, 0],
-                  y: [100, 0],
-                  rotate: [25, 0],
-                  scale: [0.6, 1],
-                }}
-                transition={{
-                  duration: 1.2,
-                  delay: 0.3,
-                  ease: [0.6, 0.01, -0.05, 0.95],
-                }}
-                className="bg-blue-500/10 dark:bg-cyan-500/10 w-[160px] absolute bottom-0 right-0 h-[160px] rounded-2xl"
-              />
-              <motion.div
-                animate={{
-                  x: [100, 0],
-                  y: [100, 0],
-                  rotate: [15, 0],
-                  scale: [0.5, 1],
-                }}
-                transition={{
-                  duration: 1.2,
-                  delay: 0.45,
-                  ease: [0.6, 0.01, -0.05, 0.95],
-                }}
-                className="bg-blue-500/10 dark:bg-cyan-500/10 w-[140px] absolute bottom-0 right-0 h-[140px] rounded-2xl"
-              />
-              <motion.div
-                animate={{
-                  x: [100, 0],
-                  y: [100, 0],
-                  rotate: [15, 0],
-                  scale: [0.5, 1],
-                }}
-                transition={{
-                  duration: 1.2,
-                  delay: 0.45,
-                  ease: [0.6, 0.01, -0.05, 0.95],
-                }}
-                className="bg-blue-500/10 dark:bg-cyan-500/10 w-[120px] absolute bottom-0 right-0 h-[120px] rounded-2xl"
-              />
+              <div className="relative">
+                {[200, 180, 160, 140, 120].map((size, index) => (
+                  <motion.div
+                    key={size}
+                    animate={{
+                      x: [100, 0],
+                      y: [100, 0],
+                      rotate: [35 - index * 5, 0],
+                      scale: [0.7 + index * 0.1, 1],
+                    }}
+                    transition={{
+                      duration: 1.2,
+                      delay: 0.15 * index,
+                      ease: [0.6, 0.01, -0.05, 0.95],
+                    }}
+                    className={`absolute bottom-0 right-0
+                      bg-gradient-to-br from-emerald-500/5 via-cyan-500/5 to-blue-500/5
+                      dark:from-emerald-500/10 dark:via-cyan-500/10 dark:to-blue-500/10
+                      rounded-2xl backdrop-blur-sm`}
+                    style={{
+                      width: `${size}px`,
+                      height: `${size}px`,
+                    }}
+                  />
+                ))}
+              </div>
             </motion.div>
           </div>
         </div>
@@ -252,15 +217,15 @@ export const HeroRoute = () => {
 
       <div className="p-4 flex flex-col gap-4 shadow-lg rounded-xl relative z-10 w-full order-2 sm:order-none  ">
         <div className="flex py-4 items-center justify-center flex-col gap-2">
-          <h2 className="text-[28px] text-opacity-85  font-semibold monospace neon-text">
+          <h2 className="text-[28px] text-opacity-85 font-normal monospace neon-text">
             Your digital quest starts here
           </h2>
-          <div className="border border-gray-300 dark:border-white/50 hover:border-blue-500 dark:hover:border-cyan-500/50 bg-white/80 dark:bg-black/80 gap-2 rounded-full w-full max-w-[500px] overflow-hidden flex items-center p-2">
-            <SearchIcon className="text-gray-600 dark:text-cyan-400" />
+          <div className="border border-gray-300 bg-white/80 dark:bg-black/80 gap-2 rounded-full w-full max-w-[500px] overflow-hidden flex items-center p-2">
+            <SearchIcon className="text-gray-600 dark:text-neon-green" />
             <input
               type="text"
               placeholder="Explore"
-              className="w-full bg-transparent outline-none text-gray-800 dark:text-cyan-400 monospace"
+              className="w-full bg-transparent outline-none text-gray-800 dark:text-[var(--neon-cyan)] monospace"
             />
           </div>
           <div className="flex flex-wrap justify-center items-center gap-2 mt-4 relative z-20 order-2">
@@ -268,18 +233,10 @@ export const HeroRoute = () => {
               (category) => (
                 <motion.button
                   key={category}
-                  initial={{
-                    textShadow: "0 0 0 rgba(34,211,238,0)",
-                    boxShadow: "0 0 0 rgba(34,211,238,0)",
-                  }}
-                  whileHover={{
-                    scale: 1.05,
-                    textShadow: "0 0 8px rgb(34,211,238)",
-                    boxShadow: "0 0 12px rgb(34,211,238)",
-                  }}
-                  className="cyber-card px-4 py-2 rounded-full text-sm font-mono"
+                  className="relative px-4 py-2 text-sm font-mono group hover:text-gray-600 dark:hover:text-white transition-colors"
                 >
                   {category}
+                  <span className="absolute bottom-0 left-0 w-full h-[2px] bg-black dark:bg-[var(--neon-cyan)] origin-left transform scale-x-0 transition-transform duration-300 group-hover:scale-x-100" />
                 </motion.button>
               ),
             )}
@@ -290,7 +247,7 @@ export const HeroRoute = () => {
           {USERS.map((user, index) => (
             <div
               key={index}
-              className="group overflow-hidden rounded-2xl hover:scale-[1.02] transition-all duration-300 bg-white dark:bg-black/40 border border-gray-100 dark:border-gray-800"
+              className="group overflow-hidden rounded-2xl hover:scale-[1.02] transition-all duration-300 bg-white dark:bg-black/40 border border-gray-100 dark:border-gray-500 hover:border-black dark:hover:border-white"
             >
               <div className="flex gap-4 p-4">
                 <div className="relative">
@@ -301,26 +258,25 @@ export const HeroRoute = () => {
                       className="w-full h-full object-cover"
                     />
                   </div>
-                  <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-emerald-500 rounded-full border-2 border-white dark:border-black" />
                 </div>
 
                 <div className="flex-1">
                   <div className="flex items-start justify-between">
                     <div>
-                      <h2 className="text-[16px] font-bold text-gray-900 dark:text-gray-100">
+                      <h2 className="text-[16px] font-normal text-gray-900 dark:text-gray-100">
                         {user.name}
                       </h2>
-                      <p className="text-[12px] text-gray-600 dark:text-gray-400">
+                      <p className="text-[12px] dark:text-[var(--neon-yellow)] text-gray-400">
                         Digital creator
                       </p>
                     </div>
                     <motion.button
                       whileHover={{ scale: 1.05 }}
                       className="text-[12px] px-3 h-7 font-medium rounded-lg
-                        bg-gray-100 dark:bg-gray-800
-                        text-gray-900 dark:text-gray-100
-                        hover:bg-gray-200 dark:hover:bg-gray-700
-                        transition-colors"
+                       bg-inherit border border-gray-500
+                       hover:border-2 hover:border-black
+                       dark:hover:border-2 dark:hover:border-[var(--neon-cyan)]
+                       transition-all"
                     >
                       Follow
                     </motion.button>
@@ -437,7 +393,6 @@ export const HeroRoute = () => {
                       Buy Now
                     </motion.span>
 
-                    {/* Рамка */}
                     <div className="absolute inset-0 border border-[#14F195]/20 rounded-xl group-hover/btn:border-[#14F195]/40 transition-colors duration-500" />
 
                     <motion.div
@@ -475,7 +430,7 @@ export const HeroRoute = () => {
                     {product.price}
                   </span>
                 </div>
-                <div className="text-[14px] sm:text-[12px] font-mono text-gray-600 dark:text-gray-400">
+                <div className="text-[14px] sm:text-[12px] font-mono text-black/60 dark:text-[var(--neon-yellow)]">
                   Last sale: {product.lastSale}
                 </div>
               </div>

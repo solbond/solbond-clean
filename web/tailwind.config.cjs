@@ -2,4 +2,12 @@
 module.exports = {
   content: ["./app/**/*.{js,ts,jsx,tsx}"],
   darkMode: "media",
+  theme: {
+    extend: {
+      fontFamily: {
+        proto: ["JetBrains Mono", "monospace"],
+        mono: ["Space Mono", "monospace"],
+      },
+    },
+  },
 }
