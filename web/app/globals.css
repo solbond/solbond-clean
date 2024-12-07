@@ -1,0 +1,53 @@
+@keyframes border-glow {
+  0% {
+    border-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+  }
+  33% {
+    border-color: rgba(34, 211, 238, 0.6);
+    box-shadow:
+      0 0 10px rgba(34, 211, 238, 0.4),
+      0 0 20px rgba(34, 211, 238, 0.2);
+  }
+  66% {
+    border-color: rgba(139, 92, 246, 0.6);
+    box-shadow:
+      0 0 10px rgba(139, 92, 246, 0.4),
+      0 0 20px rgba(139, 92, 246, 0.2);
+  }
+  100% {
+    border-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+  }
+}
+
+.cyber-card {
+  position: relative;
+}
+
+.cyber-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0.1),
+    rgba(34, 211, 238, 0.3),
+    rgba(139, 92, 246, 0.3),
+    rgba(255, 255, 255, 0.1)
+  );
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.cyber-card:hover::before {
+  opacity: 1;
+  animation: border-glow 3s linear infinite;
+}

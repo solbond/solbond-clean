@@ -98,9 +98,34 @@ export const HeroRoute = () => {
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease: "easeOut" }}
-              className="text-[84px] font-mono font-normal bg-clip-text"
+              className="text-[84px] font-pressStart font-thin bg-clip-text flex"
             >
-              SolBond
+              {Array.from("SolBond").map((letter, index) => (
+                <span key={index} className="relative">
+                  <motion.span
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{
+                      duration: 0.4,
+                      delay: index * 0.2,
+                      ease: [0.45, 0.05, 0.55, 0.95],
+                    }}
+                  >
+                    {letter}
+                  </motion.span>
+                </span>
+              ))}
+              <motion.span
+                animate={{ opacity: [1, 0, 1] }}
+                transition={{
+                  duration: 0.8,
+                  repeat: Infinity,
+                  repeatDelay: 0.2,
+                }}
+                className="inline-block"
+              >
+                _
+              </motion.span>
             </motion.h1>
           </div>
 
