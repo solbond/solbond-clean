@@ -3,7 +3,7 @@ import {
   sendEmailVerification,
 } from "firebase/auth"
 import { useState } from "react"
-import { $createUser } from "~/actions/actions"
+import { $createUser, $verifyUser } from "~/actions/actions"
 import { auth } from "~/lib/firebase"
 import { ErrorType } from "~/routes/_app/auth"
 import { getError } from "./Errors"
@@ -30,11 +30,19 @@ export default function SignUpCase({
     setError(null)
 
     createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
+      .then(async (userCredential) => {
         const user = userCredential.user
 
+        const res = await $createUser({
+          data: {
+            email: user.email as string,
+            uid: user.uid,
+          },
+        })
+        console.log(res, "res")
+
         sendEmailVerification(user)
-          .then(() => {
+          .then(async () => {
             setCurrentCase("link-sent")
           })
           .catch((error) => {

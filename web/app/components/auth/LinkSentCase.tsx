@@ -1,5 +1,6 @@
 import { User, reload } from "firebase/auth"
 import { useEffect, useState } from "react"
+import { $verifyUser } from "~/actions/actions"
 import { useAuth } from "~/context/FirebaseContext"
 
 export default function LinkSentCase({
@@ -24,6 +25,10 @@ export default function LinkSentCase({
       try {
         await reload(user)
         if (user.emailVerified) {
+          await $verifyUser({
+            data: user.email as string,
+          })
+          console.log(user, "user")
           setCurrentCase("verified")
         }
       } catch (error) {
