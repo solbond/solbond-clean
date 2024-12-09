@@ -203,9 +203,9 @@ export const HeroRoute = () => {
             </motion.button>
           </div>
 
-          <div className="overflow-hidden px-4 relative shadow-lg flex items-center w-full rounded-xl min-h-[200px]">
+          <div className="overflow-hidden px-4 relative shadow-lg flex items-center w-full rounded-xl min-h-[400px] mb-[2em] md:mb-0 md:min-h-[200px]">
             <motion.p
-              className="text-[24px] w-[70%] relative z-20 font-mono"
+              className="text-3xl w-[70%] relative z-20 font-mono"
               initial={{ opacity: 0, y: 20, filter: "blur(10px)" }}
               animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
               transition={{ duration: 1, ease: "easeOut", delay: 0.5 }}
@@ -272,15 +272,14 @@ export const HeroRoute = () => {
             popular categories
           </h2>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+          <div className="flex overflow-x-auto space-x-4 sm:grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
             {CATEGORIES.map((category) => (
               <motion.div
                 key={category.title}
-                whileHover={{ scale: 1.02 }}
+                whileHover={{ scale: 1.05, translateY: -5 }}
                 className="group relative overflow-hidden rounded-xl border border-gray-200 dark:border-gray-800
-                  bg-white dark:bg-black/40 shadow-lg hover:shadow-xl
-                  dark:[box-shadow:0_0_15px_rgba(139,92,246,0.2)]
-                  transition-all duration-300"
+                  bg-white dark:bg-black/40 shadow-lg hover:shadow-2xl transition-all duration-300 min-w-[250px] sm:min-w-0
+                  transform-gpu"
               >
                 <div className="grid grid-cols-2 gap-1 p-2">
                   {category.images.map((img, i) => (
@@ -291,13 +290,13 @@ export const HeroRoute = () => {
                       <img
                         src={img}
                         alt=""
-                        className="h-full w-full object-cover"
+                        className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                       />
                     </div>
                   ))}
                 </div>
 
-                <div className="p-4">
+                <div className="p-4 border-t border-gray-300 dark:border-gray-700">
                   <h3 className="font-semibold text-gray-900 dark:text-gray-100">
                     {category.title}
                   </h3>
@@ -316,7 +315,7 @@ export const HeroRoute = () => {
 
       <div className="flex flex-col gap-4 relative z-10 w-full order-2 sm:order-none">
         <div className="flex items-center justify-center flex-col gap-2">
-          <h2 className="text-[28px] text-emerald-800 dark:text-white text-opacity-85 font-normal monospace neon-text">
+          <h2 className="text-[28px] text-emerald-800 dark:text-white text-opacity-85 font-normal text-center monospace neon-text">
             Your digital quest starts here
           </h2>
           <div className="border border-gray-300 bg-white/80 dark:bg-black/80 gap-2 rounded-full w-full max-w-[500px] overflow-hidden flex items-center p-2">
