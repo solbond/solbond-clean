@@ -66,7 +66,7 @@ function RouteComponent() {
           initial={{ x: 100 }}
           animate={{ x: 0 }}
           transition={{ duration: 1, ease: [0.25, 0.1, 0.25, 1.0] }}
-          className="h-full w-full p-8 flex text-black items-center justify-center"
+          className="h-full w-full p-8 flex  items-center justify-center"
         >
           <motion.div
             key={currentCase}
