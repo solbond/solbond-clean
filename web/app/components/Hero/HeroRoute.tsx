@@ -11,7 +11,7 @@ import { useRouter } from "@tanstack/react-router"
 import { signOut } from "firebase/auth"
 import { useAuth } from "~/context/FirebaseContext"
 import { auth } from "~/lib/firebase"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 
 const USERS = [
   {
@@ -79,6 +79,22 @@ export const HeroRoute = () => {
   const { user } = useAuth()
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isExiting, setIsExiting] = useState(false)
+  const [windowWidth, setWindowWidth] = useState(0)
+
+  useEffect(() => {
+    // Set initial width
+    setWindowWidth(window.innerWidth)
+
+    // Add resize listener
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth)
+    }
+
+    window.addEventListener("resize", handleResize)
+
+    // Cleanup
+    return () => window.removeEventListener("resize", handleResize)
+  }, [])
 
   const nextSlide = () => {
     setCurrentIndex((prev) => (prev + 2 >= CATEGORIES.length ? 0 : prev + 2))
@@ -315,7 +331,7 @@ export const HeroRoute = () => {
 
           <div className="relative">
             <div className="flex md:grid md:grid-cols-3 gap-4 overflow-x-auto md:overflow-hidden snap-x snap-mandatory pb-4 md:pb-0">
-              {(window.innerWidth < 768
+              {(windowWidth < 768
                 ? [...CATEGORIES, ...CATEGORIES.slice(0, 2)]
                 : CATEGORIES.slice(currentIndex, currentIndex + 3)
               ).map((category, index) => (

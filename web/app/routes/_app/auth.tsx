@@ -27,7 +27,6 @@ function RouteComponent() {
   const [isTransitioning, setIsTransitioning] = useState(true)
 
   useEffect(() => {
-    // Запускаем анимацию появления после монтирования
     setIsTransitioning(false)
   }, [])
 
@@ -48,27 +47,6 @@ function RouteComponent() {
             <motion.div className="bg-emerald-400/40 dark:bg-[var(--neon-cyan)]/40 w-[140px] absolute bottom-0 left-0 h-[140px] rounded-2xl"></motion.div>
             <motion.div className="bg-emerald-400/50 dark:bg-[var(--neon-cyan)]/50 w-[120px] absolute bottom-0 left-0 h-[120px] rounded-2xl"></motion.div>
           </motion.div>
-
-          {/* Right */}
-          {/* <motion.div
-            initial={{ scale: 1.2 }}
-            animate={{ scale: [1.2, 1.3, 1.2] }}
-            transition={{
-              duration: 4,
-              ease: "easeInOut",
-              repeat: Infinity,
-              delay: 1,
-            }}
-            className="absolute top-[-40px] right-[-40px] bg-emerald-400/20 dark:bg-[var(--neon-cyan)]/20 w-[300px] h-[300px] rounded-2xl"
-          >
-            <motion.div className="bg-white/30 w-[300px] absolute top-0 right-0 h-[300px] rounded-2xl"></motion.div>
-            <motion.div className="bg-white/10 w-[270px] absolute top-[15px] right-[15px] h-[270px] rounded-2xl"></motion.div>
-            <motion.div className="bg-white/10 w-[240px] absolute top-[30px] right-[30px] h-[240px] rounded-2xl"></motion.div>
-            <motion.div className="bg-white/10 w-[210px] absolute top-[45px] right-[45px] h-[210px] rounded-2xl"></motion.div>
-            <motion.div className="bg-white/20 w-[180px] absolute top-[60px] right-[60px] h-[180px] rounded-2xl"></motion.div>
-            <motion.div className="bg-white/40 w-[150px] absolute top-[75px] right-[75px] h-[150px] rounded-2xl"></motion.div>
-            <motion.div className="bg-white/0 w-[120px] absolute top-[90px] right-[90px] h-[120px] rounded-2xl"></motion.div>
-          </motion.div> */}
         </div>
 
         <div className="w-1/3 bg-white dark:bg-black h-full flex items-center justify-center z-10">
@@ -76,7 +54,7 @@ function RouteComponent() {
             initial={{ x: 100 }}
             animate={{ x: 0 }}
             transition={{ duration: 1, ease: [0.25, 0.1, 0.25, 1.0] }}
-            className="h-full w-full p-8 flex  items-center justify-center"
+            className="h-full w-full p-8 flex items-center justify-center"
           >
             <motion.div
               key={currentCase}

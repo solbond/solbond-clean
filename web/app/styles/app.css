@@ -8,7 +8,13 @@
   --neon-yellow: #ff9900;
   --dark-bg: #000000;
   --dark-card: rgba(0, 0, 0, 0.8);
-  --background: theme(colors.black);
+  --background: theme(colors.white);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: theme(colors.black);
+  }
 }
 
 @layer base {
