@@ -46,42 +46,22 @@ const CATEGORIES = [
   {
     title: "Design",
     products: "564",
-    images: [
-      "https://picsum.photos/100/100?1",
-      "https://picsum.photos/100/100?2",
-      "https://picsum.photos/100/100?3",
-      "https://picsum.photos/100/100?4",
-    ],
+    image: "https://picsum.photos/100/100?1",
   },
   {
     title: "3D Assets",
     products: "152",
-    images: [
-      "https://picsum.photos/100/100?5",
-      "https://picsum.photos/100/100?6",
-      "https://picsum.photos/100/100?7",
-      "https://picsum.photos/100/100?8",
-    ],
+    image: "https://picsum.photos/100/100?5",
   },
   {
     title: "Game Assets",
     products: "445",
-    images: [
-      "https://picsum.photos/100/100?13",
-      "https://picsum.photos/100/100?14",
-      "https://picsum.photos/100/100?15",
-      "https://picsum.photos/100/100?16",
-    ],
+    image: "https://picsum.photos/100/100?6",
   },
   {
     title: "UI Templates",
     products: "328",
-    images: [
-      "https://picsum.photos/100/100?17",
-      "https://picsum.photos/100/100?18",
-      "https://picsum.photos/100/100?19",
-      "https://picsum.photos/100/100?20",
-    ],
+    image: "https://picsum.photos/100/100?7",
   },
 ]
 
@@ -281,19 +261,15 @@ export const HeroRoute = () => {
                   bg-white dark:bg-black/40 shadow-lg hover:shadow-2xl transition-all duration-300 min-w-[250px] sm:min-w-0
                   transform-gpu"
               >
-                <div className="grid grid-cols-2 gap-1 p-2">
-                  {category.images.map((img, i) => (
-                    <div
-                      key={i}
-                      className="aspect-square overflow-hidden rounded-lg"
-                    >
-                      <img
-                        src={img}
-                        alt=""
-                        className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                      />
-                    </div>
-                  ))}
+                <div
+                  key={0}
+                  className="aspect-square overflow-hidden rounded-lg"
+                >
+                  <img
+                    src={category.image}
+                    alt=""
+                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
                 </div>
 
                 <div className="p-4 border-t border-gray-300 dark:border-gray-700">
