@@ -7,6 +7,7 @@ import { $createUser } from "~/actions/actions"
 import { auth } from "~/lib/firebase"
 import { ErrorType } from "~/routes/_app/auth"
 import { getError } from "./Errors"
+import { EyeIcon, EyeOffIcon } from "lucide-react"
 
 export default function SignUpCase({
   setCurrentCase,
@@ -23,6 +24,7 @@ export default function SignUpCase({
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [error, setError] = useState<ErrorType>(null)
+  const [showPassword, setShowPassword] = useState(false)
 
   const handleSignUp = () => {
     setError(null)
@@ -55,7 +57,7 @@ export default function SignUpCase({
     <div className="w-full">
       <div className="mb-4">
         <h1 className="text-[36px] font-bold">Sign Up</h1>
-        <p className="text-sm text-gray-500">
+        <p className="text-sm text-gray-400">
           Create an account to get started
         </p>
       </div>
@@ -64,22 +66,35 @@ export default function SignUpCase({
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         placeholder="Email"
-        className={`w-full p-2 outline-none bg-gray-100  rounded-md border ${
+        className={`w-full p-2 outline-none bg-gray-100 text-black rounded-md border ${
           error?.type === "email" ? "border-red-500" : "border-none"
         }`}
       />
       {error?.type === "email" && (
         <p className="text-red-500 text-sm mt-1">{error.message}</p>
       )}
-      <input
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        placeholder="Password"
-        className={`w-full p-2 outline-none bg-gray-100  rounded-md border mt-2 ${
-          error?.type === "password" ? "border-red-500" : "border-none"
-        }`}
-      />
+      <div className="relative mt-2">
+        <input
+          type={showPassword ? "text" : "password"}
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          placeholder="Password"
+          className={`w-full p-2 outline-none bg-gray-100 text-black rounded-md border ${
+            error?.type === "password" ? "border-red-500" : "border-none"
+          }`}
+        />
+        <button
+          type="button"
+          onClick={() => setShowPassword(!showPassword)}
+          className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700 transition-colors"
+        >
+          {showPassword ? (
+            <EyeOffIcon className="h-5 w-5" />
+          ) : (
+            <EyeIcon className="h-5 w-5" />
+          )}
+        </button>
+      </div>
       {error?.type === "password" && (
         <p className="text-red-500 text-sm mt-1">{error.message}</p>
       )}
@@ -89,14 +104,14 @@ export default function SignUpCase({
 
       <button
         onClick={handleSignUp}
-        className="w-full mt-4 font-bold bg-black text-white p-3 rounded-xl"
+        className="w-full mt-4 font-bold bg-black text-white dark:bg-[var(--neon-cyan)] dark:opacity-50 opacity-100 dark:hover:opacity-100 hover:opacity-50 transition-all duration-300 dark:text-black p-3 rounded-xl"
       >
         Create Account
       </button>
-      <div className="text-[14px] text-black/50 text-end mt-2">
+      <div className="text-[14px] text-opacity-50 text-end mt-2">
         Already have an account?{" "}
         <span
-          className="cursor-pointer text-black font-semibold hover:underline transition-all"
+          className="cursor-pointer font-semibold transition-all duration-300 hover:text-[var(--neon-cyan)] dark:hover:text-white"
           onClick={() => setCurrentCase("login")}
         >
           Log In

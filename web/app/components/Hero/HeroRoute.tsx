@@ -88,7 +88,7 @@ const CATEGORIES = [
 
 export const HeroRoute = () => {
   return (
-    <div className="flex flex-col sm:flex-row p-2 pt-[82px] gap-2 w-full relative min-h-screen bg-white dark:bg-black">
+    <div className="flex flex-col mt-10 sm:flex-row p-2 pt-[82px] gap-2 w-full relative min-h-screen bg-white dark:bg-black">
       <div className="absolute inset-0 neon-grid"></div>
 
       <div className="w-full relative z-10 flex flex-col gap-2">
@@ -98,7 +98,7 @@ export const HeroRoute = () => {
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease: "easeOut" }}
-              className="text-[84px] font-pressStart font-thin bg-clip-text flex"
+              className="text-3xl lg:text-[84px] font-pressStart font-thin bg-clip-text flex"
             >
               {Array.from("SolBond").map((letter, index) => (
                 <span key={index} className="relative">
