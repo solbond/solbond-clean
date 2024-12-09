@@ -3,12 +3,15 @@ import {
   SearchIcon,
   ShoppingBagIcon,
   ThumbsUpIcon,
+  ChevronLeftIcon,
+  ChevronRightIcon,
 } from "lucide-react"
 import { animate, motion } from "framer-motion"
 import { useRouter } from "@tanstack/react-router"
 import { signOut } from "firebase/auth"
 import { useAuth } from "~/context/FirebaseContext"
 import { auth } from "~/lib/firebase"
+import { useState } from "react"
 
 const USERS = [
   {
@@ -44,11 +47,6 @@ const PRODUCTS = [
 
 const CATEGORIES = [
   {
-    title: "Design",
-    products: "564",
-    image: "https://picsum.photos/100/100?1",
-  },
-  {
     title: "3D Assets",
     products: "152",
     image: "https://picsum.photos/100/100?5",
@@ -63,11 +61,31 @@ const CATEGORIES = [
     products: "328",
     image: "https://picsum.photos/100/100?7",
   },
+  {
+    title: "Code",
+    products: "328",
+    image: "https://picsum.photos/100/100?8",
+  },
+
+  {
+    title: "Other",
+    products: "328",
+    image: "https://picsum.photos/100/100?11",
+  },
 ]
 
 export const HeroRoute = () => {
   const router = useRouter()
   const { user } = useAuth()
+  const [currentIndex, setCurrentIndex] = useState(0)
+
+  const nextSlide = () => {
+    setCurrentIndex((prev) => (prev + 2 >= CATEGORIES.length ? 0 : prev + 2))
+  }
+
+  const prevSlide = () => {
+    setCurrentIndex((prev) => (prev - 2 < 0 ? CATEGORIES.length - 2 : prev - 2))
+  }
 
   return (
     <div className="flex flex-col mt-10 p-4 sm:flex-row pt-[82px] gap-6 w-full relative min-h-screen bg-white dark:bg-black">
@@ -248,43 +266,83 @@ export const HeroRoute = () => {
         </div>
 
         <div className="flex flex-col gap-4 relative z-20 order-3 sm:order-last">
-          <h2 className="text-sm font-sans tracking-[0.2em] uppercase font-semibold text-gray-800 dark:text-gray-200">
-            popular categories
-          </h2>
-
-          <div className="flex overflow-x-auto space-x-4 sm:grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-            {CATEGORIES.map((category) => (
-              <motion.div
-                key={category.title}
-                whileHover={{ scale: 1.05, translateY: -5 }}
-                className="group relative overflow-hidden rounded-xl border border-gray-200 dark:border-gray-800
-                  bg-white dark:bg-black/40 shadow-lg hover:shadow-2xl transition-all duration-300 min-w-[250px] sm:min-w-0
-                  transform-gpu"
-              >
-                <div
-                  key={0}
-                  className="aspect-square overflow-hidden rounded-lg"
+          <div className="flex items-center justify-between">
+            <h2 className="text-sm font-sans tracking-[0.2em] uppercase font-semibold text-gray-800 dark:text-gray-200">
+              popular categories
+            </h2>
+            <div className="hidden md:flex items-center gap-2">
+              <span className="text-sm font-mono">
+                {Math.floor(currentIndex / 2) + 1} /{" "}
+                {Math.ceil(CATEGORIES.length / 2)}
+              </span>
+              <div className="flex gap-1">
+                <button
+                  onClick={prevSlide}
+                  className="p-1 rounded-sm hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
                 >
-                  <img
-                    src={category.image}
-                    alt=""
-                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                </div>
+                  <ChevronLeftIcon className="w-5 h-5" />
+                </button>
+                <button
+                  onClick={nextSlide}
+                  className="p-1 rounded-sm hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                >
+                  <ChevronRightIcon className="w-5 h-5" />
+                </button>
+              </div>
+            </div>
+          </div>
 
-                <div className="p-4 border-t border-gray-300 dark:border-gray-700">
-                  <h3 className="font-semibold text-gray-900 dark:text-gray-100">
-                    {category.title}
-                  </h3>
-                  <div className="mt-2 flex items-center gap-4 text-sm text-gray-600 dark:text-gray-400">
-                    <span className="flex items-center gap-1">
-                      <ShoppingBagIcon size={14} />
-                      {category.products} products
-                    </span>
+          <div className="relative">
+            <div className="flex md:grid md:grid-cols-3 gap-4 overflow-x-auto md:overflow-hidden snap-x snap-mandatory pb-4 md:pb-0">
+              {(window.innerWidth < 768
+                ? [...CATEGORIES, ...CATEGORIES.slice(0, 2)]
+                : CATEGORIES.slice(currentIndex, currentIndex + 3)
+              ).map((category, index) => (
+                <motion.div
+                  key={`${category.title}-${index}`}
+                  className="group relative overflow-hidden rounded-xl border border-gray-200 dark:border-gray-800
+                    bg-gradient-to-br from-black/5 via-black/0 to-black/5
+                    dark:from-white/5 dark:via-white/0 dark:to-white/5
+                    backdrop-blur-sm shadow-lg hover:shadow-2xl
+                    transition-all duration-300
+                    min-w-[calc(50%-0.5rem)] md:min-w-0 w-full snap-start"
+                >
+                  <div className="aspect-square overflow-hidden">
+                    <div className="relative h-full w-full">
+                      <div className="absolute inset-0 bg-gradient-to-b from-black/0 via-black/0 to-black/60 z-10" />
+                      <img
+                        src={category.image}
+                        alt=""
+                        className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      />
+                    </div>
                   </div>
-                </div>
-              </motion.div>
-            ))}
+
+                  <div className="absolute bottom-0 left-0 right-0 p-4 z-20">
+                    <h3 className="font-semibold text-lg text-white mb-1">
+                      {category.title}
+                    </h3>
+                    <div className="flex items-center gap-2 text-sm text-gray-200">
+                      <ShoppingBagIcon size={14} />
+                      <span>{category.products} products</span>
+                    </div>
+                  </div>
+
+                  <div
+                    className="absolute inset-0 border border-emerald-500/0 group-hover:border-emerald-500/50
+                    dark:group-hover:border-[var(--neon-cyan)] rounded-xl transition-colors duration-300"
+                  />
+
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <div
+                      className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent
+                      dark:via-white/10 transform -translate-x-full group-hover:translate-x-full transition-transform
+                      duration-1000"
+                    />
+                  </div>
+                </motion.div>
+              ))}
+            </div>
           </div>
         </div>
       </div>

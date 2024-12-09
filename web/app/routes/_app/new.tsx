@@ -151,7 +151,6 @@ function RouteComponent() {
               ),
             })}
 
-            {/* Description Field with Neon Border */}
             {form.Field({
               name: "description",
               children: (field) => (
