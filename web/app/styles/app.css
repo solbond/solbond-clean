@@ -8,6 +8,7 @@
   --neon-yellow: #ff9900;
   --dark-bg: #000000;
   --dark-card: rgba(0, 0, 0, 0.8);
+  --background: theme(colors.black);
 }
 
 @layer base {
@@ -128,6 +129,24 @@
 /* Add Proto Mono class */
 .font-proto {
   font-family: "Proto Mono", monospace;
+}
+
+@keyframes cyber-pulse {
+  0% { opacity: 0.5; }
+  50% { opacity: 1; }
+  100% { opacity: 0.5; }
+}
+
+.animate-pulse {
+  animation: cyber-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.delay-75 {
+  animation-delay: 75ms;
+}
+
+.delay-150 {
+  animation-delay: 150ms;
 }
 
 

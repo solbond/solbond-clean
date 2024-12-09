@@ -78,6 +78,7 @@ export const HeroRoute = () => {
   const router = useRouter()
   const { user } = useAuth()
   const [currentIndex, setCurrentIndex] = useState(0)
+  const [isExiting, setIsExiting] = useState(false)
 
   const nextSlide = () => {
     setCurrentIndex((prev) => (prev + 2 >= CATEGORIES.length ? 0 : prev + 2))
@@ -87,8 +88,23 @@ export const HeroRoute = () => {
     setCurrentIndex((prev) => (prev - 2 < 0 ? CATEGORIES.length - 2 : prev - 2))
   }
 
+  const handleGetStarted = async () => {
+    setIsExiting(true)
+    await new Promise((resolve) => setTimeout(resolve, 800))
+    document.body.style.overflow = "hidden"
+    localStorage.setItem("transitionState", "entering")
+    router.navigate({ to: "/auth" })
+  }
+
   return (
-    <div className="flex flex-col mt-10 p-4 sm:flex-row pt-[82px] gap-6 w-full relative min-h-screen bg-white dark:bg-black">
+    <motion.div
+      animate={{
+        opacity: isExiting ? 0 : 1,
+        scale: isExiting ? 0.95 : 1,
+      }}
+      transition={{ duration: 0.8, ease: "easeInOut" }}
+      className="flex flex-col mt-10 p-4 sm:flex-row pt-[82px] gap-6 w-full relative min-h-screen bg-white dark:bg-black"
+    >
       <div className="absolute inset-0 neon-grid"></div>
 
       <div className="w-full relative z-10 flex flex-col gap-2">
@@ -169,10 +185,15 @@ export const HeroRoute = () => {
               ) : (
                 <motion.div
                   initial={{ width: "36px", scale: 0 }}
-                  animate={{ width: "180px", scale: 1 }}
+                  animate={{
+                    width: "180px",
+                    scale: isExiting ? 0 : 1,
+                    opacity: isExiting ? 0 : 1,
+                  }}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="relative border border-emerald-500/50 bg-inherit dark:bg-black/40 backdrop-blur-sm overflow-hidden justify-end whitespace-nowrap dark:text-emerald-400 h-[44px] font-mono font-semibold rounded-full px-4 py-2 flex gap-2 items-center transition-all group"
+                  onClick={handleGetStarted}
+                  className="relative border border-emerald-500/50 bg-inherit dark:bg-black/40 backdrop-blur-sm overflow-hidden justify-end whitespace-nowrap dark:text-emerald-400 h-[44px] font-mono font-semibold rounded-full px-4 py-2 flex gap-2 items-center transition-all group cursor-pointer"
                 >
                   <motion.div
                     className="absolute inset-0 bg-inherit opacity-0 group-hover:opacity-100 transition-opacity"
@@ -570,6 +591,6 @@ export const HeroRoute = () => {
           ))}
         </div>
       </div>
-    </div>
+    </motion.div>
   )
 }
