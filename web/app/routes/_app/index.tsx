@@ -8,7 +8,7 @@ function RouteComponent() {
     <div className="">
       <Nav />
       <HeroRoute />
-      <Footer />
+      {/* <Footer /> */}
     </div>
   )
 }

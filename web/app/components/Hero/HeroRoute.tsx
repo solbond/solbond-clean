@@ -1,15 +1,14 @@
 import {
   ArrowRightIcon,
-  CornerUpRightIcon,
-  MailIcon,
   SearchIcon,
-  SendIcon,
   ShoppingBagIcon,
-  ShoppingCartIcon,
   ThumbsUpIcon,
-  UserIcon,
 } from "lucide-react"
 import { animate, motion } from "framer-motion"
+import { useRouter } from "@tanstack/react-router"
+import { signOut } from "firebase/auth"
+import { useAuth } from "~/context/FirebaseContext"
+import { auth } from "~/lib/firebase"
 
 const USERS = [
   {
@@ -87,8 +86,11 @@ const CATEGORIES = [
 ]
 
 export const HeroRoute = () => {
+  const router = useRouter()
+  const { user } = useAuth()
+
   return (
-    <div className="flex flex-col mt-10 sm:flex-row p-2 pt-[82px] gap-2 w-full relative min-h-screen bg-white dark:bg-black">
+    <div className="flex flex-col mt-10 p-4 sm:flex-row pt-[82px] gap-6 w-full relative min-h-screen bg-white dark:bg-black">
       <div className="absolute inset-0 neon-grid"></div>
 
       <div className="w-full relative z-10 flex flex-col gap-2">
@@ -127,6 +129,78 @@ export const HeroRoute = () => {
                 _
               </motion.span>
             </motion.h1>
+          </div>
+
+          <div className="flex items-center justify-center gap-3 mt-4">
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              onClick={() =>
+                user ? signOut(auth) : router.navigate({ to: "/auth" })
+              }
+            >
+              {user ? (
+                <motion.div
+                  initial={{ width: "36px", scale: 0 }}
+                  animate={{ width: "140px", scale: 1 }}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="relative border border-emerald-500/50 bg-black/5 dark:bg-black/40 backdrop-blur-sm overflow-hidden justify-end whitespace-nowrap dark:text-emerald-400 h-[44px] font-mono font-semibold rounded-full px-4 py-2 flex gap-2 items-center transition-all group"
+                >
+                  <motion.div
+                    className="absolute inset-0 bg-gradient-to-r from-emerald-500/10 via-cyan-500/10 to-blue-500/10 dark:from-emerald-500/20 dark:via-cyan-500/20 dark:to-blue-500/20 opacity-0 group-hover:opacity-100 transition-opacity"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                  />
+                  <motion.span
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.3, delay: 0.5 }}
+                    className="mr-auto relative z-10"
+                  >
+                    Logout
+                  </motion.span>
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.3, delay: 0.3 }}
+                    className="relative z-10"
+                  >
+                    <ArrowRightIcon className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                  </motion.div>
+                </motion.div>
+              ) : (
+                <motion.div
+                  initial={{ width: "36px", scale: 0 }}
+                  animate={{ width: "180px", scale: 1 }}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="relative border border-emerald-500/50 bg-inherit dark:bg-black/40 backdrop-blur-sm overflow-hidden justify-end whitespace-nowrap dark:text-emerald-400 h-[44px] font-mono font-semibold rounded-full px-4 py-2 flex gap-2 items-center transition-all group"
+                >
+                  <motion.div
+                    className="absolute inset-0 bg-inherit opacity-0 group-hover:opacity-100 transition-opacity"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                  />
+
+                  <motion.span
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.3, delay: 0.5 }}
+                    className="mr-auto relative z-10"
+                  >
+                    Get Started
+                  </motion.span>
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.3, delay: 0.3 }}
+                    className="relative z-10"
+                  >
+                    <ArrowRightIcon className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                  </motion.div>
+                </motion.div>
+              )}
+            </motion.button>
           </div>
 
           <div className="overflow-hidden px-4 relative shadow-lg flex items-center w-full rounded-xl min-h-[200px]">
@@ -241,7 +315,7 @@ export const HeroRoute = () => {
       </div>
 
       <div className="flex flex-col gap-4 relative z-10 w-full order-2 sm:order-none">
-        <div className="flex py-4 items-center justify-center flex-col gap-2">
+        <div className="flex items-center justify-center flex-col gap-2">
           <h2 className="text-[28px] text-emerald-800 dark:text-white text-opacity-85 font-normal monospace neon-text">
             Your digital quest starts here
           </h2>
