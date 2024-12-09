@@ -8,6 +8,7 @@ module.exports = {
         proto: ["JetBrains Mono", "monospace"],
         mono: ["Space Mono", "monospace"],
         pressStart: ['"Press Start 2P"'],
+        ubuntu: ["Ubuntu", "sans-serif"],
       },
     },
   },

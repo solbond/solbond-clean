@@ -16,11 +16,11 @@ import { useState } from "react"
 const USERS = [
   {
     name: "John Doe",
-    image: "https://picsum.photos/100/100?random=1",
+    image: "https://api.multiavatar.com/JohnDoe.svg",
   },
   {
     name: "John Doe",
-    image: "https://picsum.photos/100/100?random=1",
+    image: "https://api.multiavatar.com/JaneSmith.svg",
   },
 ]
 
@@ -29,19 +29,19 @@ const PRODUCTS = [
     id: "3460",
     price: "22.37 SOL",
     lastSale: "20.2 SOL",
-    image: "https://picsum.photos/400/400?random=1",
+    image: `https://robohash.org/3460?set=set3`,
   },
   {
     id: "372",
     price: "22.45 SOL",
     lastSale: "11.38 SOL",
-    image: "https://picsum.photos/400/400?random=2",
+    image: `https://robohash.org/nft-3458.png?set=set4&size=400x400`,
   },
   {
     id: "7697",
     price: "22.4742 ETH",
     lastSale: "20.16 ETH",
-    image: "https://picsum.photos/400/400?random=3",
+    image: `https://robohash.org/nft-372.png?set=set3&size=400x400`,
   },
 ]
 
@@ -49,28 +49,28 @@ const CATEGORIES = [
   {
     title: "3D Assets",
     products: "152",
-    image: "https://picsum.photos/100/100?5",
+    image: `https://robohash.org/nft-3455.png?set=set4&size=400x400`,
   },
   {
     title: "Game Assets",
     products: "445",
-    image: "https://picsum.photos/100/100?6",
+    image: `https://robohash.org/nft-3456.png?set=set4&size=400x400`,
   },
   {
     title: "UI Templates",
     products: "328",
-    image: "https://picsum.photos/100/100?7",
+    image: `https://robohash.org/nft-3457.png?set=set4&size=400x400`,
   },
   {
     title: "Code",
     products: "328",
-    image: "https://picsum.photos/100/100?8",
+    image: `https://robohash.org/nft-3458.png?set=set4&size=400x400`,
   },
 
   {
     title: "Other",
     products: "328",
-    image: "https://picsum.photos/100/100?11",
+    image: `https://robohash.org/nft-3459.png?set=set4&size=400x400`,
   },
 ]
 
@@ -203,7 +203,7 @@ export const HeroRoute = () => {
 
           <div className="overflow-hidden px-4 relative shadow-lg flex items-center w-full rounded-xl min-h-[400px] mb-[2em] md:mb-0 md:min-h-[200px]">
             <motion.p
-              className="text-3xl w-[70%] relative z-20 font-mono"
+              className="text-3xl w-[70%] relative z-20"
               initial={{ opacity: 0, y: 20, filter: "blur(10px)" }}
               animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
               transition={{ duration: 1, ease: "easeOut", delay: 0.5 }}
@@ -352,7 +352,7 @@ export const HeroRoute = () => {
           <h2 className="text-[28px] text-emerald-800 dark:text-white text-opacity-85 font-normal text-center monospace neon-text">
             Your digital quest starts here
           </h2>
-          <div className="border border-gray-300 bg-white/80 dark:bg-black/80 gap-2 rounded-full w-full max-w-[500px] overflow-hidden flex items-center p-2">
+          <div className="border border-gray-300 my-4 bg-white/80 dark:bg-black/80 gap-2 rounded-full w-full max-w-[500px] overflow-hidden flex items-center p-2">
             <SearchIcon className="text-gray-600 dark:text-neon-green" />
             <input
               type="text"
@@ -375,7 +375,7 @@ export const HeroRoute = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {USERS.map((user, index) => (
             <div
               key={index}
