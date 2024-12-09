@@ -46,7 +46,7 @@
   }
 
   .cyber-card:hover {
-    @apply border-blue-500 dark:border-[var(--neon-cyan)];
+    @apply border-emerald-700 dark:border-[var(--neon-cyan)];
     @apply dark:animate-[neonBorderGlow_1s_infinite];
   }
 

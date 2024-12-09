@@ -20,7 +20,7 @@ export const Nav = () => {
       {/* Left section */}
       <div className="flex items-center gap-4">
         <motion.h1
-          className="text-2xl font-bold text-black dark:text-[var(--neon-cyan)]"
+          className="text-2xl font-bold text-emerald-800 dark:text-[var(--neon-cyan)]"
           whileHover={{ scale: 1.05 }}
           transition={{ type: "spring", stiffness: 400 }}
         >
@@ -30,7 +30,7 @@ export const Nav = () => {
         <div className="hidden md:flex gap-4 ml-8">
           <motion.button
             whileHover={{ y: -2 }}
-            className="flex items-center gap-2 text-indigo-600 dark:text-[var(--neon-cyan)] opacity-70 hover:opacity-100 transition-opacity"
+            className="flex items-center gap-2 text-emerald-800 dark:text-[var(--neon-cyan)] opacity-70 hover:opacity-100 transition-opacity"
           >
             <HomeIcon size={18} />
             <span className="text-sm">Home</span>
@@ -38,7 +38,7 @@ export const Nav = () => {
 
           <motion.button
             whileHover={{ y: -2 }}
-            className="flex items-center gap-2 text-indigo-600 dark:text-[var(--neon-cyan)] opacity-70 hover:opacity-100 transition-opacity"
+            className="flex items-center gap-2 text-emerald-800 dark:text-[var(--neon-cyan)] opacity-70 hover:opacity-100 transition-opacity"
           >
             <BellIcon size={18} />
             <span className="text-sm">Notifications</span>
@@ -57,7 +57,7 @@ export const Nav = () => {
         >
           <SearchIcon
             size={20}
-            className="text-indigo-600 dark:text-cyan-400"
+            className="text-emerald-800 dark:text-cyan-400"
           />
         </motion.div>
 
@@ -67,7 +67,7 @@ export const Nav = () => {
         >
           <MenuIcon
             size={20}
-            className="text-indigo-600 dark:text-[var(--neon-yellow)]"
+            className="text-emerald-800 dark:text-[var(--neon-yellow)]"
           />
         </motion.div>
 
@@ -113,13 +113,14 @@ export const Nav = () => {
               animate={{ width: "180px", scale: 1 }}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="relative border border-emerald-500/50 bg-black/5 dark:bg-black/40 backdrop-blur-sm overflow-hidden justify-end whitespace-nowrap dark:text-emerald-400 h-[44px] font-mono font-semibold rounded-full px-4 py-2 flex gap-2 items-center transition-all group"
+              className="relative border border-emerald-500/50 bg-inherit dark:bg-black/40 backdrop-blur-sm overflow-hidden justify-end whitespace-nowrap dark:text-emerald-400 h-[44px] font-mono font-semibold rounded-full px-4 py-2 flex gap-2 items-center transition-all group"
             >
               <motion.div
                 className="absolute inset-0 bg-inherit opacity-0 group-hover:opacity-100 transition-opacity"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
               />
+
               <motion.span
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}

@@ -136,9 +136,9 @@ export const HeroRoute = () => {
               animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
               transition={{ duration: 1, ease: "easeOut", delay: 0.5 }}
             >
-              <span className="font-light relative text-[var(--neon-cyan)]">
+              <span className="font-light relative text-emerald-700 dark:text-[var(--neon-cyan)]">
                 Your one-stop marketplace to{" "}
-                <span className="text-emerald-500 dark:text-emerald-400 font-normal">
+                <span className="text-emerald-700 dark:text-emerald-400 font-normal">
                   buy and sell digital products.
                 </span>
                 <motion.div
@@ -240,9 +240,9 @@ export const HeroRoute = () => {
         </div>
       </div>
 
-      <div className="p-4 flex flex-col gap-4 shadow-lg rounded-xl relative z-10 w-full order-2 sm:order-none  ">
+      <div className="flex flex-col gap-4 relative z-10 w-full order-2 sm:order-none">
         <div className="flex py-4 items-center justify-center flex-col gap-2">
-          <h2 className="text-[28px] text-opacity-85 font-normal monospace neon-text">
+          <h2 className="text-[28px] text-emerald-800 dark:text-white text-opacity-85 font-normal monospace neon-text">
             Your digital quest starts here
           </h2>
           <div className="border border-gray-300 bg-white/80 dark:bg-black/80 gap-2 rounded-full w-full max-w-[500px] overflow-hidden flex items-center p-2">
@@ -272,7 +272,7 @@ export const HeroRoute = () => {
           {USERS.map((user, index) => (
             <div
               key={index}
-              className="group overflow-hidden rounded-2xl hover:scale-[1.02] transition-all duration-300 bg-white dark:bg-black/40 border border-gray-100 dark:border-gray-500 hover:border-black dark:hover:border-white"
+              className="group overflow-hidden rounded-2xl hover:scale-[1.02] transition-all duration-300  cyber-card"
             >
               <div className="flex gap-4 p-4">
                 <div className="relative">
@@ -298,10 +298,7 @@ export const HeroRoute = () => {
                     <motion.button
                       whileHover={{ scale: 1.05 }}
                       className="text-[12px] px-3 h-7 font-medium rounded-lg
-                       bg-inherit border border-gray-500
-                       hover:border-2 hover:border-black
-                       dark:hover:border-2 dark:hover:border-[var(--neon-cyan)]
-                       transition-all"
+                       bg-inherit border hover:border-2 hover:border-emerald-700 dark:hover:border-[var(--neon-cyan)] transition-all"
                     >
                       Follow
                     </motion.button>
