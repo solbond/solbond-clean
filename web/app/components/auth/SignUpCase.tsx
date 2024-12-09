@@ -74,9 +74,12 @@ export default function SignUpCase({
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         placeholder="Email"
-        className={`w-full p-2 outline-none bg-gray-100 text-black rounded-md border ${
-          error?.type === "email" ? "border-red-500" : "border-none"
-        }`}
+        className={`w-full p-2 outline-none bg-gray-100 dark:bg-inherit dark:border dark:border-[var(--neon-cyan)] dark:backdrop-blur-sm text-black dark:text-white rounded-md transition-all duration-300
+          ${
+            error?.type === "email"
+              ? "border-red-500"
+              : "dark:border-[var(--neon-cyan)]/50 dark:focus:border-[var(--neon-cyan)] dark:hover:border-[var(--neon-cyan)]"
+          }`}
       />
       {error?.type === "email" && (
         <p className="text-red-500 text-sm mt-1">{error.message}</p>
@@ -87,14 +90,17 @@ export default function SignUpCase({
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           placeholder="Password"
-          className={`w-full p-2 outline-none bg-gray-100 text-black rounded-md border ${
-            error?.type === "password" ? "border-red-500" : "border-none"
-          }`}
+          className={`w-full p-2 outline-none bg-gray-100 dark:bg-inherit dark:border dark:border-[var(--neon-cyan)] dark:backdrop-blur-sm text-black ${showPassword ? "dark:text-white" : "dark:text-[var(--neon-cyan)]"} rounded-md transition-all duration-300
+            ${
+              error?.type === "password"
+                ? "border-red-500"
+                : "dark:border-[var(--neon-cyan)]/50 dark:focus:border-[var(--neon-cyan)] dark:hover:border-[var(--neon-cyan)]"
+            }`}
         />
         <button
           type="button"
           onClick={() => setShowPassword(!showPassword)}
-          className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700 transition-colors"
+          className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-500 dark:text-[var(--neon-cyan)] hover:text-gray-700 dark:hover:text-[var(--neon-cyan)] transition-colors"
         >
           {showPassword ? (
             <EyeOffIcon className="h-5 w-5" />
