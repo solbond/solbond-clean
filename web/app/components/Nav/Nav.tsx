@@ -1,7 +1,7 @@
 import { useRouter } from "@tanstack/react-router"
 import { signOut } from "firebase/auth"
 import { motion } from "framer-motion"
-import { SearchIcon, MenuIcon, BellIcon, HomeIcon } from "lucide-react"
+import { UserIcon, BellIcon, PlusIcon } from "lucide-react"
 import { useAuth } from "~/context/FirebaseContext"
 import { auth } from "~/lib/firebase"
 import { ArrowRightIcon } from "lucide-react"
@@ -12,6 +12,8 @@ export const Nav = () => {
   const router = useRouter()
   const { user } = useAuth()
   const [isScrolled, setIsScrolled] = useState(false)
+
+  const isHomeRoute = router.state.location.pathname === "/"
 
   useEffect(() => {
     const handleScroll = () => {
@@ -35,7 +37,7 @@ export const Nav = () => {
             whileHover={{ scale: 1.05 }}
             transition={{ type: "spring", stiffness: 400 }}
           >
-            <Link to="/">Back</Link>
+            <Link to="/">{isHomeRoute ? "Solbond" : "Back"}</Link>
           </motion.h1>
         </div>
 
@@ -44,8 +46,19 @@ export const Nav = () => {
             whileHover={{ y: -2 }}
             className="flex items-center gap-2 text-emerald-800 dark:text-[var(--neon-cyan)] opacity-70 hover:opacity-100 transition-opacity"
           >
-            <HomeIcon size={18} />
-            <span className="text-sm">Home</span>
+            <Link className="flex items-center gap-2" to="/new">
+              <PlusIcon size={18} />
+              <span className="text-sm">Create Product</span>
+            </Link>
+          </motion.button>
+          <motion.button
+            whileHover={{ y: -2 }}
+            className="flex items-center gap-2 text-emerald-800 dark:text-[var(--neon-cyan)] opacity-70 hover:opacity-100 transition-opacity"
+          >
+            <Link className="flex items-center gap-2" to="/profile">
+              <UserIcon size={18} />
+              <span className="text-sm">Profile</span>
+            </Link>
           </motion.button>
 
           <motion.button
