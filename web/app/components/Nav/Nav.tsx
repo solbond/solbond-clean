@@ -6,6 +6,7 @@ import { useAuth } from "~/context/FirebaseContext"
 import { auth } from "~/lib/firebase"
 import { ArrowRightIcon } from "lucide-react"
 import { useEffect, useState } from "react"
+import { Link } from "@tanstack/react-router"
 
 export const Nav = () => {
   const router = useRouter()
@@ -34,7 +35,7 @@ export const Nav = () => {
             whileHover={{ scale: 1.05 }}
             transition={{ type: "spring", stiffness: 400 }}
           >
-            SVG
+            <Link to="/">Back</Link>
           </motion.h1>
         </div>
 

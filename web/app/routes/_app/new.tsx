@@ -14,11 +14,12 @@ import {
 } from "~/components/ui/dropdown-menu"
 import { $createProduct } from "~/actions/actions"
 import { useAuth } from "~/context/FirebaseContext"
+import { cn } from "~/lib/utils"
 
 export interface ProductForm {
   name: string
   description: string
-  image: string | null
+  image?: string
   price: number
   categories: string[]
 }
@@ -40,6 +41,16 @@ function RouteComponent() {
   const [description, setDescription] = useState("")
   const { user } = useAuth()
 
+  const isFormValid = (values: ProductForm) => {
+    console.log(values)
+    return (
+      values.name.trim() !== "" &&
+      description.trim() !== "" &&
+      values.price > 0 &&
+      values.categories.length > 0
+    )
+  }
+
   const form = useForm<ProductForm>({
     defaultValues: {
       name: "",
@@ -49,6 +60,9 @@ function RouteComponent() {
       categories: [],
     },
     onSubmit: async (values) => {
+      if (!isFormValid(values.value)) {
+        return
+      }
       try {
         const res = await $createProduct({
           data: {
@@ -118,8 +132,10 @@ function RouteComponent() {
                           className="w-full h-12 bg-transparent hover:bg-gray-100/10 border-gray-800/20 dark:border-gray-800/20 dark:border-gray-200 hover:border-gray-700/30 transition-colors"
                         >
                           <span className="flex items-center gap-2">
-                            <span className="opacity-70">Categories:</span>
-                            <span className="opacity-80">
+                            <span className="text-black dark:text-[var(--neon-cyan)] opacity-70">
+                              Categories:
+                            </span>
+                            <span className="text-black dark:text-[var(--neon-cyan)]">
                               {field.state.value?.length
                                 ? field.state.value
                                     .map(
@@ -205,7 +221,6 @@ function RouteComponent() {
               ),
             })}
 
-            {/* Image Upload with Neon Effect */}
             {form.Field({
               name: "image",
               children: (field) => (
@@ -230,21 +245,24 @@ function RouteComponent() {
             })}
           </div>
 
-          <motion.div
-            className="mt-auto pt-6 border-t border-gray-200 dark:border-gray-800"
-            whileHover={{ scale: 1.01 }}
+          <Button
+            type="submit"
+            disabled={!isFormValid(form.state.values)}
+            className={cn(
+              "w-full bg-gradient-to-r from-emerald-500 to-cyan-500 dark:from-emerald-600 dark:to-cyan-600 text-white transition-all duration-200",
+              {
+                "opacity-50 cursor-not-allowed": !isFormValid(
+                  form.state.values,
+                ),
+                "hover:opacity-90": isFormValid(form.state.values),
+              },
+            )}
           >
-            <Button
-              type="submit"
-              className="w-full bg-gradient-to-r from-emerald-500 to-cyan-500 dark:from-emerald-600 dark:to-cyan-600 text-white hover:opacity-90"
-            >
-              Create Product
-            </Button>
-          </motion.div>
+            Create Product
+          </Button>
         </motion.form>
 
-        {/* Right Sidebar */}
-        <motion.div
+        {/* <motion.div
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
@@ -252,12 +270,6 @@ function RouteComponent() {
         >
           <div className="cyber-card rounded-2xl overflow-hidden">
             <div className="h-[100px] bg-gradient-to-br from-emerald-500 to-cyan-500 dark:from-emerald-600 dark:to-cyan-600 relative">
-              {/* what is this */}
-              {/* <div className="absolute top-2 left-2 flex gap-2">
-                <div className="flex items-center gap-1 bg-white/90 dark:bg-black/90 text-emerald-600 dark:text-emerald-400 text-sm rounded-full px-3 py-1">
-                  <ThumbsUpIcon size={14} /> 94.05%
-                </div>
-              </div> */}
               <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 w-20 h-20 rounded-full p-1 bg-white dark:bg-gray-900">
                 <img
                   src="https://via.placeholder.com/150"
@@ -275,7 +287,7 @@ function RouteComponent() {
               </p>
             </div>
           </div>
-        </motion.div>
+        </motion.div> */}
       </div>
     </div>
   )
