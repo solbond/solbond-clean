@@ -17,7 +17,7 @@ function LayoutComponent() {
   return (
     <Suspense
       fallback={
-        <div className="h-screen w-full flex items-center font-bold text-2xl justify-center">
+        <div className="h-screen w-full flex items-center font-bold text-2xl text-[var(--neon-cyan)] justify-center">
           Loading...
         </div>
       }
