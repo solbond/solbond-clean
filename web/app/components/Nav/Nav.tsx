@@ -60,14 +60,6 @@ export const Nav = () => {
               <span className="text-sm">Profile</span>
             </Link>
           </motion.button>
-
-          <motion.button
-            whileHover={{ y: -2 }}
-            className="flex items-center gap-2 text-emerald-800 dark:text-[var(--neon-cyan)] opacity-70 hover:opacity-100 transition-opacity"
-          >
-            <BellIcon size={18} />
-            <span className="text-sm">Notifications</span>
-          </motion.button>
         </div>
       </motion.div>
 

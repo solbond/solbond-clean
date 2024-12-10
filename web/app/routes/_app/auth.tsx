@@ -33,9 +33,8 @@ function RouteComponent() {
   return (
     <>
       <CyberTransition isPresent={isTransitioning} />
-      <div className="h-screen w-full overflow-hidden relative flex">
-        <div className="w-2/3 relative bg-gradient-to-br from-emerald-500/80 to-cyan-500/80 dark:from-emerald-500/20 dark:to-cyan-500/20">
-          {/* Left */}
+      <div className="h-screen w-full overflow-hidden relative flex flex-col sm:flex-row">
+        <div className="w-full sm:w-2/3 h-1/3 sm:h-full relative bg-gradient-to-br from-emerald-500/80 to-cyan-500/80 dark:from-emerald-500/20 dark:to-cyan-500/20">
           <motion.div
             initial={{ scale: 1.5 }}
             animate={{ scale: [1.5, 1.7, 1.5] }}
@@ -49,12 +48,13 @@ function RouteComponent() {
           </motion.div>
         </div>
 
-        <div className="w-1/3 bg-white dark:bg-black h-full flex items-center justify-center z-10">
+        {/* Right side - auth form */}
+        <div className="w-full sm:w-1/3 bg-white dark:bg-black h-2/3 sm:h-full flex items-center justify-center z-10">
           <motion.div
             initial={{ x: 100 }}
             animate={{ x: 0 }}
             transition={{ duration: 1, ease: [0.25, 0.1, 0.25, 1.0] }}
-            className="h-full w-full p-8 flex items-center justify-center"
+            className="h-full w-full p-4 sm:p-8 flex items-center justify-center"
           >
             <motion.div
               key={currentCase}
@@ -66,7 +66,7 @@ function RouteComponent() {
                 ease: "easeInOut",
                 delay: 0.4,
               }}
-              className="w-full"
+              className="w-full max-w-sm mx-auto"
             >
               {currentCase === "signup" && (
                 <SignUpCase setCurrentCase={setCurrentCase} />

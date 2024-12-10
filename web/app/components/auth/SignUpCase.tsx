@@ -61,6 +61,8 @@ export default function SignUpCase({
       })
   }
 
+  const isFormFilled = email.trim() !== "" && password.trim() !== ""
+
   return (
     <div className="w-full">
       <div className="mb-4">
@@ -118,7 +120,14 @@ export default function SignUpCase({
 
       <button
         onClick={handleSignUp}
-        className="w-full mt-4 font-bold bg-black text-white dark:bg-[var(--neon-cyan)] dark:opacity-50 opacity-100 dark:hover:opacity-100 hover:opacity-50 transition-all duration-300 dark:text-black p-3 rounded-xl"
+        disabled={!isFormFilled}
+        className={`w-full mt-4 font-bold p-3 rounded-xl transition-all duration-300
+          ${
+            isFormFilled
+              ? "text-white bg-[var(--neon-cyan)] dark:text-black"
+              : "bg-[var(--neon-cyan)] opacity-50 text-white cursor-not-allowed dark:text-black"
+          }
+        `}
       >
         Create Account
       </button>
