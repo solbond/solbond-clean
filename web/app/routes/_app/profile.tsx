@@ -35,6 +35,14 @@ function RouteComponent() {
     ],
   })
 
+  const [openFilter, setOpenFilter] = useState<string | null>(null)
+
+  const filterOptions = {
+    "Price Range": ["$0-50", "$51-100", "$101-200", "$200+"],
+    Category: ["Digital Art", "Courses", "Templates", "Other"],
+    Rating: ["5 stars", "4+ stars", "3+ stars", "All ratings"],
+  }
+
   return (
     <div className="min-h-screen pt-10 ">
       {/* Main Content */}
@@ -82,13 +90,38 @@ function RouteComponent() {
           <div className="cyber-card bg-white dark:bg-black/40 backdrop-blur-sm rounded-xl p-4 space-y-4 border border-gray-200 dark:border-gray-800">
             <h3 className="font-semibold">Filters</h3>
             <div className="space-y-2">
-              {["Price Range", "Category", "Rating"].map((filter) => (
-                <div
-                  key={filter}
-                  className="flex items-center justify-between p-2 hover:bg-black/5 dark:hover:bg-white/5 rounded cursor-pointer"
-                >
-                  <span className="opacity-60">{filter}</span>
-                  <ChevronRightIcon className="opacity-60" size={16} />
+              {Object.keys(filterOptions).map((filter) => (
+                <div key={filter} className="space-y-1">
+                  <div
+                    onClick={() =>
+                      setOpenFilter(openFilter === filter ? null : filter)
+                    }
+                    className="flex items-center justify-between p-2 hover:bg-black/5 dark:hover:bg-white/5 rounded cursor-pointer"
+                  >
+                    <span className="opacity-60">{filter}</span>
+                    <ChevronRightIcon
+                      className={`opacity-60 transition-transform ${openFilter === filter ? "rotate-90" : ""}`}
+                      size={16}
+                    />
+                  </div>
+
+                  {openFilter === filter && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      className="ml-4 space-y-1"
+                    >
+                      {filterOptions[filter].map((option) => (
+                        <div
+                          key={option}
+                          className="p-2 text-sm opacity-60 hover:opacity-100 cursor-pointer hover:bg-black/5 dark:hover:bg-white/5 rounded"
+                        >
+                          {option}
+                        </div>
+                      ))}
+                    </motion.div>
+                  )}
                 </div>
               ))}
             </div>
@@ -126,7 +159,7 @@ function RouteComponent() {
                     alt={product.name}
                     className="w-full h-full object-cover"
                   />
-                  <div className="absolute top-3 right-3 px-3 py-1 rounded-md bg-black/60 backdrop-blur-sm dark:text-[var(--neon-cyan)] font-semibold">
+                  <div className="absolute top-3 right-3 px-3 py-1 rounded-md bg-gray-300/10 backdrop-blur-sm text-[var(--neon-cyan)] font-semibold">
                     ${product.price}
                   </div>
                 </div>
