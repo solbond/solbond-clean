@@ -20,12 +20,16 @@ export interface ProductForm {
   description: string
   image: string | null
   price: number
-  category: string
+  categories: string[]
 }
 
 const CATEGORIES = [
-  { title: "Electronics", value: "electronics" },
-  { title: "Clothing", value: "clothing" },
+  { title: "Code", value: "code" },
+  { title: "Course", value: "course" },
+  { title: "Game Assets", value: "game-assets" },
+  { title: "Tutorial", value: "tutorial" },
+  { title: "NFT", value: "nft" },
+  { title: "3D", value: "3d" },
 ]
 
 export const Route = createFileRoute("/_app/new")({
@@ -42,7 +46,7 @@ function RouteComponent() {
       description: "",
       image: null,
       price: 0,
-      category: "",
+      categories: [],
     },
     onSubmit: async (values) => {
       try {
@@ -53,7 +57,7 @@ function RouteComponent() {
               description: description,
               image: values.value.image,
               price: values.value.price,
-              category: values.value.category,
+              categories: values.value.categories,
             },
             sellerId: user?.uid as string,
           },
@@ -68,19 +72,18 @@ function RouteComponent() {
   return (
     <div className="pt-[74px] min-h-screen bg-white dark:bg-black relative">
       <div className="absolute inset-0 neon-grid"></div>
-
       <div className="max-w-[1200px] relative z-10 mx-auto p-4 flex gap-4">
         <motion.form
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="flex gap-4 flex-col h-full cyber-card w-full p-6"
+          className="flex gap-4 flex-col h-full cyber-card rounded-2xl w-full p-6"
           onSubmit={(e) => {
             e.preventDefault()
             form.handleSubmit()
           }}
         >
-          <div className="border-b border-gray-200/20 pb-6">
+          <div>
             {form.Field({
               name: "name",
               children: (field) => (
@@ -103,53 +106,87 @@ function RouteComponent() {
           </div>
 
           <div className="flex flex-col gap-6">
-            {form.Field({
-              name: "category",
-              children: (field) => (
-                <div>
-                  <label className="text-sm font-medium">Category</label>
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <Button
-                        variant="outline"
-                        className="w-full bg-inherit border text-gray-500 dark:text-white text-left border-gray-200/20"
-                      >
-                        {field.state.value || "Select category"}
-                      </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent className="w-full">
-                      {CATEGORIES.map((category) => (
-                        <DropdownMenuItem
-                          key={category.value}
-                          onClick={() => field.handleChange(category.value)}
+            <div className="flex items-center gap-4">
+              {form.Field({
+                name: "categories",
+                children: (field) => (
+                  <div className="flex-1">
+                    <DropdownMenu>
+                      <DropdownMenuTrigger asChild>
+                        <Button
+                          variant="outline"
+                          className="w-full h-12 bg-transparent hover:bg-gray-100/10 border-gray-800/20 dark:border-gray-800/20 dark:border-gray-200 hover:border-gray-700/30 transition-colors"
                         >
-                          {category.title}
-                        </DropdownMenuItem>
-                      ))}
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                </div>
-              ),
-            })}
+                          <span className="flex items-center gap-2">
+                            <span className="opacity-70">Categories:</span>
+                            <span className="opacity-80">
+                              {field.state.value?.length
+                                ? field.state.value
+                                    .map(
+                                      (cat) =>
+                                        CATEGORIES.find((c) => c.value === cat)
+                                          ?.title,
+                                    )
+                                    .join(", ")
+                                : "Select categories (max 3)"}
+                            </span>
+                          </span>
+                        </Button>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent className="min-w-[200px] bg-white dark:bg-black">
+                        {CATEGORIES.map((category) => (
+                          <DropdownMenuItem
+                            key={category.value}
+                            onClick={() => {
+                              const currentCategories = field.state.value || []
+                              if (currentCategories.includes(category.value)) {
+                                field.handleChange(
+                                  currentCategories.filter(
+                                    (cat) => cat !== category.value,
+                                  ),
+                                )
+                              } else if (currentCategories.length < 3) {
+                                field.handleChange([
+                                  ...currentCategories,
+                                  category.value,
+                                ])
+                              }
+                            }}
+                            className={`hover:bg-gray-100 dark:hover:bg-white/10 ${
+                              field.state.value?.includes(category.value)
+                                ? "bg-gray-100 dark:bg-white/20"
+                                : ""
+                            }`}
+                          >
+                            {category.title}
+                          </DropdownMenuItem>
+                        ))}
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                  </div>
+                ),
+              })}
 
-            {/* Price Field with Neon Styling */}
-            {form.Field({
-              name: "price",
-              children: (field) => (
-                <motion.div whileHover={{ scale: 1.01 }} className="relative">
-                  <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                    Price (USD)
-                  </label>
-                  <Input
-                    type="number"
-                    placeholder="0.00"
-                    className="bg-transparent border border-gray-200 dark:border-gray-800"
-                    value={field.state.value}
-                    onChange={(e) => field.handleChange(Number(e.target.value))}
-                  />
-                </motion.div>
-              ),
-            })}
+              {form.Field({
+                name: "price",
+                children: (field) => (
+                  <div className="w-[200px]">
+                    <Input
+                      type="text"
+                      placeholder="Price (USD)"
+                      className="h-12 bg-transparent dark:border-gray-200 hover:bg-gray-100/10 border-gray-800/20 hover:border-gray-700/30 transition-colors"
+                      value={field.state.value || ""}
+                      onChange={(e) => {
+                        const value = e.target.value
+                        if (/^\d*\.?\d*$/.test(value)) {
+                          field.handleChange(value)
+                        }
+                      }}
+                    />
+                  </div>
+                ),
+              })}
+            </div>
 
             {form.Field({
               name: "description",
@@ -213,13 +250,14 @@ function RouteComponent() {
           transition={{ duration: 0.5, delay: 0.2 }}
           className="flex gap-4 flex-col w-[40%]"
         >
-          <div className="cyber-card overflow-hidden">
+          <div className="cyber-card rounded-2xl overflow-hidden">
             <div className="h-[100px] bg-gradient-to-br from-emerald-500 to-cyan-500 dark:from-emerald-600 dark:to-cyan-600 relative">
-              <div className="absolute top-2 left-2 flex gap-2">
+              {/* what is this */}
+              {/* <div className="absolute top-2 left-2 flex gap-2">
                 <div className="flex items-center gap-1 bg-white/90 dark:bg-black/90 text-emerald-600 dark:text-emerald-400 text-sm rounded-full px-3 py-1">
                   <ThumbsUpIcon size={14} /> 94.05%
                 </div>
-              </div>
+              </div> */}
               <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 w-20 h-20 rounded-full p-1 bg-white dark:bg-gray-900">
                 <img
                   src="https://via.placeholder.com/150"

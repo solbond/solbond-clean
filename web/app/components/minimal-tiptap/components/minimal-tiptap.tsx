@@ -113,7 +113,7 @@ const MinimalTiptapEditor = forwardRef<HTMLDivElement, MinimalTiptapProps>(
     return (
       <div
         className={cn(
-          "border-input flex h-auto min-h-72 w-full flex-col rounded-md border shadow-sm focus-within:border-zinc-400",
+          "border-input flex h-auto min-h-72 w-full flex-col rounded-md border shadow-sm dark:border-gray-800 focus-within:border-zinc-400",
           className,
         )}
         {...props}
