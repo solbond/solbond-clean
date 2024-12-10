@@ -163,16 +163,35 @@ function RouteComponent() {
                   onClick={() => setCategory(type.id)}
                   className={cn(
                     "p-4 rounded-lg border-2 cursor-pointer transition-all",
-                    "hover:shadow-lg hover:border-cyan-500/50",
+                    "hover:shadow-lg hover:border-[var(--neon-cyan)]",
                     category === type.id
-                      ? "border-cyan-500 bg-cyan-50/50 dark:bg-cyan-900/20"
+                      ? "border-[var(--neon-cyan)] bg-[#14F195]/10"
                       : "border-gray-300 dark:border-gray-700",
                   )}
                 >
-                  <h3 className="font-semibold text-gray-900 dark:text-white mb-1">
+                  <motion.h3
+                    className="font-semibold mb-1"
+                    animate={
+                      category === type.id
+                        ? {
+                            color: "#14F198",
+                            textShadow: "0 0 10px rgba(20, 241, 149, 0.5)",
+                          }
+                        : {}
+                    }
+                    transition={{
+                      duration: 0.3,
+                      ease: "easeOut",
+                    }}
+                  >
                     {type.title}
-                  </h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                  </motion.h3>
+                  <p
+                    className={cn(
+                      "text-sm text-black dark:text-white",
+                      category === type.id ? "opacity-100" : "opacity-60",
+                    )}
+                  >
                     {type.description}
                   </p>
                 </motion.div>
