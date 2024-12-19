@@ -231,20 +231,20 @@ function RouteComponent() {
             </div>
 
             <div className="flex flex-col gap-8">
-              <div className="flex items-center gap-4 flex-wrap md:flex-nowrap border-b border-gray-300 dark:border-gray-700 pb-4 mb-4">
+              <div className="flex items-center gap-4 flex-wrap md:flex-nowrap">
                 {form.Field({
                   name: "price",
                   children: (field) => (
                     <div className="w-[200px]">
                       <Input
                         type="text"
-                        placeholder="Price (USD)"
+                        placeholder="$ USD"
                         className="h-12 bg-white/50 dark:bg-black/50 backdrop-blur-sm border-gray-300 dark:border-gray-700 hover:border-cyan-500/50 dark:hover:border-cyan-500/50 transition-all duration-300"
-                        value={field.state.value || ""}
+                        value={field.state.value ? `$${field.state.value}` : ""}
                         onChange={(e) => {
-                          const value = e.target.value
+                          const value = e.target.value.replace(/^\$/, "")
                           if (/^\d*\.?\d*$/.test(value)) {
-                            field.handleChange(value)
+                            field.handleChange(Number(value))
                           }
                         }}
                       />
@@ -259,15 +259,14 @@ function RouteComponent() {
                   <motion.div
                     whileHover={{ scale: 1.005 }}
                     transition={{ duration: 0.2 }}
-                    className="relative border-b border-gray-300 dark:border-gray-700 pb-4 mb-4"
                   >
                     <label className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 block">
                       Description
                     </label>
-                    <div className="relative rounded-xl overflow-hidden">
+                    <div className="relative rounded-xl overflow-visible">
                       <MinimalTiptapEditor
                         onValueChange={(value) => setDescription(value)}
-                        className="min-h-[200px] bg-white/50 dark:bg-black/50 backdrop-blur-sm border border-gray-300 dark:border-gray-700 text-black dark:text-white"
+                        className="min-h-[200px] bg-white/50 dark:bg-black/50 backdrop-blur-sm text-black dark:text-white"
                       />
                     </div>
                   </motion.div>
@@ -293,11 +292,8 @@ function RouteComponent() {
                         <label className="flex flex-col items-center justify-center w-full h-64 cursor-pointer">
                           <div className="flex flex-col items-center justify-center pt-5 pb-6">
                             <UploadIcon className="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" />
-                            <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                              <span className="font-semibold">
-                                Click to upload
-                              </span>{" "}
-                              or drag and drop
+                            <p className="mb-2 text-sm text-gray-500 dark:text-gray-400 w-[50%] text-center">
+                              Click to upload or drag and drop
                             </p>
                           </div>
                           <input type="file" className="hidden" />
