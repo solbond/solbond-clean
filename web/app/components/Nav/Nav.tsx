@@ -29,7 +29,7 @@ export const Nav = () => {
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.7, ease: "easeOut" }}
-        className="flex z-[100] justify-between border-b-[1px] bg-white/50 bg-blur-sm dark:bg-black/50 shadow-sm dark:shadow-[0_1px_12px_-2px_var(--neon-cyan)] h-[37px] fixed top-0 left-0 right-0 items-center px-6"
+        className="flex z-[100] justify-between border-b-[1px] bg-blur-sm shadow-sm dark:shadow-[0_1px_12px_-2px_var(--neon-cyan)] h-[37px] fixed top-0 left-0 right-0 items-center px-6"
       >
         <div className="flex items-center gap-4">
           <motion.h1

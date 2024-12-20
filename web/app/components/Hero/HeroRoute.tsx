@@ -119,7 +119,7 @@ export const HeroRoute = () => {
         scale: isExiting ? 0.95 : 1,
       }}
       transition={{ duration: 0.8, ease: "easeInOut" }}
-      className="flex flex-col mt-10 p-4 sm:flex-row pt-[82px] gap-6 w-full relative min-h-screen bg-white dark:bg-black"
+      className="flex flex-col mt-10 p-4 sm:flex-row pt-[82px] gap-6 w-full relative min-h-screen "
     >
       <div className="absolute inset-0 neon-grid"></div>
 
@@ -389,7 +389,7 @@ export const HeroRoute = () => {
           <h2 className="text-[28px] text-emerald-800 dark:text-white text-opacity-85 font-normal text-center monospace neon-text">
             Your digital quest starts here
           </h2>
-          <div className="border border-gray-300 my-4 bg-white/80 dark:bg-black/80 gap-2 rounded-full w-full max-w-[500px] overflow-hidden flex items-center p-2">
+          <div className="border border-gray-300 my-4  gap-2 rounded-full w-full max-w-[500px] overflow-hidden flex items-center p-2">
             <SearchIcon className="text-gray-600 dark:text-neon-green" />
             <input
               type="text"
@@ -416,7 +416,7 @@ export const HeroRoute = () => {
           {USERS.map((user, index) => (
             <div
               key={index}
-              className="group overflow-hidden rounded-2xl hover:scale-[1.02] transition-all duration-300  cyber-card"
+              className="group overflow-hidden rounded-2xl hover:scale-[1.02] transition-all duration-300 cyber-card"
             >
               <div className="flex gap-4 p-4">
                 <div className="relative">
