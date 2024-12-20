@@ -9,12 +9,6 @@ import { motion } from "framer-motion"
 import { $createProduct } from "~/actions/actions"
 import { useAuth } from "~/context/FirebaseContext"
 import { cn } from "~/lib/utils"
-// import {
-//   Dialog,
-//   DialogContent,
-//   DialogHeader,
-//   DialogTitle,
-// } from "~/components/ui/dialog"
 
 export interface ProductForm {
   name: string
@@ -34,6 +28,7 @@ function RouteComponent() {
   const [description, setDescription] = useState("")
   const [showPreview, setShowPreview] = useState(false)
   const { user } = useAuth()
+  const [uploadedImages, setUploadedImages] = useState<string[]>([])
 
   const form = useForm({
     defaultValues: {
@@ -117,6 +112,26 @@ function RouteComponent() {
     return (
       values.name.trim() !== "" && values.price > 0 && values.category !== ""
     )
+  }
+
+  const MAX_IMAGES = 4
+
+  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files
+    if (files) {
+      if (uploadedImages.length + files.length > MAX_IMAGES) {
+        alert(`You can only upload up to ${MAX_IMAGES} images`)
+        return
+      }
+
+      Array.from(files).forEach((file) => {
+        const reader = new FileReader()
+        reader.onload = (e) => {
+          setUploadedImages((prev) => [...prev, e.target?.result as string])
+        }
+        reader.readAsDataURL(file)
+      })
+    }
   }
 
   return (
@@ -203,7 +218,7 @@ function RouteComponent() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, ease: "easeOut" }}
-            className="flex gap-6 flex-col h-full cyber-card rounded-2xl w-full p-8 backdrop-blur-sm bg-white/50 dark:bg-black/50 border border-gray-300 dark:border-gray-700"
+            className="flex gap-6 flex-col h-full w-full"
             onSubmit={(e) => {
               e.preventDefault()
               form.handleSubmit()
@@ -211,21 +226,20 @@ function RouteComponent() {
           >
             <div className="flex items-center gap-4">
               <div className="flex-1">
-                <Button
+                <button
                   type="button"
                   variant="outline"
                   onClick={() => setStep("type")}
-                  className="flex-1 bg-gradient-to-r from-emerald-500 to-cyan-500 dark:from-emerald-600 dark:to-cyan-600 text-white transition-all duration-300 hover:shadow-lg border-none mb-2 hover:shadow-cyan-500/20 dark:hover:shadow-cyan-900/30"
+                  className="flex-1 bg-inherit mb-[2em] text-[var(--neon-cyan)] border-none"
                 >
                   Back to Step 1
-                </Button>
+                </button>
 
-                <p className="text-emerald-500 text-sm dark:text-emerald-400 pr-2">
-                  Step 2.
-                </p>
-
-                <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
-                  Customize Your Product
+                <h2 className="text-xl font-semibold text-emerald-500 dark:text-emerald-400">
+                  Step 2.{" "}
+                  <span className="text-black dark:text-white">
+                    Customize Your Product
+                  </span>
                 </h2>
               </div>
             </div>
@@ -238,7 +252,7 @@ function RouteComponent() {
                     <div className="w-[200px]">
                       <Input
                         type="text"
-                        placeholder="$ USD"
+                        placeholder="$USD"
                         className="h-12 bg-white/50 dark:bg-black/50 backdrop-blur-sm border-gray-300 dark:border-gray-700 hover:border-cyan-500/50 dark:hover:border-cyan-500/50 transition-all duration-300"
                         value={field.state.value ? `$${field.state.value}` : ""}
                         onChange={(e) => {
@@ -282,24 +296,66 @@ function RouteComponent() {
                     className="relative"
                   >
                     <label className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 block">
-                      Product Image
+                      Product Images
                     </label>
-                    <motion.div
-                      whileHover={{ borderColor: "var(--neon-cyan)" }}
-                      className="flex items-center gap-2 border-2 border-dashed border-gray-300 dark:border-gray-700 rounded-xl p-8 hover:bg-white/60 dark:hover:bg-black/60 transition-all duration-300 backdrop-blur-sm"
+                    <div
+                      className={cn(
+                        "grid gap-4",
+                        uploadedImages.length > 0
+                          ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
+                          : "grid-cols-1",
+                      )}
                     >
-                      <div className="flex items-center justify-center w-full">
-                        <label className="flex flex-col items-center justify-center w-full h-64 cursor-pointer">
-                          <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                            <UploadIcon className="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" />
-                            <p className="mb-2 text-sm text-gray-500 dark:text-gray-400 w-[50%] text-center">
-                              Click to upload or drag and drop
-                            </p>
-                          </div>
-                          <input type="file" className="hidden" />
-                        </label>
-                      </div>
-                    </motion.div>
+                      {uploadedImages.map((image, index) => (
+                        <div
+                          key={index}
+                          className="relative aspect-square rounded-lg overflow-hidden"
+                        >
+                          <img
+                            src={image}
+                            alt={`Upload ${index + 1}`}
+                            className="w-full h-full object-cover"
+                          />
+                          <button
+                            onClick={() =>
+                              setUploadedImages((prev) =>
+                                prev.filter((_, i) => i !== index),
+                              )
+                            }
+                            className="absolute top-2 right-2 px-2 bg-black/50 rounded-full text-white hover:opacity-50 transition-all duration-300"
+                          >
+                            ×
+                          </button>
+                        </div>
+                      ))}
+                      {uploadedImages.length < MAX_IMAGES && (
+                        <motion.div
+                          whileHover={{ borderColor: "var(--neon-cyan)" }}
+                          className={cn(
+                            "flex items-center justify-center border-2 border-dashed border-gray-300 dark:border-gray-700 rounded-lg hover:bg-white/60 dark:hover:bg-black/60 transition-all duration-300 backdrop-blur-sm",
+                            "aspect-square md:aspect-[2/1]",
+                            uploadedImages.length === 0 ? "col-span-full" : "",
+                          )}
+                        >
+                          <label className="flex flex-col items-center justify-center w-full h-full cursor-pointer">
+                            <div className="flex flex-col items-center justify-center p-4">
+                              <UploadIcon className="w-8 h-8 mb-2 text-gray-500 dark:text-gray-400" />
+                              <p className="text-sm text-gray-500 dark:text-gray-400 text-center">
+                                Add Image{" "}
+                                {uploadedImages.length > 0 &&
+                                  `(${uploadedImages.length}/${MAX_IMAGES})`}
+                              </p>
+                            </div>
+                            <input
+                              type="file"
+                              className="hidden"
+                              accept="image/*"
+                              onChange={handleFileUpload}
+                            />
+                          </label>
+                        </motion.div>
+                      )}
+                    </div>
                   </motion.div>
                 ),
               })}
