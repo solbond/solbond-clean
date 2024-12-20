@@ -305,22 +305,7 @@ function RouteComponent() {
             </div>
 
             <div className="flex flex-col lg:flex-row gap-8">
-              <div className="lg:w-1/4">
-                {form.Field({
-                  name: "name",
-                  children: (field) => (
-                    <div className="w-full">
-                      <Input
-                        type="text"
-                        placeholder="Product Name"
-                        className="h-12 border-b border-b-gray-300 dark:border-b-gray-700 hover:opacity-100 transition-all duration-300"
-                        value={field.state.value}
-                        onChange={(e) => field.handleChange(e.target.value)}
-                      />
-                    </div>
-                  ),
-                })}
-
+              <div className="lg:w-1/5">
                 {form.Field({
                   name: "tags",
                   children: (field) => (
@@ -330,7 +315,7 @@ function RouteComponent() {
                           <Badge
                             key={tag}
                             variant="secondary"
-                            className="px-2 py-1 bg-gray-100 dark:bg-gray-800"
+                            className="px-2 py-1 bg-[#14F195]/20 dark:bg-[#14F195]/20 text-black dark:text-white"
                           >
                             {tag}
                             <button
@@ -361,7 +346,7 @@ function RouteComponent() {
                           <Badge
                             key={tag}
                             variant="outline"
-                            className="cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-800"
+                            className="cursor-pointer border-[#14F195]/50 text-[#14F195] hover:bg-[#14F195]/10 transition-colors duration-200"
                             onClick={() => handleAddTag(tag)}
                           >
                             {tag}
@@ -373,7 +358,21 @@ function RouteComponent() {
                 })}
               </div>
 
-              <div className="lg:w-2/4 flex flex-col gap-8">
+              <div className="lg:w-3/5 flex flex-col gap-8">
+                {form.Field({
+                  name: "name",
+                  children: (field) => (
+                    <div className="w-full">
+                      <Input
+                        type="text"
+                        placeholder="Product Name"
+                        className="h-12 border-b placeholder:text-lg border-b-gray-300 dark:border-b-gray-700 hover:opacity-100 transition-all duration-300"
+                        value={field.state.value}
+                        onChange={(e) => field.handleChange(e.target.value)}
+                      />
+                    </div>
+                  ),
+                })}
                 {form.Field({
                   name: "description",
                   children: (field) => (
@@ -384,7 +383,7 @@ function RouteComponent() {
                       <label className="text-md font-medium text-gray-700 dark:text-gray-300 mb-2 block">
                         Description
                       </label>
-                      <div className="relative rounded-xl overflow-visible">
+                      <div className="relative rounded-xl  overflow-visible">
                         <MinimalTiptapEditor
                           onValueChange={(value) => setDescription(value)}
                           className="min-h-[200px] bg-white/50 dark:bg-black/50 backdrop-blur-sm text-black dark:text-white"
@@ -470,7 +469,7 @@ function RouteComponent() {
                 })}
               </div>
 
-              <div className="lg:w-1/4 flex flex-col justify-start gap-3">
+              <div className="lg:w-1/5 flex flex-col justify-start gap-3">
                 {form.Field({
                   name: "price",
                   children: (field) => (
