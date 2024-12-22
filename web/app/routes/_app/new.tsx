@@ -19,6 +19,7 @@ export interface ProductForm {
   price: number
   category: string
   tags: string[]
+  documents: File[]
 }
 
 export const Route = createFileRoute("/_app/new")({
@@ -33,6 +34,7 @@ function RouteComponent() {
   const { user } = useAuth()
   const [uploadedImages, setUploadedImages] = useState<string[]>([])
   const [inputTag, setInputTag] = useState("")
+  const [uploadedDocuments, setUploadedDocuments] = useState<File[]>([])
 
   const form = useForm({
     defaultValues: {
@@ -42,6 +44,7 @@ function RouteComponent() {
       price: 0,
       category: "",
       tags: [],
+      documents: [],
     },
   })
 
@@ -128,7 +131,10 @@ function RouteComponent() {
 
   const isFormValid = (values: ProductForm) => {
     return (
-      values.name.trim() !== "" && values.price > 0 && values.category !== ""
+      values.name.trim() !== "" &&
+      values.price > 0 &&
+      values.category !== "" &&
+      values.documents.length > 0
     )
   }
 
@@ -169,6 +175,15 @@ function RouteComponent() {
       "tags",
       form.state.values.tags.filter((tag) => tag !== tagToRemove),
     )
+  }
+
+  const uploadDocuments = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files
+    if (files) {
+      const newDocuments = Array.from(files)
+      setUploadedDocuments((prev) => [...prev, ...newDocuments])
+      form.setFieldValue("documents", [...uploadedDocuments, ...newDocuments])
+    }
   }
 
   return (
@@ -290,8 +305,9 @@ function RouteComponent() {
                       const filledFields = [
                         !!form.state.values.name,
                         !!description,
-                        uploadedImages.length > 0,
+                        // uploadedImages.length > 0,
                         form.state.values.price > 0,
+                        uploadedDocuments.length > 0,
                       ].filter(Boolean).length
 
                       return (
@@ -396,7 +412,7 @@ function RouteComponent() {
                     <div className="w-full">
                       <Input
                         type="text"
-                        placeholder="Product Name"
+                        placeholder="Product Name*"
                         className="h-12 border-b placeholder:font-pressStart text-lg border-b-gray-300 dark:border-b-gray-700 hover:opacity-100 transition-all duration-300"
                         value={field.state.value}
                         onChange={(e) => field.handleChange(e.target.value)}
@@ -412,13 +428,94 @@ function RouteComponent() {
                       transition={{ duration: 0.2 }}
                     >
                       <label className="text-md font-pressStart font-medium text-gray-700 dark:text-gray-300 mb-2 block">
-                        Description
+                        Description*
                       </label>
                       <div className="relative rounded-xl  overflow-visible">
                         <MinimalTiptapEditor
                           onValueChange={(value) => setDescription(value)}
                           className="min-h-[200px] bg-inherit border-b border-b-gray-300 dark:border-b-gray-700 backdrop-blur-sm text-black dark:text-white"
                         />
+                      </div>
+                    </motion.div>
+                  ),
+                })}
+
+                {form.Field({
+                  name: "documents",
+                  children: (field) => (
+                    <motion.div
+                      whileHover={{ scale: 1.005 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      <label className="font-pressStart text-md font-medium text-gray-700 dark:text-gray-300 mb-2 block">
+                        Documents*
+                      </label>
+                      <div
+                        className={cn(
+                          "grid gap-4",
+                          uploadedDocuments.length > 0
+                            ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
+                            : "grid-cols-1",
+                        )}
+                      >
+                        {uploadedDocuments.map((doc, index) => (
+                          <div
+                            key={index}
+                            className="relative aspect-[3/2] rounded-lg overflow-hidden border-2 border-gray-300 dark:border-gray-700 p-4 backdrop-blur-sm"
+                          >
+                            <div className="flex flex-col items-center justify-center h-full gap-2">
+                              <div className="text-4xl">📄</div>
+                              <div className="w-full px-2">
+                                <p className="text-sm text-center text-gray-700 dark:text-gray-300 truncate max-w-full break-all">
+                                  {doc.name.length > 20
+                                    ? doc.name.slice(0, 20) + "..."
+                                    : doc.name}
+                                </p>
+                              </div>
+                              <p className="text-xs text-gray-500">
+                                {(doc.size / 1024 / 1024).toFixed(2)} MB
+                              </p>
+                            </div>
+                            <button
+                              onClick={() => {
+                                const newDocs = uploadedDocuments.filter(
+                                  (_, i) => i !== index,
+                                )
+                                setUploadedDocuments(newDocs)
+                                form.setFieldValue("documents", newDocs)
+                              }}
+                              className="absolute top-2 right-2 p-1.5 bg-black/50 rounded-full text-white hover:opacity-50 transition-all duration-300"
+                            >
+                              ×
+                            </button>
+                          </div>
+                        ))}
+
+                        <motion.div
+                          whileHover={{ borderColor: "var(--neon-cyan)" }}
+                          className={cn(
+                            "flex items-center justify-center border-2 border-dashed border-gray-300 dark:border-gray-700 rounded-lg hover:bg-white/60 dark:hover:bg-black/30 transition-all duration-300 backdrop-blur-sm",
+                            "aspect-[3/2]",
+                            uploadedDocuments.length === 0
+                              ? "col-span-full"
+                              : "",
+                          )}
+                        >
+                          <label className="flex flex-col items-center justify-center w-full h-full cursor-pointer">
+                            <div className="flex flex-col items-center justify-center p-4">
+                              <UploadIcon className="w-8 h-8 mb-2 text-gray-500 dark:text-gray-400" />
+                              <p className="text-xs text-gray-500 dark:text-gray-400 text-center">
+                                Add Documents
+                              </p>
+                            </div>
+                            <input
+                              type="file"
+                              className="hidden"
+                              multiple
+                              onChange={uploadDocuments}
+                            />
+                          </label>
+                        </motion.div>
                       </div>
                     </motion.div>
                   ),
@@ -507,7 +604,7 @@ function RouteComponent() {
                     <div className="w-full">
                       <Input
                         type="text"
-                        placeholder="$price"
+                        placeholder="$price*"
                         className="h-12 border-b uppercase text-lg font-pressStart border-b-gray-300 dark:border-b-gray-700 hover:opacity-100 transition-all duration-300"
                         value={field.state.value ? `$${field.state.value}` : ""}
                         onChange={(e) => {

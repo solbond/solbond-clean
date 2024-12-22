@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router"
-import { ThumbsUpIcon, Tag, MessageCircle, Clock } from "lucide-react"
+import { ThumbsUpIcon, Tag, MessageCircle, Heart, Share2 } from "lucide-react"
 import { motion } from "framer-motion"
 import { Badge } from "~/components/Badge"
 import { cn } from "~/lib/utils"
@@ -34,6 +34,19 @@ function RouteComponent() {
   }
 
   const [selectedImage, setSelectedImage] = useState(product.mainImage)
+  const [isInWishlist, setIsInWishlist] = useState(false)
+
+  const handleShare = async () => {
+    try {
+      await navigator.share({
+        title: product.name,
+        text: product.description,
+        url: window.location.href,
+      })
+    } catch (err) {
+      navigator.clipboard.writeText(window.location.href)
+    }
+  }
 
   return (
     <div className="min-h-screen py-10">
@@ -124,23 +137,46 @@ function RouteComponent() {
               </p>
             </div>
 
-            <motion.button
-              whileHover={{ scale: 1.02 }}
-              className={cn(
-                "w-full relative overflow-hidden",
-                "bg-gradient-to-r from-[var(--neon-cyan)] to-[var(--neon-cyan)]",
-                "text-black border border-[var(--neon-cyan)]",
-                "transition-all duration-300",
-                "before:absolute before:inset-0",
-                "before:bg-[length:200%_100%]",
-                "before:animate-shimmer",
-                "before:bg-[linear-gradient(110deg,transparent,rgba(20,241,149,0.3),transparent)]",
-                "text-lg py-4 rounded-xl font-bold",
-                "hover:shadow-[0_0_20px_rgba(20,241,149,0.5)]",
-              )}
-            >
-              Buy Now
-            </motion.button>
+            <div className="flex gap-4">
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                className={cn(
+                  "flex-1 relative overflow-hidden",
+                  "bg-gradient-to-r from-[var(--neon-cyan)] to-[var(--neon-cyan)]",
+                  "text-black border border-[var(--neon-cyan)]",
+                  "transition-all duration-300",
+                  "before:absolute before:inset-0",
+                  "before:bg-[length:200%_100%]",
+                  "before:animate-shimmer",
+                  "before:bg-[linear-gradient(110deg,transparent,rgba(20,241,149,0.3),transparent)]",
+                  "text-lg py-4 rounded-xl font-bold",
+                  "hover:shadow-[0_0_20px_rgba(20,241,149,0.5)]",
+                )}
+              >
+                Buy Now
+              </motion.button>
+
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                onClick={() => setIsInWishlist(!isInWishlist)}
+                className={cn(
+                  "p-4 rounded-xl border",
+                  isInWishlist
+                    ? "bg-[var(--neon-cyan)]/10 border-[var(--neon-cyan)] text-[var(--neon-cyan)]"
+                    : "border-gray-200 dark:border-gray-800 hover:bg-black/5 dark:hover:bg-white/5",
+                )}
+              >
+                <Heart size={24} />
+              </motion.button>
+
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                onClick={handleShare}
+                className="p-4 rounded-xl border border-gray-200 dark:border-gray-800 hover:bg-black/5 dark:hover:bg-white/5"
+              >
+                <Share2 size={24} />
+              </motion.button>
+            </div>
           </div>
         </div>
       </div>
