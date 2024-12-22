@@ -7,53 +7,57 @@ import { LinkProps, ShouldShowProps } from "../../types"
 import { setLink } from "../../utils"
 
 const LinkBubbleMenu = ({ editor }: { editor: Editor }) => {
-	const [showEdit, setShowEdit] = useState(false)
-	const shouldShow = ({ editor, from, to }: ShouldShowProps) => {
-		if (from === to) {
-			return false
-		}
+  const [showEdit, setShowEdit] = useState(false)
+  const shouldShow = ({ editor, from, to }: ShouldShowProps) => {
+    if (from === to) {
+      return false
+    }
 
-		const link = editor.getAttributes("link")
+    const link = editor.getAttributes("link")
 
-		if (link.href) {
-			return true
-		}
+    if (link.href) {
+      return true
+    }
 
-		return false
-	}
+    return false
+  }
 
-	const unSetLink = () => {
-		editor.chain().extendMarkRange("link").unsetLink().focus().run()
-		setShowEdit(false)
-	}
+  const unSetLink = () => {
+    editor.chain().extendMarkRange("link").unsetLink().focus().run()
+    setShowEdit(false)
+  }
 
-	function onSetLink(props: LinkProps) {
-		setLink(editor, props)
-		setShowEdit(false)
-	}
+  function onSetLink(props: LinkProps) {
+    setLink(editor, props)
+    setShowEdit(false)
+  }
 
-	return (
-		<BubbleMenu
-			editor={editor}
-			shouldShow={shouldShow}
-			tippyOptions={{
-				placement: "bottom-start",
-				onHidden: () => {
-					setShowEdit(false)
-				}
-			}}
-		>
-			{showEdit ? (
-				<LinkEditBlock
-					onSetLink={onSetLink}
-					editor={editor}
-					className="bg-popover text-popover-foreground w-full min-w-80 rounded-md border p-4 shadow-md outline-none"
-				/>
-			) : (
-				<LinkPopoverBlock onClear={unSetLink} link={editor.getAttributes("link")} onEdit={() => setShowEdit(true)} />
-			)}
-		</BubbleMenu>
-	)
+  return (
+    <BubbleMenu
+      editor={editor}
+      shouldShow={shouldShow}
+      tippyOptions={{
+        placement: "bottom-start",
+        onHidden: () => {
+          setShowEdit(false)
+        },
+      }}
+    >
+      {showEdit ? (
+        <LinkEditBlock
+          onSetLink={onSetLink}
+          editor={editor}
+          className="bg-popover text-popover-foreground w-full min-w-80 bg-white dark:bg-black rounded-md border p-4 shadow-md outline-none"
+        />
+      ) : (
+        <LinkPopoverBlock
+          onClear={unSetLink}
+          link={editor.getAttributes("link")}
+          onEdit={() => setShowEdit(true)}
+        />
+      )}
+    </BubbleMenu>
+  )
 }
 
 export { LinkBubbleMenu }

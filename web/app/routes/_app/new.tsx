@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router"
-import { UploadIcon, EyeIcon } from "lucide-react"
+import { UploadIcon, EyeIcon, ArrowRight, ArrowLeft } from "lucide-react"
 import { MinimalTiptapEditor } from "~/components/minimal-tiptap"
 import { useForm } from "@tanstack/react-form"
 import { Button } from "~/components/ui/button"
@@ -10,6 +10,7 @@ import { $createProduct } from "~/actions/actions"
 import { useAuth } from "~/context/FirebaseContext"
 import { cn } from "~/lib/utils"
 import { Badge } from "~/components/Badge"
+import { Tag } from "lucide-react"
 
 export interface ProductForm {
   name: string
@@ -106,13 +107,11 @@ function RouteComponent() {
     "software",
     "ebook",
     "template",
-    "source-code",
     "plugin",
     "audio",
     "video",
     "graphics",
     "wallpaper",
-    "icon-pack",
     "3d-model",
     "animation",
   ]
@@ -161,8 +160,8 @@ function RouteComponent() {
       form.state.values.tags.length < 5
     ) {
       form.setFieldValue("tags", [...form.state.values.tags, normalizedTag])
+      setInputTag("")
     }
-    setInputTag("")
   }
 
   const handleRemoveTag = (tagToRemove: string) => {
@@ -180,7 +179,7 @@ function RouteComponent() {
             <div className="flex flex-col sm:flex-row items-center md:items-start justify-between w-full gap-4">
               <div className="flex flex-col text-left w-full md:w-[55%] gap-4">
                 <p>Step 1</p>
-                <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
+                <h1 className="text-3xl font-pressStart font-bold text-gray-900 dark:text-white">
                   Let's Create Something
                 </h1>
                 <p>
@@ -191,19 +190,22 @@ function RouteComponent() {
               </div>
 
               <div className="flex gap-3">
-                <Button
+                <button
                   disabled={!category}
                   onClick={handleNextStep}
                   className={cn(
-                    "flex-1 bg-gradient-to-r from-emerald-500 to-cyan-500 dark:from-emerald-600 dark:to-cyan-600 text-white transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/20 dark:hover:shadow-cyan-900/30",
+                    "flex-1 bg-transparent text-lg flex items-center justify-center gap-2 transition-all duration-300",
                     {
-                      "opacity-50 cursor-not-allowed": !category,
-                      "hover:opacity-90 hover:-translate-y-0.5": category,
+                      "opacity-50 cursor-not-allowed text-black dark:text-white":
+                        !category,
+                      "hover:opacity-90 hover:translate-x-1 font-semibold text-[var(--neon-cyan)]":
+                        category,
                     },
                   )}
                 >
                   Next: Customize
-                </Button>
+                  <ArrowRight className="w-4 h-4" />
+                </button>
               </div>
             </div>
 
@@ -266,18 +268,23 @@ function RouteComponent() {
               <div className="flex-1">
                 <button
                   type="button"
-                  variant="outline"
                   onClick={() => setStep("type")}
-                  className="flex-1 bg-inherit mb-[2em] text-[var(--neon-cyan)] border-none"
+                  className="flex flex-row items-center gap-2 bg-inherit mb-[2em] text-black dark:text-white opacity-70 hover:opacity-100 transition-opacity border-none"
                 >
+                  <ArrowLeft className="w-4 h-4" />
                   Back to Step 1
                 </button>
 
-                <h2 className="text-sm font-semibold text-emerald-500 dark:text-emerald-400 flex items-center gap-4">
-                  Step 2.{" "}
-                  <span className="text-black text-sm lg:text-lg dark:text-white">
-                    Customize Your Product
-                  </span>
+                <div className="flex flex-col md:flex-row gap-2">
+                  <div className="flex flex-col md:flex-row gap-4">
+                    <p className="text-sm font-semibold text-emerald-500 dark:text-emerald-400 flex items-center gap-4">
+                      Step 2.
+                    </p>
+                    <h3 className="text-black font-pressStart text-xl dark:text-white">
+                      Customize Your Product
+                    </h3>
+                  </div>
+
                   <div className="flex gap-2 items-center ml-4">
                     {[...Array(4)].map((_, index) => {
                       const filledFields = [
@@ -300,7 +307,7 @@ function RouteComponent() {
                       )
                     })}
                   </div>
-                </h2>
+                </div>
               </div>
             </div>
 
@@ -309,49 +316,73 @@ function RouteComponent() {
                 {form.Field({
                   name: "tags",
                   children: (field) => (
-                    <div className="mt-4">
-                      <div className="flex flex-wrap gap-2 mb-2">
+                    <div className="mt-4 space-y-6">
+                      <div className="flex flex-wrap gap-3 mb-4">
                         {field.state.value.map((tag) => (
-                          <Badge
+                          <div
                             key={tag}
-                            variant="secondary"
-                            className="px-2 py-1 bg-[#14F195]/20 dark:bg-[#14F195]/20 text-black dark:text-white"
+                            className="flex items-center bg-black/10 dark:bg-white/5 backdrop-blur-sm border rounded-lg border-black/10 dark:border-[var(--neon-cyan)]/20 px-2 py-1.5 transition-all duration-300 hover:border-[var(--neon-cyan)] group"
                           >
-                            {tag}
-                            <button
-                              onClick={() => handleRemoveTag(tag)}
-                              className="ml-2 hover:text-red-500"
+                            <Tag className="w-4 h-4 text-black/70 dark:text-[var(--neon-cyan)]" />
+                            <Badge
+                              variant="selected"
+                              className="flex items-center gap-2 font-mono text-sm"
                             >
-                              ×
-                            </button>
-                          </Badge>
+                              {tag}
+                              <button
+                                type="button"
+                                onClick={() => handleRemoveTag(tag)}
+                                className="ml-1.5 text-lg hover:text-[var(--neon-cyan)] transition-colors duration-200"
+                              >
+                                ×
+                              </button>
+                            </Badge>
+                          </div>
                         ))}
                       </div>
-                      <Input
-                        type="text"
-                        placeholder="Add tags (max 5)"
-                        value={inputTag}
-                        onChange={(e) => setInputTag(e.target.value)}
-                        onKeyDown={(e) => {
-                          if (e.key === "Enter") {
-                            e.preventDefault()
-                            handleAddTag(inputTag)
-                          }
-                        }}
-                        disabled={field.state.value.length >= 5}
-                        className="mb-2"
-                      />
-                      <div className="flex flex-wrap gap-2">
-                        {suggestedTags.map((tag) => (
-                          <Badge
-                            key={tag}
-                            variant="outline"
-                            className="cursor-pointer border-[#14F195]/50 text-[#14F195] hover:bg-[#14F195]/10 transition-colors duration-200"
-                            onClick={() => handleAddTag(tag)}
-                          >
-                            {tag}
-                          </Badge>
-                        ))}
+
+                      {field.state.value.length < 5 && (
+                        <div className="relative">
+                          <div className="absolute inset-0 bg-gradient-to-r from-[var(--neon-cyan)]/10 to-emerald-500/10" />
+                          <div className="absolute inset-0 border border-[var(--neon-cyan)]/20 transition-colors duration-300 group-hover:border-[var(--neon-cyan)]" />
+                          <Input
+                            type="text"
+                            placeholder="#add tag"
+                            value={inputTag}
+                            onChange={(e) => setInputTag(e.target.value)}
+                            onKeyDown={(e) => {
+                              if (e.key === "Enter") {
+                                e.preventDefault()
+                                handleAddTag(inputTag)
+                              }
+                            }}
+                            className="relative text-center font-mono bg-transparent border-0 shadow-none placeholder:text-black/40 dark:placeholder:text-[var(--neon-cyan)] text-black dark:text-white px-4 py-3 transition-all duration-300 focus:shadow-[0_0_0_1px_var(--neon-cyan)] focus:bg-black/5 dark:focus:bg-white/5"
+                          />
+                          <div className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 border-r-2 border-t-2 border-[var(--neon-cyan)]/30" />
+                          <div className="absolute left-3 bottom-3 w-4 h-4 border-l-2 border-b-2 border-[var(--neon-cyan)]/30" />
+                        </div>
+                      )}
+
+                      <div className="mt-8">
+                        <h4 className="text-sm font-mono text-black/60 dark:text-white/60 mb-3 uppercase tracking-wider">
+                          Suggested Tags ({form.state.values.tags.length}/5)
+                        </h4>
+                        <div className="flex flex-wrap gap-2">
+                          {suggestedTags
+                            .filter(
+                              (tag) => !form.state.values.tags.includes(tag),
+                            )
+                            .map((tag) => (
+                              <Badge
+                                key={tag}
+                                variant="suggested"
+                                className="cursor-pointer px-3 py-1.5 font-mono text-sm border border-[var(--neon-cyan)]/20 hover:border-[var(--neon-cyan)] transition-all duration-300 hover:bg-[var(--neon-cyan)]/5"
+                                onClick={() => handleAddTag(tag)}
+                              >
+                                {tag}
+                              </Badge>
+                            ))}
+                        </div>
                       </div>
                     </div>
                   ),
@@ -366,7 +397,7 @@ function RouteComponent() {
                       <Input
                         type="text"
                         placeholder="Product Name"
-                        className="h-12 border-b placeholder:text-lg border-b-gray-300 dark:border-b-gray-700 hover:opacity-100 transition-all duration-300"
+                        className="h-12 border-b placeholder:font-pressStart text-lg border-b-gray-300 dark:border-b-gray-700 hover:opacity-100 transition-all duration-300"
                         value={field.state.value}
                         onChange={(e) => field.handleChange(e.target.value)}
                       />
@@ -380,13 +411,13 @@ function RouteComponent() {
                       whileHover={{ scale: 1.005 }}
                       transition={{ duration: 0.2 }}
                     >
-                      <label className="text-md font-medium text-gray-700 dark:text-gray-300 mb-2 block">
+                      <label className="text-md font-pressStart font-medium text-gray-700 dark:text-gray-300 mb-2 block">
                         Description
                       </label>
                       <div className="relative rounded-xl  overflow-visible">
                         <MinimalTiptapEditor
                           onValueChange={(value) => setDescription(value)}
-                          className="min-h-[200px] bg-white/50 dark:bg-black/50 backdrop-blur-sm text-black dark:text-white"
+                          className="min-h-[200px] bg-inherit border-b border-b-gray-300 dark:border-b-gray-700 backdrop-blur-sm text-black dark:text-white"
                         />
                       </div>
                     </motion.div>
@@ -401,7 +432,7 @@ function RouteComponent() {
                       transition={{ duration: 0.2 }}
                       className="relative"
                     >
-                      <label className="text-md font-medium text-gray-700 dark:text-gray-300 mb-2 block">
+                      <label className="font-pressStart text-md font-medium text-gray-700 dark:text-gray-300 mb-2 block">
                         Product Images
                       </label>
                       <div
@@ -438,7 +469,7 @@ function RouteComponent() {
                           <motion.div
                             whileHover={{ borderColor: "var(--neon-cyan)" }}
                             className={cn(
-                              "flex items-center justify-center border-2 border-dashed border-gray-300 dark:border-gray-700 rounded-lg hover:bg-white/60 dark:hover:bg-black/60 transition-all duration-300 backdrop-blur-sm",
+                              "flex items-center justify-center border-2 border-dashed border-gray-300 dark:border-gray-700 rounded-lg hover:bg-white/60 dark:hover:bg-black/30 transition-all duration-300 backdrop-blur-sm",
                               "aspect-square md:aspect-[2/1]",
                               uploadedImages.length === 0
                                 ? "col-span-full"
@@ -476,8 +507,8 @@ function RouteComponent() {
                     <div className="w-full">
                       <Input
                         type="text"
-                        placeholder="$USD"
-                        className="h-12 border-b border-b-gray-300 dark:border-b-gray-700 hover:opacity-100 transition-all duration-300"
+                        placeholder="$price"
+                        className="h-12 border-b uppercase text-lg font-pressStart border-b-gray-300 dark:border-b-gray-700 hover:opacity-100 transition-all duration-300"
                         value={field.state.value ? `$${field.state.value}` : ""}
                         onChange={(e) => {
                           const value = e.target.value.replace(/^\$/, "")

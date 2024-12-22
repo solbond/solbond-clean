@@ -15,6 +15,9 @@ const badgeVariants = cva(
         destructive:
           "border-transparent bg-destructive text-destructive-foreground hover:bg-destructive/80",
         outline: "text-foreground",
+        selected: "border-transparent text-black dark:text-white text-md",
+        suggested:
+          "border border-[#14F195]/50 text-[#14F195] hover:bg-[#14F195]/10 transition-colors duration-200",
         codepie:
           "border-transparent bg-blue-100 text-blue-900 dark:bg-blue-900 dark:text-blue-100",
         sonnet:
