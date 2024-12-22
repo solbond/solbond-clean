@@ -3,8 +3,8 @@
 @tailwind utilities;
 
 :root {
-  --neon-cyan: #04c995;
-  --neon-green: #03e203;
+  --neon-cyan: #006b4e;
+  --neon-green: #067e06;
   --neon-yellow: #ff9900;
   --dark-bg: #0d0d0d;
   --dark-card: rgba(0, 0, 0, 0.8);

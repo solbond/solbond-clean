@@ -229,7 +229,7 @@ function RouteComponent() {
                     animate={
                       category === type.id
                         ? {
-                            color: "#14F198",
+                            color: "var(--neon-cyan)",
                             textShadow: "0 0 10px rgba(20, 241, 149, 0.5)",
                           }
                         : {}
@@ -376,7 +376,7 @@ function RouteComponent() {
                               <Badge
                                 key={tag}
                                 variant="suggested"
-                                className="cursor-pointer px-3 py-1.5 font-mono text-sm border border-[var(--neon-cyan)]/20 hover:border-[var(--neon-cyan)] transition-all duration-300 hover:bg-[var(--neon-cyan)]/5"
+                                className="cursor-pointer px-3 py-1.5 text-black/70 dark:text-[var(--neon-cyan)] font-mono text-sm border border-[var(--neon-cyan)]/20 hover:border-[var(--neon-cyan)] transition-all duration-300 hover:bg-[var(--neon-cyan)]/5"
                                 onClick={() => handleAddTag(tag)}
                               >
                                 {tag}
@@ -525,27 +525,42 @@ function RouteComponent() {
                   type="submit"
                   disabled={!isFormValid(form.state.values)}
                   className={cn(
-                    "w-full bg-gradient-to-r from-emerald-500 to-cyan-500 dark:from-emerald-600 dark:to-cyan-600 text-white transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/20 dark:hover:shadow-cyan-900/30",
+                    "w-full font-pressStart relative overflow-hidden",
+                    "bg-gradient-to-r from-[var(--neon-cyan)] to-[var(--neon-cyan)]",
+                    "text-black border border-[var(--neon-cyan)]",
+                    "transition-all duration-300",
+                    "before:absolute before:inset-0",
+                    "before:bg-[length:200%_100%]",
+                    "before:animate-shimmer",
+                    "before:bg-[linear-gradient(110deg,transparent,rgba(20,241,149,0.3),transparent)]",
+                    "text-lg py-6",
                     {
-                      "opacity-50 cursor-not-allowed": !isFormValid(
-                        form.state.values,
-                      ),
-                      "hover:opacity-90 hover:-translate-y-0.5": isFormValid(
-                        form.state.values,
-                      ),
+                      "opacity-50 cursor-not-allowed before:hidden":
+                        !isFormValid(form.state.values),
+                      "hover:shadow-[0_0_20px_rgba(20,241,149,0.5)] hover:-translate-y-0.5 hover:scale-[1.02]":
+                        isFormValid(form.state.values),
                     },
                   )}
                 >
-                  Create Product
+                  Create
                 </Button>
 
                 <Button
                   type="button"
                   variant="outline"
                   onClick={() => setShowPreview(true)}
-                  className="w-full dark:border-gray-300 hover:bg-white/60 dark:hover:bg-black/60 transition-all duration-300"
+                  className={cn(
+                    "w-full font-pressStart relative",
+                    "border-2 border-[var(--neon-cyan)]/30 bg-black/5 dark:bg-white/5",
+                    "text-[var(--neon-cyan)] dark:text-[var(--neon-cyan)]",
+                    "backdrop-blur-sm",
+                    "transition-all duration-300",
+                    "hover:border-[var(--neon-cyan)] hover:bg-[var(--neon-cyan)]/10",
+                    "hover:shadow-[0_0_15px_rgba(20,241,149,0.2)]",
+                    "group",
+                  )}
                 >
-                  <EyeIcon className="w-4 h-4 mr-2" />
+                  <EyeIcon className="w-4 h-4 mr-2 group-hover:animate-pulse" />
                   Preview
                 </Button>
               </div>
