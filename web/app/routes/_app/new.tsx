@@ -624,7 +624,7 @@ function RouteComponent() {
                   className={cn(
                     "w-full font-pressStart relative overflow-hidden",
                     "bg-gradient-to-r from-[var(--neon-cyan)] to-[var(--neon-cyan)]",
-                    "text-black border border-[var(--neon-cyan)]",
+                    "text-white dark:text-black border border-[var(--neon-cyan)]",
                     "transition-all duration-300",
                     "before:absolute before:inset-0",
                     "before:bg-[length:200%_100%]",

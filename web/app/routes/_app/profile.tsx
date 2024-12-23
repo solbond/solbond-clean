@@ -1,9 +1,17 @@
 import { createFileRoute } from "@tanstack/react-router"
 import { useState } from "react"
 import { motion } from "framer-motion"
-import { EllipsisIcon, FilterIcon } from "lucide-react"
-import { ChevronRightIcon, StarIcon, ChevronLeftIcon } from "lucide-react"
+import { SearchIcon, FilterIcon } from "lucide-react"
 import { Link } from "@tanstack/react-router"
+
+import {
+  ChevronRightIcon,
+  StarIcon,
+  ChevronLeftIcon,
+  ThumbsUpIcon,
+  MessageCircle,
+} from "lucide-react"
+import { Badge } from "~/components/Badge"
 
 export const Route = createFileRoute("/_app/profile")({
   component: RouteComponent,
@@ -14,15 +22,17 @@ function RouteComponent() {
     username: "JohnD",
     name: "John Doe",
     email: "john.doe@example.com",
+    rating: 4.5,
     avatar: "https://api.multiavatar.com/JohnDoe.svg",
     description:
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.",
     products: [
       {
         id: 1,
-        name: "Course Digital Marketing",
+        name: "Premium Figma UI Kit",
         price: 100,
         sold: false,
+        link: "/product",
         image: "https://robohash.org/nft-1484.png?set=set4&size=400x400",
       },
       {
@@ -45,27 +55,37 @@ function RouteComponent() {
 
   return (
     <div className="min-h-screen pt-10 ">
-      {/* Main Content */}
       <div className="max-w-[1400px] mx-auto flex flex-col md:flex-row gap-6 p-4">
-        {/* Sidebar */}
         <div className="w-full md:w-[300px] space-y-4">
-          {/* User Info Card */}
-          <div className="cyber-card bg-inherit backdrop-blur-sm rounded-xl border border-gray-200 dark:border-gray-800">
-            <div className="p-4 flex items-center gap-3">
-              <img src={userData.avatar} className="w-12 h-12 rounded-full" />
-              <div>
-                <h1 className="font-semibold">{userData.name}</h1>
-                <p className="text-sm opacity-60">@{userData.username}</p>
-              </div>
+          <div className="cyber-card flex items-center gap-3 p-3 bg-inherit backdrop-blur-sm rounded-xl border border-gray-200 dark:border-gray-800">
+            <img
+              src={userData.avatar}
+              alt={userData.name}
+              className="w-10 h-10 rounded-full"
+            />
+            <div className="flex-1">
+              <div className="font-medium">{userData.name}</div>
+              <div className="text-sm text-gray-500">@{userData.username}</div>
+            </div>
+            <div className="flex items-center gap-2">
+              <Badge variant="secondary" className="font-mono">
+                <ThumbsUpIcon size={14} />
+                {userData.rating * 20}%
+              </Badge>
+              <button className="px-3 py-1.5 rounded-xl bg-[var(--neon-cyan)]/10 text-[var(--neon-cyan)] hover:bg-[var(--neon-cyan)]/20 transition-colors">
+                <MessageCircle size={18} />
+              </button>
             </div>
           </div>
-
           <div className="hidden md:block cyber-card bg-white dark:bg-black/40 backdrop-blur-sm rounded-xl p-4 border border-gray-200 dark:border-gray-800">
-            <input
-              type="text"
-              placeholder="Search products..."
-              className="w-full bg-transparent border border-gray-200 dark:border-gray-800 rounded-md p-2 placeholder:opacity-60 focus:outline-none focus:ring-2 focus:ring-emerald-500 dark:focus:ring-[var(--neon-cyan)]"
-            />
+            <div className="flex items-center  border border-gray-200 dark:border-gray-800 rounded-xl p-2 gap-2">
+              <SearchIcon size={16} />
+              <input
+                type="text"
+                placeholder="Search products..."
+                className="w-full bg-transparent rounded-md p-2 placeholder:opacity-60 focus:outline-none focus:ring-none"
+              />
+            </div>
           </div>
 
           <div className="cyber-card bg-white dark:bg-black/40 backdrop-blur-sm rounded-xl p-4 space-y-4 border border-gray-200 dark:border-gray-800">
@@ -149,8 +169,9 @@ function RouteComponent() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {userData.products.map((product) => (
-              <div
+              <Link
                 key={product.id}
+                to={product.link}
                 className="cyber-card bg-white dark:bg-black/40 backdrop-blur-sm rounded-xl overflow-hidden hover:scale-[1.02] transition-all cursor-pointer border border-gray-200 dark:border-gray-800"
               >
                 <div className="relative h-[200px] w-full">
@@ -173,7 +194,7 @@ function RouteComponent() {
                     <span className="opacity-60 text-sm">No ratings</span>
                   </div>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>

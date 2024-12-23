@@ -1,9 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router"
-import { ThumbsUpIcon, Tag, MessageCircle, Heart, Share2 } from "lucide-react"
+import { ThumbsUpIcon, Tag, Heart, Share2 } from "lucide-react"
 import { motion } from "framer-motion"
 import { Badge } from "~/components/Badge"
 import { cn } from "~/lib/utils"
 import { useState } from "react"
+import { Link } from "@tanstack/react-router"
 
 export const Route = createFileRoute("/_app/product")({
   component: RouteComponent,
@@ -91,31 +92,24 @@ function RouteComponent() {
           <div className="lg:w-1/2 space-y-6">
             <div>
               <h1 className="text-3xl font-bold mb-2">{product.name}</h1>
-              <div className="flex items-center gap-3">
+              <div className="flex flex-col gap-3">
+                <div className="text-sm flex flex-row items-center gap-1 text-gray-500">
+                  <img
+                    src={seller.profileImage}
+                    alt={seller.username}
+                    className="w-4 h-4 rounded-full"
+                  />
+                  by{" "}
+                  <Link
+                    to={"/profile"}
+                    className="font-medium hover:text-white/90 transition-colors duration-300"
+                  >
+                    @{seller.username}
+                  </Link>
+                </div>
                 <span className="text-2xl font-pressStart text-[var(--neon-cyan)]">
                   ${product.price}
                 </span>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-3 p-3 rounded-xl bg-black/5 dark:bg-white/5">
-              <img
-                src={seller.profileImage}
-                alt={seller.name}
-                className="w-10 h-10 rounded-full"
-              />
-              <div className="flex-1">
-                <div className="font-medium">{seller.name}</div>
-                <div className="text-sm text-gray-500">@{seller.username}</div>
-              </div>
-              <div className="flex items-center gap-2">
-                <Badge variant="secondary" className="font-mono">
-                  <ThumbsUpIcon size={14} />
-                  {seller.rating * 20}%
-                </Badge>
-                <button className="px-3 py-1.5 rounded-xl bg-[var(--neon-cyan)]/10 text-[var(--neon-cyan)] hover:bg-[var(--neon-cyan)]/20 transition-colors">
-                  <MessageCircle size={18} />
-                </button>
               </div>
             </div>
 
@@ -143,7 +137,7 @@ function RouteComponent() {
                 className={cn(
                   "flex-1 relative overflow-hidden",
                   "bg-gradient-to-r from-[var(--neon-cyan)] to-[var(--neon-cyan)]",
-                  "text-black border border-[var(--neon-cyan)]",
+                  "text-white dark:text-black  border border-[var(--neon-cyan)]",
                   "transition-all duration-300",
                   "before:absolute before:inset-0",
                   "before:bg-[length:200%_100%]",
@@ -153,7 +147,7 @@ function RouteComponent() {
                   "hover:shadow-[0_0_20px_rgba(20,241,149,0.5)]",
                 )}
               >
-                Buy Now
+                Add to Cart
               </motion.button>
 
               <motion.button
