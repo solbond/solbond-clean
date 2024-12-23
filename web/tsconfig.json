@@ -28,7 +28,7 @@
     },
     "noEmit": true,
     "types": [
-      "@ronin/solbond"
+      "@ronin-types/solbond"
     ]
   }
 }

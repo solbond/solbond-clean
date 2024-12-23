@@ -50,7 +50,7 @@
     "vinxi": "0.5.1"
   },
   "devDependencies": {
-    "@ronin/solbond": "^0.0.0-3467365653107",
+    "@ronin-types/solbond": "^0.0.0-3468969403360",
     "@types/node": "^22.10.1",
     "@types/react": "^19.0.1",
     "@types/react-dom": "^19.0.1",
