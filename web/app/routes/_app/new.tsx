@@ -12,6 +12,7 @@ import { cn } from "~/lib/utils"
 import { Badge } from "~/components/Badge"
 import { Tag } from "lucide-react"
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd"
+import { TypingEffect } from "~/components/TypingEffect"
 
 export interface ProductForm {
   name: string
@@ -205,9 +206,13 @@ function RouteComponent() {
             <div className="flex flex-col sm:flex-row items-center md:items-start justify-between w-full gap-4">
               <div className="flex flex-col text-left w-full md:w-[55%] gap-4">
                 <p>Step 1</p>
-                <h1 className="text-3xl font-pressStart font-bold text-gray-900 dark:text-white">
-                  Let's Create Something
-                </h1>
+
+                <TypingEffect
+                  text="Let's Create Something"
+                  delay={50}
+                  className="text-3xl font-pressStart font-bold text-gray-900 dark:text-white"
+                />
+
                 <p>
                   Transform your expertise and digital assets into market-ready
                   products. From educational content to collectibles — bring
@@ -339,7 +344,7 @@ function RouteComponent() {
             </div>
 
             <div className="flex flex-col lg:flex-row gap-8">
-              <div className="lg:w-1/5">
+              <div className="lg:w-1/5 order-2 lg:order-1">
                 {form.Field({
                   name: "tags",
                   children: (field) => (
@@ -440,7 +445,13 @@ function RouteComponent() {
                 })}
               </div>
 
-              <div className="lg:w-3/5 flex flex-col gap-8">
+              <div className="lg:w-3/5 order-1 lg:order-2 flex flex-col gap-8">
+                <p className="text-sm lg:text-md text-gray-500 dark:text-gray-400 font-pressStart">
+                  Category:{" "}
+                  <span className="text-[var(--neon-cyan)]">
+                    {productTypes.find((type) => type.id === category)?.title}
+                  </span>
+                </p>
                 {form.Field({
                   name: "name",
                   children: (field) => (
@@ -448,13 +459,14 @@ function RouteComponent() {
                       <Input
                         type="text"
                         placeholder="Product Name*"
-                        className="h-12 border-b placeholder:font-pressStart text-lg border-b-gray-300 dark:border-b-gray-700 hover:opacity-100 transition-all duration-300"
+                        className="h-12 border-b placeholder:font-pressStart text-sm lg:text-md border-b-gray-300 dark:border-b-gray-700 hover:opacity-100 transition-all duration-300"
                         value={field.state.value}
                         onChange={(e) => field.handleChange(e.target.value)}
                       />
                     </div>
                   ),
                 })}
+
                 {form.Field({
                   name: "description",
                   children: (field) => (
@@ -462,7 +474,7 @@ function RouteComponent() {
                       whileHover={{ scale: 1.005 }}
                       transition={{ duration: 0.2 }}
                     >
-                      <label className="text-md font-pressStart font-medium text-gray-700 dark:text-gray-300 mb-2 block">
+                      <label className="text-sm lg:text-md font-pressStart font-medium text-gray-700 dark:text-gray-300 mb-2 block">
                         Description*
                       </label>
                       <div className="relative rounded-xl  overflow-visible">
@@ -632,7 +644,7 @@ function RouteComponent() {
                 })}
               </div>
 
-              <div className="lg:w-1/5 flex flex-col justify-start gap-3">
+              <div className="lg:w-1/5 order-2 lg:order-3 flex flex-col justify-start gap-3">
                 {form.Field({
                   name: "price",
                   children: (field) => (
