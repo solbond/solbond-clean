@@ -78,7 +78,7 @@ function RouteComponent() {
             </div>
           </div>
           <div className="hidden md:block cyber-card bg-white dark:bg-black/40 backdrop-blur-sm rounded-xl p-4 border border-gray-200 dark:border-gray-800">
-            <div className="flex items-center  border border-gray-200 dark:border-gray-800 rounded-xl p-2 gap-2">
+            <div className="flex items-center  border border-gray-200 dark:border-gray-800 rounded-xl p-2">
               <SearchIcon size={16} />
               <input
                 type="text"

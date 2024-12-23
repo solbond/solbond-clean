@@ -11,6 +11,7 @@ import { useAuth } from "~/context/FirebaseContext"
 import { cn } from "~/lib/utils"
 import { Badge } from "~/components/Badge"
 import { Tag } from "lucide-react"
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd"
 
 export interface ProductForm {
   name: string
@@ -186,6 +187,16 @@ function RouteComponent() {
     }
   }
 
+  const onDragEnd = (result: any) => {
+    if (!result.destination) return
+
+    const newTags = Array.from(form.state.values.tags)
+    const [reorderedTag] = newTags.splice(result.source.index, 1)
+    newTags.splice(result.destination.index, 0, reorderedTag)
+
+    form.setFieldValue("tags", newTags)
+  }
+
   return (
     <div className="min-h-screen py-10">
       <div className="max-w-5xl mx-auto p-6">
@@ -332,30 +343,54 @@ function RouteComponent() {
                 {form.Field({
                   name: "tags",
                   children: (field) => (
-                    <div className="mt-4 space-y-6">
-                      <div className="flex flex-wrap gap-3 mb-4">
-                        {field.state.value.map((tag) => (
-                          <div
-                            key={tag}
-                            className="flex items-center bg-black/10 dark:bg-white/5 backdrop-blur-sm border rounded-lg border-black/10 dark:border-[var(--neon-cyan)]/20 px-2 py-1.5 transition-all duration-300 hover:border-[var(--neon-cyan)] group"
-                          >
-                            <Tag className="w-4 h-4 text-black/70 dark:text-[var(--neon-cyan)]" />
-                            <Badge
-                              variant="selected"
-                              className="flex items-center gap-2 font-mono text-sm"
+                    <div className="mt-4 space-y-4">
+                      <DragDropContext onDragEnd={onDragEnd}>
+                        <Droppable droppableId="tags" direction="vertical">
+                          {(provided) => (
+                            <div
+                              {...provided.droppableProps}
+                              ref={provided.innerRef}
+                              className="flex flex-wrap gap-3 mb-4"
                             >
-                              {tag}
-                              <button
-                                type="button"
-                                onClick={() => handleRemoveTag(tag)}
-                                className="ml-1.5 text-lg hover:text-[var(--neon-cyan)] transition-colors duration-200"
-                              >
-                                ×
-                              </button>
-                            </Badge>
-                          </div>
-                        ))}
-                      </div>
+                              {field.state.value.map((tag, index) => (
+                                <Draggable
+                                  key={tag}
+                                  draggableId={tag}
+                                  index={index}
+                                >
+                                  {(provided, snapshot) => (
+                                    <div
+                                      ref={provided.innerRef}
+                                      {...provided.draggableProps}
+                                      {...provided.dragHandleProps}
+                                      className={cn(
+                                        "flex items-center bg-black/10 dark:bg-white/5 backdrop-blur-sm border rounded-lg border-black/10 dark:border-[var(--neon-cyan)]/20 px-2 py-1.5 transition-all duration-300 hover:border-[var(--neon-cyan)] group",
+                                        snapshot.isDragging && "shadow-lg",
+                                      )}
+                                    >
+                                      <Tag className="w-4 h-4 text-black/70 dark:text-[var(--neon-cyan)]" />
+                                      <Badge
+                                        variant="selected"
+                                        className="flex items-center gap-2 font-mono text-sm"
+                                      >
+                                        {tag}
+                                        <button
+                                          type="button"
+                                          onClick={() => handleRemoveTag(tag)}
+                                          className="ml-1.5 text-lg hover:text-[var(--neon-cyan)] transition-colors duration-200"
+                                        >
+                                          ×
+                                        </button>
+                                      </Badge>
+                                    </div>
+                                  )}
+                                </Draggable>
+                              ))}
+                              {provided.placeholder}
+                            </div>
+                          )}
+                        </Droppable>
+                      </DragDropContext>
 
                       {field.state.value.length < 5 && (
                         <div className="relative">
